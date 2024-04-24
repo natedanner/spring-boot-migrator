@@ -41,7 +41,7 @@ public class SpringBeanMethodDeclarationFinder implements ProjectResourceFinder<
                 .apply(projectResourceSet)
                 .stream()
                 .filter(js -> js.hasImportStartingWith(SPRING_BEAN_ANNOTATION))
-                .forEach(js -> {
+                .forEach(js ->
                     js
                             .getTypes()
                             .stream()
@@ -56,8 +56,7 @@ public class SpringBeanMethodDeclarationFinder implements ProjectResourceFinder<
                                     .getMethods()
                                     .stream()
                                     .filter(m -> m.getReturnValue().get().equals(returnValueFqName))
-                                    .forEach(m -> matches.add(new MatchingMethod(js, t, m))));
-                });
+                                    .forEach(m -> matches.add(new MatchingMethod(js, t, m)))));
 
         return matches;
     }

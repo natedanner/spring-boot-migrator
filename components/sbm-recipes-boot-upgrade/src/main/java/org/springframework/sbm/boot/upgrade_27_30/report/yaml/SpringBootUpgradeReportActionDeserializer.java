@@ -51,7 +51,7 @@ public class SpringBootUpgradeReportActionDeserializer implements ActionDeserial
     public Action deserialize(ObjectMapper tolerantObjectMapper, Class<? extends Action> actionClass, JsonNode node, AutowireCapableBeanFactory beanFactory) {
         SpringBootUpgradeReportAction action = (SpringBootUpgradeReportAction) tolerantObjectMapper.convertValue(node, actionClass);
         beanFactory.autowireBean(action);
-        action.getSections().stream().forEach(s -> beanFactory.autowireBean(s));
+        action.getSections().stream().forEach(beanFactory::autowireBean);
         return action;
     }
 

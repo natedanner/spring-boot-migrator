@@ -122,9 +122,8 @@ public class SpringBootUpgradeReportAction implements Action {
         List<String> renderedSections = new ArrayList<>();
         sections.stream()
                 .filter(s -> s.shouldRender(context))
-                .forEach(section -> {
-            renderedSections.add(section.render(context));
-        });
+                .forEach(section ->
+            renderedSections.add(section.render(context)));
 
         Map<String, Object> data = dataProvider.getData(context, sections);
         String renderedHeader = renderTemplate("header", header, data);
@@ -155,8 +154,7 @@ public class SpringBootUpgradeReportAction implements Action {
                 "footer", renderedFooter
         );
 
-        String renderedTemplate = renderTemplate(key, content, data);
-        return renderedTemplate;
+        return renderTemplate(key, content, data);
     }
 
     private String renderRunAllRecipesButton() {

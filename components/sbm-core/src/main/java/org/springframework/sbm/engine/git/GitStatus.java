@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class GitStatus {
-    private Status wrapped;
+    private final Status wrapped;
 
     public GitStatus(Status wrapped) {
         this.wrapped = wrapped;

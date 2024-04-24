@@ -32,12 +32,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ReplaceMediaTypeTest {
 
-    private final static String SPRING_VERSION = "5.3.13";
+    private static final String SPRING_VERSION = "5.3.13";
 
     private final Supplier<JavaParser> javaParserSupplier = () -> new RewriteJavaParser(new SbmApplicationProperties(),
                                                                                         new RewriteExecutionContext());
 
-    final private AbstractAction action = new AbstractAction() {
+    private final AbstractAction action = new AbstractAction() {
         @Override
         public void apply(ProjectContext context) {
             ReplaceMediaType r = new ReplaceMediaType(javaParserSupplier);

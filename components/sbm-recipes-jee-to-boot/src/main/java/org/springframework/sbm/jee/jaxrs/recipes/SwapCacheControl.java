@@ -50,7 +50,7 @@ public class SwapCacheControl extends Recipe {
 
         // setSMaxAge(int)
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.CacheControl setSMaxAge(int)"), (v, m, addImport) -> {
-            JavaTemplate t = JavaTemplate.builder(() -> v.getCursor(), "#{any(org.springframework.http.CacheControl)}.sMaxAge(#{any(int)}, TimeUnit.SECONDS)")
+            JavaTemplate t = JavaTemplate.builder(v::getCursor, "#{any(org.springframework.http.CacheControl)}.sMaxAge(#{any(int)}, TimeUnit.SECONDS)")
                     .imports("java.util.concurrent.TimeUnit", "org.springframework.http.CacheControl")
                     .build();
             addImport.accept("java.util.concurrent.TimeUnit");
@@ -59,7 +59,7 @@ public class SwapCacheControl extends Recipe {
 
         // constructor
         doNext(new RewriteConstructorInvocation(RewriteConstructorInvocation.constructorMatcher("javax.ws.rs.core.CacheControl"), (v, c, addImport) -> {
-            JavaTemplate t = JavaTemplate.builder(() -> v.getCursor(), "CacheControl.empty()")
+            JavaTemplate t = JavaTemplate.builder(v::getCursor, "CacheControl.empty()")
                     .imports("org.springframework.http.CacheControl")
                     .build();
             addImport.accept("org.springframework.http.CacheControl");

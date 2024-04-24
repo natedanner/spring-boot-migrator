@@ -38,12 +38,12 @@ public class MuleXml extends RewriteSourceFileHolder<Xml.Document> {
     @Getter
     private final Document xmlDocument;
 
-    private final XPathExpression FLOW_NAME_XPATH;
-    private final XPathExpression PATH_XPATH;
-    private final XPathExpression PAYLOAD_XPATH;
-    private final XPathExpression PAYLOAD_MIME_TYPE_XPATH;
-    private final XPathExpression HOST_XPATH;
-    private final XPathExpression PORT_XPATH;
+    private final XPathExpression flowNameXpath;
+    private final XPathExpression pathXpath;
+    private final XPathExpression payloadXpath;
+    private final XPathExpression payloadMimeTypeXpath;
+    private final XPathExpression hostXpath;
+    private final XPathExpression portXpath;
 
     @Getter
     private MuleType muleType;
@@ -59,12 +59,12 @@ public class MuleXml extends RewriteSourceFileHolder<Xml.Document> {
             xmlDocument = builder.parse(new ByteArrayInputStream(print().getBytes(StandardCharsets.UTF_8)));
             XPath xPath = XPathFactory.newInstance().newXPath();
 
-            FLOW_NAME_XPATH = xPath.compile("//mule/flow/@name");
-            PATH_XPATH = xPath.compile("//mule/flow/listener/@path");
-            PAYLOAD_XPATH = xPath.compile("//mule/flow/set-payload/@value");
-            PAYLOAD_MIME_TYPE_XPATH = xPath.compile("//mule/flow/set-payload/@mimeType");
-            HOST_XPATH = xPath.compile("//mule/listener-config/listener-connection/@host");
-            PORT_XPATH = xPath.compile("//mule/listener-config/listener-connection/@port");
+            flowNameXpath = xPath.compile("//mule/flow/@name");
+            pathXpath = xPath.compile("//mule/flow/listener/@path");
+            payloadXpath = xPath.compile("//mule/flow/set-payload/@value");
+            payloadMimeTypeXpath = xPath.compile("//mule/flow/set-payload/@mimeType");
+            hostXpath = xPath.compile("//mule/listener-config/listener-connection/@host");
+            portXpath = xPath.compile("//mule/listener-config/listener-connection/@port");
 
         } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException e) {
             throw new RuntimeException(e);
@@ -72,27 +72,27 @@ public class MuleXml extends RewriteSourceFileHolder<Xml.Document> {
     }
 
     public String getFlowName() {
-        return getString(FLOW_NAME_XPATH);
+        return getString(flowNameXpath);
     }
 
     public String getPath() {
-        return getString(PATH_XPATH);
+        return getString(pathXpath);
     }
 
     public String getPayload() {
-        return getString(PAYLOAD_XPATH);
+        return getString(payloadXpath);
     }
 
     public String getPayloadMimeType() {
-        return getString(PAYLOAD_MIME_TYPE_XPATH);
+        return getString(payloadMimeTypeXpath);
     }
 
     public String getHost() {
-        return getString(HOST_XPATH);
+        return getString(hostXpath);
     }
 
     public String getPort() {
-        return getString(PORT_XPATH);
+        return getString(portXpath);
     }
 
     private String getString(XPathExpression xPathExpression) {

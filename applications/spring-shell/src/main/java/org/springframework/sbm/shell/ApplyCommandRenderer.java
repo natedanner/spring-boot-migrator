@@ -76,7 +76,9 @@ public class ApplyCommandRenderer {
     }
 
     private String getDescriptionWithIndent(Action a) {
-        if (a == null || a.getDescription() == null) return "";
+        if (a == null || a.getDescription() == null) {
+            return "";
+        }
 
         String[] lines = a.getDescription().split("\\r?\\n");
         List<String> strings = Arrays.asList(lines);

@@ -43,8 +43,8 @@ public class RabbitMqChannelBuilder {
     private void arrangeQueues(Channel channel) throws IOException {
         channel.queueDeclare(FIRST_QUEUE_NAME, false, false, false, null);
         channel.queueDeclare(SECOND_QUEUE_NAME, false, false, false, null);
-        String EXCHANGE = "sbm-integration-exchange";
-        channel.exchangeDeclare(EXCHANGE, "direct");
-        channel.queueBind(SECOND_QUEUE_NAME, EXCHANGE, SECOND_QUEUE_NAME);
+        String exchange = "sbm-integration-exchange";
+        channel.exchangeDeclare(exchange, "direct");
+        channel.queueBind(SECOND_QUEUE_NAME, exchange, SECOND_QUEUE_NAME);
     }
 }

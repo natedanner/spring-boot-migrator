@@ -27,7 +27,7 @@ import java.util.Optional;
  * @author Fabian Krüger
  */
 public class FindJavaSourceContainingType implements ProjectResourceFinder<Optional<JavaSourceAndType>> {
-    private String fqName;
+    private final String fqName;
 
     public FindJavaSourceContainingType(String fqName) {
         this.fqName = fqName;

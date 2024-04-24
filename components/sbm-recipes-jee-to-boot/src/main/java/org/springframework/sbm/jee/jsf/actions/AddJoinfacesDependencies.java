@@ -140,7 +140,7 @@ public class AddJoinfacesDependencies extends AbstractAction {
 
         public static String supportedImplementations() {
             return Arrays.asList(JsfImplementation.values()).stream()
-                    .map(jsfimpl -> jsfimpl.name())
+                    .map(java.lang.Enum::name)
                     .collect(Collectors.joining(", "));
         }
     }

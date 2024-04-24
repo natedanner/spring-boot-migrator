@@ -36,9 +36,8 @@ import java.util.stream.Stream;
 public class RewriteRecipeLoader implements RecipeLoader {
     @Override
     public List<Recipe> loadRecipes() {
-        List<Recipe> recipeList = new ArrayList<>();
         // returns empty list for now. Otherwise, all rewrite recipes would be in the list of applicable recipes.
-        return recipeList;
+        return new ArrayList<>();
     }
 
     public org.openrewrite.Recipe loadRewriteRecipe(String recipeName) {
@@ -72,8 +71,7 @@ public class RewriteRecipeLoader implements RecipeLoader {
         if(rewriteYamlRecipe.size() != 1) {
             throw new RuntimeException(String.format("Ambiguous number of recipes found. Expected exactly one, found %s", rewriteYamlRecipe.size()));
         }
-        org.openrewrite.Recipe recipe = rewriteYamlRecipe.iterator().next();
-        return recipe;
+        return rewriteYamlRecipe.iterator().next();
     }
 
     private void initializeRecipe(DeclarativeRecipe recipe) {

@@ -27,7 +27,7 @@ public class MuleElementInfo {
         String[] namespaceSplit = qname.getNamespaceURI().split("/");
 
         String simpleNamespace = namespaceSplit[namespaceSplit.length - 1];
-        return (simpleNamespace.equals("") || simpleNamespace.equals("core")) ? "" : simpleNamespace;
+        return "".equals(simpleNamespace) || "core".equals(simpleNamespace) ? "" : simpleNamespace;
     }
 
 

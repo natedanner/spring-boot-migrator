@@ -86,20 +86,16 @@ public class SwapStatusForHttpStatus extends Recipe {
         // Instance methods
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response.StatusType getStatusCode()")
                 .or(methodInvocationMatcher("javax.ws.rs.core.Response.Status getStatusCode()")),
-                (v, m, addImport) -> {
-                    return m.withName(m.getName().withSimpleName("getValue"));
-                }));
+                (v, m, addImport) -> m.withName(m.getName().withSimpleName("getValue"))));
 
         // Remove #toEnum() method calls - these shouldn't appear as we migrate both Jax-Rs Status and StatusType to the same HttpStatus
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response.StatusType toEnum()").or(methodInvocationMatcher("javax.ws.rs.core.Response.Status toEnum()")), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "#{any(org.springframework.http.HttpStatus)}").build();
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "#{any(org.springframework.http.HttpStatus)}").build();
             return m.withTemplate(template, m.getCoordinates().replace(), m.getSelect());
         }));
 
         // Switch Family to Series
-        doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response.StatusType getFamily()").or(methodInvocationMatcher("javax.ws.rs.core.Response.Status getFamily()")), (v, m, addImport) -> {
-            return m.withName(m.getName().withSimpleName("series"));
-        }));
+        doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response.StatusType getFamily()").or(methodInvocationMatcher("javax.ws.rs.core.Response.Status getFamily()")), (v, m, addImport) -> m.withName(m.getName().withSimpleName("series"))));
 
         // getReasonPhrase() doesn't need to be migrated - same named method returning the same type
 

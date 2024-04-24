@@ -62,7 +62,7 @@ public class XmlParserTest {
         List<Xml.Document> documents = new XmlParser().parseInputs(
                 List.of(new Parser.Input(Path.of("./foo.xhtml").toAbsolutePath(), () -> new ByteArrayInputStream(xhtml.getBytes(StandardCharsets.UTF_8)))),
                 Path.of(".").toAbsolutePath(),
-                new InMemoryExecutionContext((e) -> e.printStackTrace()));
+                new InMemoryExecutionContext(e -> e.printStackTrace()));
 
         assertThat(documents).hasSize(1);
     }

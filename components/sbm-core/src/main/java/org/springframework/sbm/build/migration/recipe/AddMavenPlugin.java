@@ -75,11 +75,9 @@ public class AddMavenPlugin extends Recipe {
 				}
 				else {
 					Xml.Tag plugins = maybePlugins.get();
-					Optional<Xml.Tag> maybePlugin = plugins.getChildren().stream().filter((pluginx) -> {
-						return pluginx.getName().equals("plugin")
+					Optional<Xml.Tag> maybePlugin = plugins.getChildren().stream().filter(pluginx -> "plugin".equals(pluginx.getName())
 								&& plugin.getGroupId().equals(pluginx.getChildValue("groupId").orElse(null))
-								&& plugin.getArtifactId().equals(pluginx.getChildValue("artifactId").orElse(null));
-					}).findAny();
+								&& plugin.getArtifactId().equals(pluginx.getChildValue("artifactId").orElse(null))).findAny();
 					if (maybePlugin.isPresent()) {
 						Xml.Tag plugin = maybePlugin.get();
 						if (AddMavenPlugin.this.plugin.getVersion() != null && !AddMavenPlugin.this.plugin.getVersion()
@@ -128,9 +126,8 @@ public class AddMavenPlugin extends Recipe {
 	private String renderConfiguration(){
 		if (plugin.getConfiguration() != null) {
 			try {
-				String configurationXml = MavenXmlMapper.writeMapper().writerWithDefaultPrettyPrinter()
+				return MavenXmlMapper.writeMapper().writerWithDefaultPrettyPrinter()
 						.writeValueAsString(plugin.getConfiguration());
-				return configurationXml;
 			}
 			catch (JsonProcessingException e) {
 				throw new RuntimeException(e);
@@ -140,8 +137,9 @@ public class AddMavenPlugin extends Recipe {
 	}
 
 	private String renderExecutions() {
-		if (plugin.getExecutions() == null || plugin.getExecutions().isEmpty())
-			return "";
+        if (plugin.getExecutions() == null || plugin.getExecutions().isEmpty()) {
+            return "";
+        }
 		String executions = AddMavenPlugin.this.plugin.getExecutions().stream().map(this::renderExecution)
 				.collect(Collectors.joining("\n"));
 		return "<executions>\n" + executions + "\n</executions>\n";
@@ -161,8 +159,9 @@ public class AddMavenPlugin extends Recipe {
 	}
 
 	private String renderGoals(OpenRewriteMavenPluginExecution execution) {
-		if (execution.getGoals() == null || execution.getGoals().isEmpty())
-			return "";
+        if (execution.getGoals() == null || execution.getGoals().isEmpty()) {
+            return "";
+        }
 		String goals = execution.getGoals().stream().map(this::renderGoal).collect(Collectors.joining("\n"));
 		return "<goals>\n" + goals + "\n</goals>\n";
 	}

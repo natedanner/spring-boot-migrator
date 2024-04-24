@@ -62,13 +62,13 @@ public class PagingAndSortingHelper extends SpringBootUpgradeReportSectionHelper
 
         pagingAndSortingRepo = pagingAndSortingFileHolders
                 .stream()
-                .map(k -> k.getAbsolutePathString()).toList();
+                .map(RewriteSourceFileHolder::getAbsolutePathString).toList();
 
         reactivePagingAndSortingRepo = reactiveSortingFileHolders.stream()
-                .map(k -> k.getAbsolutePathString()).collect(Collectors.toList());
+                .map(RewriteSourceFileHolder::getAbsolutePathString).collect(Collectors.toList());
 
         rxJavaSortingRepo = rxJavaSortingFileHolders.stream()
-                .map(k -> k.getAbsolutePathString()).collect(Collectors.toList());
+                .map(RewriteSourceFileHolder::getAbsolutePathString).collect(Collectors.toList());
 
         return !pagingAndSortingFileHolders.isEmpty()
                 || !reactiveSortingFileHolders.isEmpty()

@@ -19,6 +19,7 @@ import org.openrewrite.SourceFile;
 import org.openrewrite.java.marker.JavaProject;
 import org.openrewrite.java.marker.JavaSourceSet;
 import org.openrewrite.java.marker.JavaVersion;
+import org.openrewrite.java.tree.JavaType;
 import org.openrewrite.marker.BuildTool;
 import org.openrewrite.marker.GitProvenance;
 import org.openrewrite.marker.Marker;
@@ -117,11 +118,7 @@ class ResourceVerifierTestHelper {
         int size = markerVerifer.size();
         int actualSize = markers.size();
         assertThat(markers.size())
-                .as(() ->
-                {
-                    String format = String.format("Invalid number of markers for resource '%s'. Expected '%d' but found '%d', '%s'", rewriteSourceFileHolder.getAbsolutePath().toString(), size, actualSize, markers.stream().map(m -> m.getClass().getName()).collect(Collectors.joining("', \n'")));
-                    return format;
-                })
+                .as(() -> String.format("Invalid number of markers for resource '%s'. Expected '%d' but found '%d', '%s'", rewriteSourceFileHolder.getAbsolutePath().toString(), size, actualSize, markers.stream().map(m -> m.getClass().getName()).collect(Collectors.joining("', \n'"))))
                 .isSameAs(markerVerifer.size());
     }
 
@@ -132,7 +129,7 @@ class ResourceVerifierTestHelper {
 
     private static <T extends Marker> List<T> getMarkers(RewriteSourceFileHolder r1, Class<T> markerClass) {
         return r1.getSourceFile().getMarkers().getMarkers().stream()
-                .filter(m -> markerClass.isInstance(m))
+                .filter(markerClass::isInstance)
                 .map(markerClass::cast)
                 .collect(Collectors.toList());
     }
@@ -279,7 +276,7 @@ class ResourceVerifierTestHelper {
 
             List<String> dependencies = javaSourceSetMarker.stream().filter(js -> name.equals(js.getName()))
                     .flatMap(js -> js.getClasspath().stream())
-                    .map(fq -> fq.getFullyQualifiedName())
+                    .map(JavaType.FullyQualified::getFullyQualifiedName)
                     .collect(Collectors.toList());
 
             if(classpath != null && !classpath.isEmpty()) {
@@ -354,7 +351,7 @@ class ResourceVerifierTestHelper {
             assertThat(marker.getModules().stream().map(m -> m.getPom().getGav().toString()).collect(Collectors.toList())).containsExactlyInAnyOrder(modules.toArray(new String[]{}));
             Map<Scope, List<String>> dependenciesGav = marker.getDependencies().entrySet().stream()
                     .collect(Collectors.toMap(
-                                    entry -> entry.getKey(),
+                                    Map.Entry::getKey,
                                     entry -> entry.getValue().stream()
                                             .map(resolvedDependency -> resolvedDependency.getGav().toString())
                                             .collect(Collectors.toList())

@@ -30,7 +30,7 @@ public class Printer {
         System.out.println(out);
     }
 
-    synchronized public void print(String text) {
+    public synchronized void print(String text) {
         if(previousLine.get() != null && !previousLine.get().isEmpty()) {
             clearPreviousLine();
         }
@@ -39,7 +39,7 @@ public class Printer {
         System.out.flush();
     }
 
-    synchronized public void printAndNewLine(String text) {
+    public synchronized void printAndNewLine(String text) {
         print(text);
         println("");
         previousLine.set("");

@@ -98,7 +98,7 @@ public class DwlTransformTranslator implements MuleComponentToSpringIntegrationD
                 return formExternalFileBasedDSLSnippet(component);
             }
 
-            if (isTmTransformationEnabled != null && isTmTransformationEnabled.equals("true")) {
+            if ("true".equals(isTmTransformationEnabled)) {
                 return formTriggerMeshDWLBasedDSLSnippet(component, Helper.sanitizeForBeanMethodName(flowName), id);
             } else {
                 return formEmbeddedDWLBasedDSLSnippet(component, Helper.sanitizeForBeanMethodName(flowName), id);
@@ -172,10 +172,10 @@ public class DwlTransformTranslator implements MuleComponentToSpringIntegrationD
 
         String []spellElements = spell.split(" ");
         for (int i = 0; i < spellElements.length; i++) {
-            if (spellElements[i].equals("%output")) {
+            if ("%output".equals(spellElements[i])) {
                 spellOutputType = spellElements[i+1].trim();
                 break;
-            } else if (spellElements[i].equals("---")) {
+            } else if ("---".equals(spellElements[i])) {
                 break;
             }
         }
@@ -204,7 +204,7 @@ public class DwlTransformTranslator implements MuleComponentToSpringIntegrationD
     public static String sanitizeForClassName(String classNameCandidate) {
         String sanitizedClassName = getFileName(classNameCandidate)
                 .replaceAll("[^a-zA-Z0-9]", "");
-        return (capitalizeFirstLetter(sanitizedClassName) + "Transform");
+        return capitalizeFirstLetter(sanitizedClassName) + "Transform";
     }
 
     // Remove the leading/trailing spaces, [], ensure the double quote marks are escaped, and swap out the newlines

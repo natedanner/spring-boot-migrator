@@ -33,8 +33,7 @@ public class MigrationContextFactory {
         BuildFile buildFile = context.getBuildFile();
         List<Path> classpath = buildFile.getClasspath();
         ClassLoader classLoader = createClassLoader(classpath);
-        MigrationContext migrationContext = new MigrationContext(context, classLoader);
-        return migrationContext;
+        return new MigrationContext(context, classLoader);
     }
 
     /**
@@ -48,8 +47,7 @@ public class MigrationContextFactory {
     private ClassLoader createClassLoader(List<Path> classpath) {
         URL[] classpathUrls = createUrlsFromClasspath(classpath);
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-        URLClassLoader classLoader = new URLClassLoader("SBMCustomClassLoader", classpathUrls, contextClassLoader/*ClassLoader.getPlatformClassLoader()*/);
-        return classLoader;
+        return new URLClassLoader("SBMCustomClassLoader", classpathUrls, contextClassLoader/*ClassLoader.getPlatformClassLoader()*/);
     }
 
     private URL[] createUrlsFromClasspath(List<Path> classpath) {

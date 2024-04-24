@@ -55,7 +55,7 @@ public class MuleToJavaDSLChoiceTest extends JavaDSLActionBaseTest {
     @Test
     public void supportsBasicChoiceElement() {
         addXMLFileToResource(xml);
-        runAction(projectContext -> {
+        runAction(projectContext ->
             assertThat(getGeneratedJavaFile())
                     .isEqualTo("""
                                package com.example.javadsl;
@@ -90,8 +90,7 @@ public class MuleToJavaDSLChoiceTest extends JavaDSLActionBaseTest {
                                                .log(LoggingHandler.Level.INFO, "${payload}")
                                                .get();
                                    }
-                               }""");
-        });
+                               }"""));
     }
 
     @Test
@@ -134,7 +133,7 @@ public class MuleToJavaDSLChoiceTest extends JavaDSLActionBaseTest {
                 </mule>
                 """;
         addXMLFileToResource(xml);
-        runAction(projectContext -> {
+        runAction(projectContext ->
 
             assertThat(getGeneratedJavaFile())
                     .isEqualTo("""
@@ -177,8 +176,7 @@ public class MuleToJavaDSLChoiceTest extends JavaDSLActionBaseTest {
                                                .log(LoggingHandler.Level.INFO, "A spanish Hello")
                                                .handle((p, h) -> "Hola!!!");
                                    }
-                               }""");
-        });
+                               }"""));
     }
 
     @Test
@@ -219,7 +217,7 @@ public class MuleToJavaDSLChoiceTest extends JavaDSLActionBaseTest {
                 """;
 
         addXMLFileToResource(noOtherwise);
-        runAction(projectContext -> {
+        runAction(projectContext ->
             assertThat(projectContext.getProjectJavaSources().list().get(0).print())
                     .isEqualTo("""
                                package com.example.javadsl;
@@ -259,8 +257,7 @@ public class MuleToJavaDSLChoiceTest extends JavaDSLActionBaseTest {
                                                .log(LoggingHandler.Level.INFO, "A spanish Hello")
                                                .handle((p, h) -> "Hola!!!");
                                    }
-                               }""");
-        });
+                               }"""));
     }
 
     @Test

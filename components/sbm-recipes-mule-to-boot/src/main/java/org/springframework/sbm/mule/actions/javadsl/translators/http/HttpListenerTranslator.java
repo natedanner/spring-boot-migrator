@@ -36,7 +36,7 @@ import java.util.Set;
 @Slf4j
 public class HttpListenerTranslator implements MuleComponentToSpringIntegrationDslTranslator<ListenerType> {
 
-    private final static String javaDslHttpListenerTemplate =
+    private static final String javaDslHttpListenerTemplate =
             "return IntegrationFlows.from(Http.inboundGateway(\"${path}\")).handle((p, h) -> p)";
 
     @Override

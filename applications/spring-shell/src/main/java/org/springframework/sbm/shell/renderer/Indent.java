@@ -19,8 +19,8 @@ package org.springframework.sbm.shell.renderer;
  * @author Fabian Krüger
  */
 public class Indent {
-    private int indent = 0;
-    private int increaseBy = 4;
+    private int indent;
+    private final int increaseBy = 4;
 
     public int get() {
         return this.indent;

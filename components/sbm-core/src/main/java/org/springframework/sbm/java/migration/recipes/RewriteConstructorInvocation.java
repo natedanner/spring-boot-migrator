@@ -32,8 +32,8 @@ import java.util.function.Predicate;
 @RequiredArgsConstructor
 public class RewriteConstructorInvocation extends Recipe {
 	
-	final private Predicate<NewClass> checkConstructorInvocation;
-	final private Transformer transformer;
+	private final Predicate<NewClass> checkConstructorInvocation;
+	private final Transformer transformer;
 
 	@Override
 	public String getDisplayName() {

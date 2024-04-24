@@ -52,8 +52,7 @@ public class CustomClassLoader extends URLClassLoader {
 
     private ClassLoader createClassLoader(List<Path> classpath) {
         URL[] classpathUrls = createUrlsFromClasspath(classpath);
-        URLClassLoader classLoader = new URLClassLoader("AdditionalClassLoader", classpathUrls, null);
-        return classLoader;
+        return new URLClassLoader("AdditionalClassLoader", classpathUrls, null);
     }
 
     private URL[] createUrlsFromClasspath(List<Path> classpath) {

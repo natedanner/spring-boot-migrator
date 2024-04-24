@@ -23,7 +23,7 @@ import java.nio.file.Path;
 
 @Getter
 @EqualsAndHashCode
-final public class JavaSourceLocation {
+public final class JavaSourceLocation {
 
     private final Path sourceFolder;
     private final String packageName;

@@ -66,9 +66,8 @@ public class Module_searchTestJava_Test {
 
             ProjectContext context = builder.build();
 
-            verifySearchTest(context, projectResourceSet -> {
-                assertThat(projectResourceSet.list()).isEmpty();
-            }, "");
+            verifySearchTest(context, projectResourceSet ->
+                assertThat(projectResourceSet.list()).isEmpty(), "");
         }
 
         @Test
@@ -191,7 +190,7 @@ public class Module_searchTestJava_Test {
         @DisplayName("with no classes provides empty ProjectResourceSet to search method")
         void withNoClasses_providesEmptyProjectResources() {
             ProjectContext context = builder.build();
-            verifySearchTest(context, (projectResourceSet) -> assertThat(projectResourceSet.list()).isEmpty(),
+            verifySearchTest(context, projectResourceSet -> assertThat(projectResourceSet.list()).isEmpty(),
                              "application");
         }
 
@@ -203,7 +202,7 @@ public class Module_searchTestJava_Test {
                     .withJavaSource("component/src/test/java", "public class SomeClass{}")
                     .build();
 
-            verifySearchTest(context, (projectResourceSet) -> assertThat(projectResourceSet.list()).isEmpty(),
+            verifySearchTest(context, projectResourceSet -> assertThat(projectResourceSet.list()).isEmpty(),
                              "application");
         }
 
@@ -217,7 +216,7 @@ public class Module_searchTestJava_Test {
                     .build();
 
             verifySearchTest(context,
-                             (projectResourceSet) -> {
+                             projectResourceSet -> {
                                 assertThat(projectResourceSet.list()).hasSize(1);
                                 assertThat(LinuxWindowsPathUnifier.unifyPath(projectResourceSet.list().get(0).getSourcePath())).isEqualTo("application/src/test/java/SomeClassTest.java");
                                 assertThat(projectResourceSet.list().get(0).print()).isEqualTo("public class SomeClassTest{}");

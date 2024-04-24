@@ -21,8 +21,8 @@ public interface Annotation {
 
     default Expression getAttribute(String attributeName) {
         Map<String, Expression> a = getAttributes();
-        Expression expression = a == null ? null : a.get(attributeName); // TODO: wrap return type in Optional
-        return expression;
+        // TODO: wrap return type in Optional
+        return a == null ? null : a.get(attributeName);
     }
 
     Map<String, Expression> getAttributes();

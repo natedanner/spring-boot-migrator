@@ -29,13 +29,12 @@ public
 class MigrateXmlToJavaConfigurationActionHelper {
     List<RewriteSourceFileHolder> getXmlBeanDefinitionFiles(ProjectContext context) {
         List<Path> resourceFolders = context.getBuildFile().getResourceFolders();
-        List<RewriteSourceFileHolder> xmlBeanFiles = context.getProjectResources().stream()
+        return context.getProjectResources().stream()
                 .filter(this::isXmlFile)
                 .filter(pr -> isInMainResourceFolder(resourceFolders, pr))
-                .filter(pr -> isSpringBeanConfiguration(pr))
+                .filter(this::isSpringBeanConfiguration)
                 .map(RewriteSourceFileHolder.class::cast) // FIXME :/
                 .collect(Collectors.toList());
-        return xmlBeanFiles;
     }
 
     private boolean isInMainResourceFolder(List<Path> mainResourceFolders, ProjectResource resource) {

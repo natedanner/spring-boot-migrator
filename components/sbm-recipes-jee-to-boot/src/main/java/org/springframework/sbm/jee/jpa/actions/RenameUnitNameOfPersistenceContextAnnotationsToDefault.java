@@ -41,7 +41,7 @@ public class RenameUnitNameOfPersistenceContextAnnotationsToDefault extends Abst
                         .anyMatch(m -> m.hasAnnotation(PERSISTENCE_CONTEXT)))
                 .collect(Collectors.toList());
 
-                javaSources.forEach(s -> {
+                javaSources.forEach(s ->
                     s.getTypes()
                     .stream()
                     .flatMap(t -> t.getMembers().stream())
@@ -49,7 +49,6 @@ public class RenameUnitNameOfPersistenceContextAnnotationsToDefault extends Abst
                     .map(m -> m.getAnnotation(PERSISTENCE_CONTEXT))
                     .findFirst()
                     .get()
-                    .setAttribute("unitName", "default", String.class);
-                });
+                    .setAttribute("unitName", "default", String.class));
     }
 }

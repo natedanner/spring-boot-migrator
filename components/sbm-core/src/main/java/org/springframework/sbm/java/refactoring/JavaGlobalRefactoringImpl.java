@@ -34,8 +34,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class JavaGlobalRefactoringImpl implements JavaGlobalRefactoring {
-    private ProjectResourceSet projectResourceSet;
-    private ExecutionContext executionContext;
+    private final ProjectResourceSet projectResourceSet;
+    private final ExecutionContext executionContext;
 
     public JavaGlobalRefactoringImpl(ProjectResourceSet projectResourceSet, ExecutionContext executionContext) {
         this.projectResourceSet = projectResourceSet;
@@ -74,7 +74,7 @@ public class JavaGlobalRefactoringImpl implements JavaGlobalRefactoring {
 
     @Override
     public void refactor(Recipe... recipes) {
-        List<J.CompilationUnit> compilationUnits = getAllCompilationUnits().stream().map(r -> r.getSourceFile()).collect(Collectors.toList());
+        List<J.CompilationUnit> compilationUnits = getAllCompilationUnits().stream().map(RewriteSourceFileHolder::getSourceFile).collect(Collectors.toList());
         for (Recipe recipe : recipes) {
             List<Result> results = executeRecipe(compilationUnits, recipe);
             processResults(compilationUnits, results);
@@ -83,8 +83,7 @@ public class JavaGlobalRefactoringImpl implements JavaGlobalRefactoring {
 
     @Override
     public List<RewriteSourceFileHolder<J.CompilationUnit>> find(Recipe recipe) {
-        List<RewriteSourceFileHolder<J.CompilationUnit>> matches = findInternal(getAllCompilationUnits(), recipe);
-        return matches;
+        return findInternal(getAllCompilationUnits(), recipe);
     }
 
     @NotNull
@@ -92,7 +91,7 @@ public class JavaGlobalRefactoringImpl implements JavaGlobalRefactoring {
         List<J.CompilationUnit> compilationUnits = resourceWrappers.stream().map(RewriteSourceFileHolder::getSourceFile).collect(Collectors.toList());
         List<Result> results = executeRecipe(compilationUnits, recipe);
         return results.stream()
-                .map(r -> r.getAfter())
+                .map(Result::getAfter)
                 .filter(r -> J.CompilationUnit.class.isAssignableFrom(r.getClass()))
                 .map(J.CompilationUnit.class::cast)
                 .map(cu -> resourceWrappers.stream()
@@ -127,13 +126,13 @@ public class JavaGlobalRefactoringImpl implements JavaGlobalRefactoring {
     @Deprecated
     void processResults(List<J.CompilationUnit> compilationUnits, List<Result> changes) {
         if (!changes.isEmpty()) {
-            changes.forEach(c -> processResult(c));
+            changes.forEach(this::processResult);
         }
     }
 
     void processResults(List<Result> changes) {
         if (!changes.isEmpty()) {
-            changes.forEach(c -> processResult(c));
+            changes.forEach(this::processResult);
         }
     }
 
@@ -156,9 +155,8 @@ public class JavaGlobalRefactoringImpl implements JavaGlobalRefactoring {
 
     List<Result> executeRecipe(List<J.CompilationUnit> compilationUnits, Recipe recipe) {
         // FIXME #7 added RewriteExecutionContext here, remove again?
-        List<Result> results = recipe.run(compilationUnits, executionContext).getResults();
-//         List<Result> results = recipe.run(compilationUnits, new RewriteExecutionContext(), new ForkJoinScheduler(new ForkJoinPool(1)), 10, 1);
-        return results;
+        //         List<Result> results = recipe.run(compilationUnits, new RewriteExecutionContext(), new ForkJoinScheduler(new ForkJoinPool(1)), 10, 1);
+        return recipe.run(compilationUnits, executionContext).getResults();
     }
 
 //    List<Result> executeRecipe(List<RewriteSourceFileHolder<J.CompilationUnit>> modifiableCompilationUnits, Recipe recipe) {

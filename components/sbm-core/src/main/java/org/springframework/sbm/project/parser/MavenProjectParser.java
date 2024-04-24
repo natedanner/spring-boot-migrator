@@ -84,8 +84,7 @@ public class MavenProjectParser {
         List<Resource> filteredMavenPoms = filterMavenPoms(resources);
         List<Parser.Input> inputs = filteredMavenPoms.stream().map(r -> new Parser.Input(getPath(r), () -> {
             eventPublisher.publishEvent(new StartedScanningProjectResourceEvent(getPath(r)));
-            InputStream is = getInputStream(r);
-            return is;
+            return getInputStream(r);
         })).collect(Collectors.toList());
 
         eventPublisher.publishEvent(new StartedScanningProjectResourceSetEvent("Maven", inputs.size()));
@@ -202,8 +201,7 @@ public class MavenProjectParser {
             Path jsPath = getPath(js);
             return new Parser.Input(jsPath, () -> {
                 eventPublisher.publishEvent(new StartedScanningProjectResourceEvent(jsPath));
-                InputStream content = getInputStream(js);
-                return content;
+                return getInputStream(js);
             });
         }).collect(Collectors.toList());
         List<J.CompilationUnit> testCompilationUnits = javaParser.parseInputs(testJavaSourcesInput, projectDirectory,
@@ -227,8 +225,7 @@ public class MavenProjectParser {
             Path jsPath = getPath(js);
             return new Parser.Input(jsPath, () -> {
                 eventPublisher.publishEvent(new StartedScanningProjectResourceEvent(jsPath));
-                InputStream content = getInputStream(js);
-                return content;
+                return getInputStream(js);
             });
         }).collect(Collectors.toList());
         List<J.CompilationUnit> mainCompilationUnits = javaParser.parseInputs(mainJavaSourcesInput, projectDirectory, ctx);
@@ -241,7 +238,7 @@ public class MavenProjectParser {
     public static List<Resource> filterMavenPoms(List<Resource> resources) {
         return resources
                 .stream()
-                .filter(p -> getPath(p).getFileName().toString().equals("pom.xml") && !p.toString().contains("/src/"))
+                .filter(p -> "pom.xml".equals(getPath(p).getFileName().toString()) && !p.toString().contains("/src/"))
                 .collect(Collectors.toList());
     }
 
@@ -301,8 +298,8 @@ public class MavenProjectParser {
                     .getDependencies()
                     .values()
                     .stream()
-                    .flatMap(d -> d.stream())
-                    .map(d -> d.getRequested())
+                    .flatMap(Collection::stream)
+                    .map(ResolvedDependency::getRequested)
                     .collect(Collectors.toSet());
 
             for (Dependency dependency : dependencies) {

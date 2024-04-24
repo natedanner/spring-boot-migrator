@@ -45,7 +45,7 @@ public class RewriteJavaParserTest {
 
         SbmApplicationProperties sbmApplicationProperties = new SbmApplicationProperties();
         sbmApplicationProperties.setJavaParserLoggingCompilationWarningsAndErrors(true);
-        ExecutionContext executionContext = new RewriteExecutionContext((t) -> t.printStackTrace());
+        ExecutionContext executionContext = new RewriteExecutionContext(t -> t.printStackTrace());
         RewriteJavaParser rewriteJavaParser = new RewriteJavaParser(sbmApplicationProperties, executionContext);
         sysOutBuffer.reset();
         List<J.CompilationUnit> parsed = rewriteJavaParser.parse(executionContext, "public class Broken Class {}");

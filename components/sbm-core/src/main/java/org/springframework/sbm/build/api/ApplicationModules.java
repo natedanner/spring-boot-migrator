@@ -65,7 +65,9 @@ public class ApplicationModules {
     }
 
     public Module getModule(String name) {
-        if("root".equals(name)) name = "";
+        if ("root".equals(name)) {
+            name = "";
+        }
         return getModule(Path.of(name));
     }
 

@@ -30,7 +30,7 @@ class DependencyTest {
 
     @Test
     public void handlesErroneousCoordinateFiveParts() {
-        assertThrows(IllegalArgumentException.class, () -> Dependency.fromCoordinates("one:two:three:four:five"));;
+        assertThrows(IllegalArgumentException.class, () -> Dependency.fromCoordinates("one:two:three:four:five"));
     }
 
     @Test

@@ -44,13 +44,11 @@ class Boot_24_25_SqlScriptDataSourceInitializationTest {
     private ProjectContext getProjectContext(String applicationPropertiesLines) {
         Path rootDirectory = Path.of("./dummy");
 
-        ProjectContext projectContext = TestProjectContext.buildProjectContext()
+        return TestProjectContext.buildProjectContext()
                 .withProjectRoot(rootDirectory)
                 .withProjectResource("src/main/resources/application.properties", applicationPropertiesLines)
                 .addRegistrar(new SpringBootApplicationPropertiesRegistrar(new SpringApplicationPropertiesPathMatcher(), new RewriteExecutionContext()))
                 .build();
-
-        return projectContext;
     }
 
 }

@@ -159,9 +159,8 @@ public class JavaDSLAction2 extends AbstractAction {
     private void createExternalClasses(ProjectContext context, TopLevelElement topLevelElement) {
         topLevelElement.getExternalClassContents().stream()
                 .filter(Predicate.not(StringUtils::isEmpty))
-                .forEach(ecc -> {
-                    createClass(context, ecc);
-                });
+                .forEach(ecc ->
+                    createClass(context, ecc));
     }
 
     private List<Dependency> buildDependencies(TopLevelElement snippet) {

@@ -91,7 +91,7 @@ public class MuleToJavaDSLDBSelectTest extends JavaDSLActionBaseTest {
                 """;
 
         addXMLFileToResource(muleXml);
-        runAction(projectContext1 -> {
+        runAction(projectContext1 ->
             assertThat(getGeneratedJavaFile())
                     .isEqualTo("""
                                package com.example.javadsl;
@@ -115,8 +115,7 @@ public class MuleToJavaDSLDBSelectTest extends JavaDSLActionBaseTest {
                                                                "SELECT * FROM STUDENTS"))
                                                .get();
                                    }
-                               }""");
-        });
+                               }"""));
     }
 
     @Test
@@ -145,7 +144,7 @@ public class MuleToJavaDSLDBSelectTest extends JavaDSLActionBaseTest {
                 """;
 
         addXMLFileToResource(muleXml);
-        runAction(projectContext -> {
+        runAction(projectContext ->
             assertThat(getGeneratedJavaFile())
                 .isEqualTo("""
                            package com.example.javadsl;
@@ -172,7 +171,6 @@ public class MuleToJavaDSLDBSelectTest extends JavaDSLActionBaseTest {
                                                    ))
                                            .get();
                                }
-                           }""");
-        });
+                           }"""));
     }
 }

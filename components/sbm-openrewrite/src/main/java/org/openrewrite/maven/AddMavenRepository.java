@@ -27,7 +27,7 @@ import java.util.Optional;
 
 public class AddMavenRepository extends Recipe {
 
-    private RepositoryDefinition mavenRepository;
+    private final RepositoryDefinition mavenRepository;
 
     public AddMavenRepository(RepositoryDefinition repository) {
         this.mavenRepository = repository;
@@ -43,7 +43,7 @@ public class AddMavenRepository extends Recipe {
         return new AddRepositoryVisitor();
     }
 
-    private class AddRepositoryVisitor extends MavenVisitor<ExecutionContext> {
+    private final class AddRepositoryVisitor extends MavenVisitor<ExecutionContext> {
         private AddRepositoryVisitor() {
         }
 
@@ -60,7 +60,7 @@ public class AddMavenRepository extends Recipe {
         }
 
         private boolean noRepositoryWithSameIdExists(Xml.Tag t) {
-            return t.getChildren().stream().anyMatch(repo -> repo.getChildren().stream().anyMatch(c -> c.getName().equals("id") && false == c.getValue().get().equals(mavenRepository.getId())));
+            return t.getChildren().stream().anyMatch(repo -> repo.getChildren().stream().anyMatch(c -> "id".equals(c.getName()) && !c.getValue().get().equals(mavenRepository.getId())));
         }
 
         private Xml.Tag addRepositoriesTag(Xml.Tag parent) {
@@ -87,11 +87,11 @@ public class AddMavenRepository extends Recipe {
                 if(mavenRepository.getUrl() != null) {
                     sb.append("<url>").append(mavenRepository.getUrl()).append("</url>\n");
                 }
-                if(mavenRepository.getReleasesEnabled() != null && mavenRepository.getReleasesEnabled() == true) {
+                if(mavenRepository.getReleasesEnabled() != null && mavenRepository.getReleasesEnabled()) {
                     String releaseSection = renderSection("releases", mavenRepository.getReleasesChecksumPolicy(), mavenRepository.getReleasesUpdatePolicy());
                     sb.append(releaseSection);
                 }
-                if(mavenRepository.getSnapshotsEnabled() != null && mavenRepository.getSnapshotsEnabled() == true) {
+                if(mavenRepository.getSnapshotsEnabled() != null && mavenRepository.getSnapshotsEnabled()) {
                     String snapshotsSection = renderSection("snapshots", mavenRepository.getSnapshotsChecksumPolicy(), mavenRepository.getSnapShotsUpdatePolicy());
                     sb.append(snapshotsSection);
                 }

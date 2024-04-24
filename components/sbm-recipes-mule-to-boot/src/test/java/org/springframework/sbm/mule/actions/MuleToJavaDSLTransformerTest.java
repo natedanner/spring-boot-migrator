@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MuleToJavaDSLTransformerTest extends JavaDSLActionBaseTest {
     @Language("xml")
-    private final static String muleXmlHttp = """
+    private static final String muleXmlHttp = """
             <?xml version="1.0" encoding="UTF-8"?>
             <mule xmlns:amqp="http://www.mulesoft.org/schema/mule/amqp" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
             xmlns:spring="http://www.springframework.org/schema/beans"\s

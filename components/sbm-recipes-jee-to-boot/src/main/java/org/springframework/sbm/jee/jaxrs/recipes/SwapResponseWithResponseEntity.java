@@ -41,7 +41,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
         // #status(int)
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response status(int)"), (v, m, addImport) -> {
             String args = m.getArguments().stream().map(a -> "#{any()}").collect(Collectors.joining(", "));
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.status(" + args + ")")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.status(" + args + ")")
                     .imports("org.springframework.http.ResponseEntity")
                     .build();
             v.maybeRemoveImport("javax.ws.rs.core.Response");
@@ -51,7 +51,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // #status(int, String)
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response status(int, java.lang.String)"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.status(#{any()})")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.status(#{any()})")
                     .imports("org.springframework.http.ResponseEntity")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -61,7 +61,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // #status(Status)
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response status(javax.ws.rs.core.Response.Status)"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.status(#{any()})")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.status(#{any()})")
                     .imports("org.springframework.http.ResponseEntity")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -71,7 +71,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // #status(StatusType)
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response status(javax.ws.rs.core.Response.StatusType)"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.status(#{()})")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.status(#{()})")
                     .imports("org.springframework.http.ResponseEntity")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -81,7 +81,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // #ok()
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response ok()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.ok()")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.ok()")
                     .imports("org.springframework.http.ResponseEntity")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -93,7 +93,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response ok(java.lang.Object)"), (v, m, addImport) -> {
             List<Expression> args = m.getArguments();
             if(J.Literal.class.isInstance(m.getArguments().get(0))) {
-                JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.ok()")
+                JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.ok()")
                         .imports("org.springframework.http.ResponseEntity")
                         .build();
                 addImport.accept("org.springframework.http.ResponseEntity");
@@ -107,7 +107,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
         // #ok(Object, MediaType)
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response ok(java.lang.Object, javax.ws.rs.core.MediaType)"), (v, m, addImport) -> {
             List<Expression> args = m.getArguments();
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.ok().contentType(#{any()})")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.ok().contentType(#{any()})")
                     .imports("org.springframework.http.ResponseEntity")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -119,7 +119,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
         // #ok(Object, String)
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response ok(java.lang.Object, java.lang.String)"), (v, m, addImport) -> {
             List<Expression> args = m.getArguments();
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.ok().contentType(MediaType.parseMediaType(#{any()}))")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.ok().contentType(MediaType.parseMediaType(#{any()}))")
                     .imports("org.springframework.http.ResponseEntity", "org.springframework.http.MediaType")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -131,7 +131,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // #accepted()
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response accepted()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.accepted()")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.accepted()")
                     .imports("org.springframework.http.ResponseEntity")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -142,7 +142,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
         // #accepted(Object)
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response accepted(java.lang.Object)"), (v, m, addImport) -> {
             List<Expression> args = m.getArguments();
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.accepted()")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.accepted()")
                     .imports("org.springframework.http.ResponseEntity")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -154,7 +154,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // #created(URI)
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response created(java.net.URI)"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.created(#{any()})")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.created(#{any()})")
                     .imports("org.springframework.http.ResponseEntity")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -165,7 +165,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
         // #fromResponse(Response)
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response fromResponse(javax.ws.rs.core.Response)"), (v, m, addImport) -> {
             Expression e = m.getArguments().get(0);
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.status(#{any()}.getStatusCode()).headers(#{any()}.getHeaders())")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.status(#{any()}.getStatusCode()).headers(#{any()}.getHeaders())")
                     .imports("org.springframework.http.ResponseEntity")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -177,7 +177,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
         // #noContent()
         // TODO: returns HeadersBuilder
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response noContent()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.noContent()")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.noContent()")
                     .imports("org.springframework.http.ResponseEntity")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -189,7 +189,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // #notModified()
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response notModified()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.status(HttpStatus.NOT_MODIFIED)")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.status(HttpStatus.NOT_MODIFIED)")
                     .imports("org.springframework.http.ResponseEntity", "org.springframework.http.HttpStatus")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -199,7 +199,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // notModified(String)
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response notModified(java.lang.String)"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.status(HttpStatus.NOT_MODIFIED).eTag(#{any()})")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.status(HttpStatus.NOT_MODIFIED).eTag(#{any()})")
                     .imports("org.springframework.http.ResponseEntity", "org.springframework.http.HttpStatus")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -213,7 +213,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
         // #seeOther(URI)
         // TODO: Returns BodyBuilder
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.Response seeOther(java.net.URI)"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.status(HttpStatus.SEE_OTHER).location(#{any()})")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.status(HttpStatus.SEE_OTHER).location(#{any()})")
                     .imports("org.springframework.http.ResponseEntity", "org.springframework.http.HttpStatus")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -225,7 +225,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
         // #serverError()
         // Returns BodyBuilder
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.Response serverError()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.status(HttpStatus.SERVER_ERROR)")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.status(HttpStatus.SERVER_ERROR)")
                     .imports("org.springframework.http.ResponseEntity", "org.springframework.http.HttpStatus")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -237,7 +237,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
         // #temporaryRedirect(URI)
         // TODO: Returns BodyBuilder
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.Response temporaryRedirect(java.net.URI)"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT).location(#{any()})")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT).location(#{any()})")
                     .imports("org.springframework.http.ResponseEntity", "org.springframework.http.HttpStatus")
                     .build();
             addImport.accept("org.springframework.http.ResponseEntity");
@@ -250,7 +250,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // #getAllowedMethods()
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.Response getAllowedMethods()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "#{any(org.springframework.http.ResponseEntity)}.getHeaders().getAllow().stream().map(m -> m.toString()).collect(Collectors.toList())")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "#{any(org.springframework.http.ResponseEntity)}.getHeaders().getAllow().stream().map(m -> m.toString()).collect(Collectors.toList())")
                     .imports("java.util.stream.Collectors", "org.springframework.http.ResponseEntity")
                     .build();
             addImport.accept("java.util.stream.Collectors");
@@ -259,7 +259,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // #getDate()
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.Response getDate()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "new Date(#{any(org.springframework.http.ResponseEntity)}.getHeaders().getDate())")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "new Date(#{any(org.springframework.http.ResponseEntity)}.getHeaders().getDate())")
                     .imports("java.util.Date", "org.springframework.http.ResponseEntity")
                     .build();
             addImport.accept("java.util.Date");
@@ -272,14 +272,14 @@ public class SwapResponseWithResponseEntity extends Recipe {
         // #getEntityTag()
         // TODO: return type not EntityTag but String after migration
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.Response getEntityTag()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "#{any(org.springframework.http.ResponseEntity)}.getHeaders().getETag()")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "#{any(org.springframework.http.ResponseEntity)}.getHeaders().getETag()")
                     .build();
             return m.withTemplate(template, m.getCoordinates().replace(), m.getSelect());
         }));
 
         // #getHeaderString(String)
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.Response getHeaderString(java.lang.String)"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "#{any(org.springframework.http.ResponseEntity)}.getHeaders().get(#{any()}).stream().collect(Collectors.joining(\", \"))")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "#{any(org.springframework.http.ResponseEntity)}.getHeaders().get(#{any()}).stream().collect(Collectors.joining(\", \"))")
                     .imports("java.util.stream.Collectors")
                     .build();
             v.maybeAddImport("java.util.stream.Collectors");
@@ -291,14 +291,14 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // #getLanguage()
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.Response getLanguage()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "#{any(org.springframework.http.ResponseEntity)}.getHeaders().getContentLanguage()")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "#{any(org.springframework.http.ResponseEntity)}.getHeaders().getContentLanguage()")
                     .build();
             return m.withTemplate(template, m.getCoordinates().replace(), m.getSelect());
         }));
 
         // #getLastModified()
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.Response getLastModified()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "new Date(#{any(org.springframework.http.ResponseEntity)}.getHeaders().getLastModified())")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "new Date(#{any(org.springframework.http.ResponseEntity)}.getHeaders().getLastModified())")
                     .imports("java.util.Date")
                     .build();
             addImport.accept("java.util.Date");
@@ -307,21 +307,21 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // #getLength()
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.Response getLength()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "#{any(org.springframework.http.ResponseEntity)}.getHeaders().getContentLength()")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "#{any(org.springframework.http.ResponseEntity)}.getHeaders().getContentLength()")
                     .build();
             return m.withTemplate(template, m.getCoordinates().replace(), m.getSelect());
         }));
 
         // #getLocation()
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.Response getLocation()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "#{any(org.springframework.http.ResponseEntity)}.getHeaders().getLocation()")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "#{any(org.springframework.http.ResponseEntity)}.getHeaders().getLocation()")
                     .build();
             return m.withTemplate(template, m.getCoordinates().replace(), m.getSelect());
         }));
 
         // #getMediaType()
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.Response getMediaType()"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "#{any(org.springframework.http.ResponseEntity)}.getHeaders().getContentType()")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "#{any(org.springframework.http.ResponseEntity)}.getHeaders().getContentType()")
                     .build();
             return m.withTemplate(template, m.getCoordinates().replace(), m.getSelect());
         }));
@@ -341,7 +341,7 @@ public class SwapResponseWithResponseEntity extends Recipe {
 
         // #readEntity(..)
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.Response readEntity(..)"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "#{any(org.springframework.http.ResponseEntity)}.getBody())")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "#{any(org.springframework.http.ResponseEntity)}.getBody())")
                     .build();
             v.maybeRemoveImport("java.lang.annotation.Annotation");
             v.maybeRemoveImport("javax.ws.rs.core.GenericType");

@@ -40,10 +40,10 @@ public class PomBuilder {
         private String parent;
         private String artifactId;
 		private Map<String, String> properties = new HashMap<>();
-		private Map<Scope, org.openrewrite.maven.tree.Dependency> dependencies = new LinkedHashMap<Scope, Dependency>();
+    private final Map<Scope, org.openrewrite.maven.tree.Dependency> dependencies = new LinkedHashMap<>();
 		private List<Plugin> plugins = new ArrayList<>();
 
-    	private DependencyHelper dependencyHelper = new DependencyHelper();
+    private final DependencyHelper dependencyHelper = new DependencyHelper();
     	private String parentPom;
 
 		public static PomBuilder buildPom(String coordinate) {
@@ -89,7 +89,9 @@ public class PomBuilder {
      */
     public PomBuilder withModules(String... moduleArtifactNames) {
         this.modules = Arrays.asList(moduleArtifactNames);
-        if(this.modules.stream().anyMatch(m -> m.contains(":"))) throw new RuntimeException("Found ':' in artifact name but artifact names of modules must not be provided as coordinate.");
+        if (this.modules.stream().anyMatch(m -> m.contains(":"))) {
+            throw new RuntimeException("Found ':' in artifact name but artifact names of modules must not be provided as coordinate.");
+        }
         return this;
     }
 
@@ -167,12 +169,10 @@ public class PomBuilder {
     String renderDependencies(Map<Scope, org.openrewrite.maven.tree.Dependency> dependencies) {
         StringBuilder dependenciesSection = new StringBuilder();
         dependenciesSection.append("    ").append("<dependencies>").append("\n");
-        dependencies.entrySet().forEach(e -> {
-            renderDependency(dependenciesSection, e.getKey(), e.getValue());
-        });
+        dependencies.entrySet().forEach(e ->
+            renderDependency(dependenciesSection, e.getKey(), e.getValue()));
         dependenciesSection.append("    ").append("</dependencies>").append("\n");
-        String dependenciesText = dependenciesSection.toString();
-        return dependenciesText;
+        return dependenciesSection.toString();
     }
 
     private void renderDependency(StringBuilder dependenciesSection, Scope scope, org.openrewrite.maven.tree.Dependency dependency) {

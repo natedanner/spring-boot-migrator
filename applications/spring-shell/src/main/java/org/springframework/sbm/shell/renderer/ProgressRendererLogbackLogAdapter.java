@@ -59,7 +59,9 @@ public class ProgressRendererLogbackLogAdapter {
     }
 
     public void start() {
-        if (logAppender.isStarted()) return;
+        if (logAppender.isStarted()) {
+            return;
+        }
         Logger logger = logCtx.getLogger("ROOT");
         detachedAppenders.forEach(logger::detachAppender);
         logger.addAppender(logAppender);
@@ -68,7 +70,9 @@ public class ProgressRendererLogbackLogAdapter {
     }
 
     public void stop() {
-        if (!logAppender.isStarted()) return;
+        if (!logAppender.isStarted()) {
+            return;
+        }
         logAppender.stop();
         LoggerContext logCtx = (LoggerContext) LoggerFactory.getILoggerFactory();
         Logger root = logCtx.getLogger("ROOT");

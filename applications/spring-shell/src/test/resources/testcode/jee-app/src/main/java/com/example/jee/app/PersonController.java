@@ -67,8 +67,7 @@ public class PersonController {
         Object entity = response.getEntity();
         System.out.println(response.readEntity(String.class).toString());
         */
-        String personsFound = personService.getPersons().stream().map(Person::getName).collect(Collectors.joining(", "));
-        return personsFound;
+        return personService.getPersons().stream().map(Person::getName).collect(Collectors.joining(", "));
 //        List<String> personsFound = personService.getPersons().stream().map(Person::getName).collect(Collectors.toList());
 //        Response response = Response.status(Response.Status.OK).entity(personsFound).build();
 //        return response;

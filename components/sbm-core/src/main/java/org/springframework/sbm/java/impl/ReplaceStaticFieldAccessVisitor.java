@@ -94,6 +94,6 @@ public class ReplaceStaticFieldAccessVisitor extends JavaIsoVisitor<ExecutionCon
     }
 
     private boolean isImport() {
-        return getCursor().getPathAsStream().anyMatch(node -> node instanceof J.Import);
+        return getCursor().getPathAsStream().anyMatch(J.Import.class::isInstance);
     }
 }

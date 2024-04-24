@@ -161,7 +161,9 @@ public class RecipeProgressRenderer {
     }
 
     private boolean isLogging(Deque<ProgressStep> stepsDeque) {
-        if (stepsDeque.isEmpty()) return false;
+        if (stepsDeque.isEmpty()) {
+            return false;
+        }
         return LogStep.class.isAssignableFrom(stepsDeque.peek().getClass());
     }
 

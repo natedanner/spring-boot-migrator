@@ -334,8 +334,7 @@ class PersistenceXmlTest {
         Xml.Document xmlDocument = mock(Xml.Document.class);
         when(xmlDocument.printAll()).thenReturn(xml);
         PersistenceXml sut = new PersistenceXml(Path.of("./target/testdummy/src/main/resources/META-INF/persistence.xml").normalize().toAbsolutePath(), xmlDocument);
-        Persistence persistence = sut.getPersistence();
-        return persistence;
+        return sut.getPersistence();
     }
 
 }

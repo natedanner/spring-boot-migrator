@@ -46,7 +46,7 @@ public class MuleToJavaDSLForeachTest extends JavaDSLActionBaseTest {
                 """;
 
         addXMLFileToResource(xml);
-        runAction(projectContext -> {
+        runAction(projectContext ->
             assertThat(getGeneratedJavaFile()).isEqualTo(
                 """
                 package com.example.javadsl;
@@ -70,8 +70,7 @@ public class MuleToJavaDSLForeachTest extends JavaDSLActionBaseTest {
                                 .log(LoggingHandler.Level.INFO, "Done with for looping")
                                 .get();
                     }
-                }""");
-        });
+                }"""));
     }
 
     @Test
@@ -113,7 +112,7 @@ public class MuleToJavaDSLForeachTest extends JavaDSLActionBaseTest {
                 """;
 
         addXMLFileToResource(xml);
-        runAction(projectContext -> {
+        runAction(projectContext ->
             assertThat(getGeneratedJavaFile()).isEqualTo(
                     """
                     package com.example.javadsl;
@@ -153,8 +152,7 @@ public class MuleToJavaDSLForeachTest extends JavaDSLActionBaseTest {
                                     .log(LoggingHandler.Level.INFO, "Done with for looping")
                                     .get();
                         }
-                    }""");
-        });
+                    }"""));
     }
 
     @Test
@@ -200,7 +198,7 @@ public class MuleToJavaDSLForeachTest extends JavaDSLActionBaseTest {
                 """;
 
         addXMLFileToResource(xml);
-        runAction(projectContext -> {
+        runAction(projectContext ->
             assertThat(getGeneratedJavaFile()).isEqualTo(
                     """
                     package com.example.javadsl;
@@ -247,8 +245,7 @@ public class MuleToJavaDSLForeachTest extends JavaDSLActionBaseTest {
                                     .log(LoggingHandler.Level.INFO, "Ondu");
                         }
                     }"""
-                    );
-        });
+                    ));
 
 
     }

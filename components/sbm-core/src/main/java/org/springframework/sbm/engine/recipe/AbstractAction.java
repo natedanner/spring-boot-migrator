@@ -47,7 +47,7 @@ public abstract class AbstractAction implements Action {
     @Override
     public String getDetailedDescription() {
         final String conditionDescription =
-                (getCondition().getDescription() == null || getCondition().getDescription().isBlank())
+                getCondition().getDescription() == null || getCondition().getDescription().isBlank()
                         ? ""
                         : getCondition().getDescription() + " then\n\t  ";
         return conditionDescription + getDescription();

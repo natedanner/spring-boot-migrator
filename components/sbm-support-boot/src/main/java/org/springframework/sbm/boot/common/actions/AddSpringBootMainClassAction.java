@@ -42,9 +42,7 @@ public class AddSpringBootMainClassAction extends AbstractAction {
     public void apply(ProjectContext context) {
         List<Module> modules = context.getApplicationModules().getTopmostApplicationModules();
 
-        modules.forEach(module -> {
-            applyToModule(module);
-        });
+        modules.forEach(this::applyToModule);
 
     }
 

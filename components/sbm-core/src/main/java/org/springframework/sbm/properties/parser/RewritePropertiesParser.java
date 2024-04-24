@@ -38,7 +38,6 @@ public class RewritePropertiesParser extends PropertiesParser {
     }
 
     private RewriteSourceFileHolder<Properties.File> wrapRewriteSourceFile(Path absoluteProjectDir, Properties.File sourceFile) {
-        RewriteSourceFileHolder<Properties.File> rewriteSourceFileHolder = new RewriteSourceFileHolder<>(absoluteProjectDir, sourceFile);
-        return rewriteSourceFileHolder;
+        return new RewriteSourceFileHolder<>(absoluteProjectDir, sourceFile);
     }
 }

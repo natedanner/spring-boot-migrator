@@ -71,7 +71,7 @@ public class OrRecipesConfig {
         
         r.doNext(new RemoveMavenPlugin("org.codehaus.mojo", "cobertura-maven-plugin"));
         r.doNext(new AddPluginDependency("ro.isdc.wro4j", "wro4j-maven-plugin", "org.mockito", "mockito-core", "${mockito.version}"));
-        r.doNext(new GenericOpenRewriteRecipe<>(() -> new UpdateMavenModel<>()));
+        r.doNext(new GenericOpenRewriteRecipe<>(UpdateMavenModel::new));
 
         AnyDeclaredDependencyExistMatchingRegex condition = new AnyDeclaredDependencyExistMatchingRegex();
         condition.setDependencies(List.of("org\\.springframework\\.boot:.*:1\\..*"));

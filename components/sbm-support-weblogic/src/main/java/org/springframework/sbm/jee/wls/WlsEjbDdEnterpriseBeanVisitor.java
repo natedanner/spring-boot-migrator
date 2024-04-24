@@ -21,7 +21,7 @@ import org.openrewrite.xml.tree.Xml;
 
 class WlsEjbDdEnterpriseBeanVisitor extends XmlVisitor<EjbDeploymentDescriptor.EnterpriseBean> {
 
-    private EjbDeploymentDescriptor.EnterpriseBean.TransactionDescriptor transactionDescriptor = null;
+    private EjbDeploymentDescriptor.EnterpriseBean.TransactionDescriptor transactionDescriptor;
 
     public Xml visitTag(Xml.Tag tag, EjbDeploymentDescriptor.EnterpriseBean enterpriseBean) {
         XPathMatcher matcher = new XPathMatcher("/ejb-name");

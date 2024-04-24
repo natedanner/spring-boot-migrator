@@ -99,8 +99,7 @@ public class SpringBootUpgradeReportSectionHelperDeserializer extends StdDeseria
     @NotNull
     private Class<?> classFromTextNode(TextNode treeNode) throws ClassNotFoundException {
         String className = treeNode.asText();
-        Class<?> aClass = Class.forName(className);
-        return aClass;
+        return Class.forName(className);
     }
 
     private IllegalArgumentException exceptionWithExample() {

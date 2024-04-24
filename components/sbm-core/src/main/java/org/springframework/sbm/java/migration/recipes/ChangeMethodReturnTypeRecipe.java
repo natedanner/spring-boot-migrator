@@ -32,9 +32,9 @@ import java.util.function.Predicate;
 @RequiredArgsConstructor
 public class ChangeMethodReturnTypeRecipe extends Recipe {
 	
-	final private Predicate<MethodDeclaration> methodCheck;
-	final private String returnTypeExpression;
-	final private String[] imports;
+	private final Predicate<MethodDeclaration> methodCheck;
+	private final String returnTypeExpression;
+	private final String[] imports;
 
 	@Override
 	public String getDisplayName() {
@@ -74,7 +74,7 @@ public class ChangeMethodReturnTypeRecipe extends Recipe {
 	}
 
 	public static Set<String> find(J j) {
-        JavaIsoVisitor<Set<String>> findVisitor = new JavaIsoVisitor<Set<String>>() {
+        JavaIsoVisitor<Set<String>> findVisitor = new JavaIsoVisitor<>() {
 
             @Override
             public <N extends NameTree> N visitTypeName(N name, Set<String> ns) {
@@ -92,7 +92,7 @@ public class ChangeMethodReturnTypeRecipe extends Recipe {
                 J.FieldAccess fa = super.visitFieldAccess(fieldAccess, ns);
                 JavaType.FullyQualified targetClass = TypeUtils.asFullyQualified(fa.getTarget().getType());
                 if (targetClass != null &&
-                        fa.getName().getSimpleName().equals("class")) {
+                        "class".equals(fa.getName().getSimpleName())) {
                     ns.add(targetClass.getFullyQualifiedName());
                 }
                 return fa;

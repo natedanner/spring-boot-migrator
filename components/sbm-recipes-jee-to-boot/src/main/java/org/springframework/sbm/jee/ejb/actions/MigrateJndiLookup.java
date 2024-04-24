@@ -41,13 +41,11 @@ public class MigrateJndiLookup extends AbstractAction {
     public void apply(ProjectContext context) {
         context.getProjectJavaSources().list().stream()
                 .filter(js -> js.hasImportStartingWith("javax.naming.InitialContext"))
-                .forEach(sourceWithLookup -> {
-                    migrateJndiLookup(sourceWithLookup);
-                });
+                .forEach(this::migrateJndiLookup);
     }
 
     private void migrateJndiLookup(JavaSource sourceWithLookup) {
-        Recipe recipe = new GenericOpenRewriteRecipe<>(() -> new MigrateJndiLookupVisitor())
+        Recipe recipe = new GenericOpenRewriteRecipe<>(MigrateJndiLookupVisitor::new)
                 .doNext(new RemoveUnusedLocalVariables(null))
                 .doNext(new RemoveUnusedImports())
                 .doNext(new GenericOpenRewriteRecipe<>(() -> new AddImport<>("org.springframework.beans.factory.annotation.Autowired", null, false)))
@@ -140,15 +138,14 @@ public class MigrateJndiLookup extends AbstractAction {
             J.VariableDeclarations variable = matchFound.getMultiVariable();
             JavaType.Class type = (JavaType.Class) variable.getTypeExpression().getType();
             String variableName = variable.getVariables().get(0).getSimpleName();
-            JavaTemplate javaTemplate = JavaTemplate.builder(() -> getCursor(), "@Autowired\nprivate " + type.getClassName() + " " + variableName).build();
+            JavaTemplate javaTemplate = JavaTemplate.builder(this::getCursor, "@Autowired\nprivate " + type.getClassName() + " " + variableName).build();
             J.Block result = body.withTemplate(javaTemplate, body.getCoordinates().lastStatement());
             List<Statement> statements1 = result.getStatements();
             Statement statement = statements1.get(statements1.size() - 1);
             statements1.remove(statement);
             statements1.add(0, statement);
             result = body.withStatements(statements1);
-            J.ClassDeclaration classDeclaration = classDecl.withBody(result);
-            return classDeclaration;
+            return classDecl.withBody(result);
         }
 
         private boolean isAssignedThroughStaticInitialContextLookup(J.VariableDeclarations multiVariable) {
@@ -164,13 +161,13 @@ public class MigrateJndiLookup extends AbstractAction {
                         J.MethodInvocation methodInvocation = (J.MethodInvocation) ((J.TypeCast) element).getExpression();
                         if (methodInvocation.getSelect().getType().getClass().isAssignableFrom(JavaType.Class.class)) {
                             JavaType.Class type = (JavaType.Class) methodInvocation.getSelect().getType();
-                            return type.getFullyQualifiedName().equals("javax.naming.InitialContext");
+                            return "javax.naming.InitialContext".equals(type.getFullyQualifiedName());
                         }
                     } else if (element.getClass().isAssignableFrom(J.MethodInvocation.class)) {
                         J.MethodInvocation methodInvocation = (J.MethodInvocation) element;
                         if (methodInvocation.getSelect().getType().getClass().isAssignableFrom(JavaType.Class.class)) {
                             JavaType.Class type = (JavaType.Class) methodInvocation.getSelect().getType();
-                            return type.getFullyQualifiedName().equals("javax.naming.InitialContext");
+                            return "javax.naming.InitialContext".equals(type.getFullyQualifiedName());
                         }
                     }
                 }

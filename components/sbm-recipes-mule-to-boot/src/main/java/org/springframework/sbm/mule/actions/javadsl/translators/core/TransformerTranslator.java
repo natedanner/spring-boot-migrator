@@ -35,7 +35,7 @@ public class TransformerTranslator implements MuleComponentToSpringIntegrationDs
 
     @Override
     public DslSnippet translate(int id, AbstractTransformerType component, QName name, MuleConfigurations muleConfigurations, String flowName, Map<Class, MuleComponentToSpringIntegrationDslTranslator> translatorsMap) {
-        if (name.getLocalPart().equals("byte-array-to-string-transformer")) {
+        if ("byte-array-to-string-transformer".equals(name.getLocalPart())) {
             return DslSnippet.builder()
                     .renderedSnippet(".transform(new ObjectToStringTransformer())")
                     .requiredImports(Set.of("org.springframework.integration.transformer.ObjectToStringTransformer"))

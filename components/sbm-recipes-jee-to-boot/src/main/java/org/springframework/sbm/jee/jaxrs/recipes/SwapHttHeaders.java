@@ -56,7 +56,7 @@ public class SwapHttHeaders extends Recipe {
         doNext(new RewriteMethodInvocation(
                         methodInvocationMatcher("javax.ws.rs.core.HttpHeaders getDate()"),
                         (v, m, addImport) -> {
-                            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "new Date()")
+                            JavaTemplate template = JavaTemplate.builder(v::getCursor, "new Date()")
                                     .imports("java.util.Date")
                                     .build();
                             addImport.accept("java.util.Date");
@@ -75,7 +75,7 @@ public class SwapHttHeaders extends Recipe {
         doNext(new RewriteMethodInvocation(
                         methodInvocationMatcher("javax.ws.rs.core.HttpHeaders getHeaderString(java.lang.String)"),
                         (v, m, addImport) -> {
-                            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "String.join(\", \", #{any(org.springframework.http.HttpHeaders)}.get(#{any(java.lang.String)})")
+                            JavaTemplate template = JavaTemplate.builder(v::getCursor, "String.join(\", \", #{any(org.springframework.http.HttpHeaders)}.get(#{any(java.lang.String)})")
                                     .build();
                             return m.withTemplate(template, m.getCoordinates().replace(), m.getSelect(), m.getArguments().get(0));
                         }
@@ -114,7 +114,7 @@ public class SwapHttHeaders extends Recipe {
         // #getRequestHeader(String)
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.HttpHeaders getRequestHeader(java.lang.String)"),
                         (v, m, addImport) -> {
-                            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "#{any(org.springframework.http.HttpHeaders)}.get(#{any(java.lang.String)})")
+                            JavaTemplate template = JavaTemplate.builder(v::getCursor, "#{any(org.springframework.http.HttpHeaders)}.get(#{any(java.lang.String)})")
                                     .build();
                             return m.withTemplate(template, m.getCoordinates().replace(), m.getSelect(), m.getArguments().get(0));
                         }
@@ -123,10 +123,9 @@ public class SwapHttHeaders extends Recipe {
 
         // #getRequestHeaders()
         doNext(new RewriteMethodInvocation(methodInvocationMatcher("javax.ws.rs.core.HttpHeaders getRequestHeaders()"),
-                        (v, m, addImport) -> {
+                        (v, m, addImport) ->
                             // Spring HttpHeaders is a MultiValueMap, hence just leave the expression and remove the call
-                            return m.withTemplate(JavaTemplate.builder(() -> v.getCursor(), "#{any(org.springframework.http.HttpHeaders)}").build(), m.getCoordinates().replace(), m.getSelect());
-                        }
+                            m.withTemplate(JavaTemplate.builder(v::getCursor, "#{any(org.springframework.http.HttpHeaders)}").build(), m.getCoordinates().replace(), m.getSelect())
                 )
         );
 

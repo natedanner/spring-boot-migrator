@@ -72,7 +72,7 @@ class HttpListenerTranslatorTest {
         List<MuleXml> muleXmls = projectContext.search(new MuleXmlProjectResourceFilter());
 
         MuleType muleType = muleXmls.get(0).getMuleType();
-        ListenerType listenerType = ((ListenerType) ((JAXBElement) ((FlowType) ((JAXBElement) muleType.getBeansOrBeanOrPropertyPlaceholder().get(1)).getValue()).getAbstractMessageSource()).getValue());
+        ListenerType listenerType = (ListenerType) ((JAXBElement) ((FlowType) ((JAXBElement) muleType.getBeansOrBeanOrPropertyPlaceholder().get(1)).getValue()).getAbstractMessageSource()).getValue();
         return sut.translate(1, listenerType, new QName(""), new MuleConfigurations(new HashMap<>()), "", Map.of());
     }
 }

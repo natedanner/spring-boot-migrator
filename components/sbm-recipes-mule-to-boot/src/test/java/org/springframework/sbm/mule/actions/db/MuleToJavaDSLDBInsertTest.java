@@ -45,7 +45,7 @@ public class MuleToJavaDSLDBInsertTest extends JavaDSLActionBaseTest {
                 """;
 
         addXMLFileToResource(muleXml);
-        runAction(projectContext1 -> {
+        runAction(projectContext1 ->
             assertThat(getGeneratedJavaFile()).isEqualTo("""
                              package com.example.javadsl;
                              import org.springframework.context.annotation.Bean;
@@ -75,7 +75,6 @@ public class MuleToJavaDSLDBInsertTest extends JavaDSLActionBaseTest {
                                              })
                                              .get();
                                  }
-                             }""");
-        });
+                             }"""));
     }
 }

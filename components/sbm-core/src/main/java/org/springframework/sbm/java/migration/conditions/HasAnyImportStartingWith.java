@@ -39,7 +39,7 @@ public class HasAnyImportStartingWith implements Condition {
     public boolean evaluate(ProjectContext context) {
         return context.getProjectJavaSources().asStream()
                 .anyMatch(js -> importPatterns.stream()
-                            .anyMatch(v -> js.hasImportStartingWith(v))
+                            .anyMatch(js::hasImportStartingWith)
                 );
     }
 }

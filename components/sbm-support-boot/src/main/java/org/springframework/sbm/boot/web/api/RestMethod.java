@@ -53,7 +53,9 @@ public record RestMethod(
         Optional<MethodParam> requestBodyParameterType) {
 
     public Optional<MethodParam> requestBodyParameterType() {
-        if(requestBodyParameterType == null) return Optional.empty();
+        if (requestBodyParameterType == null) {
+            return Optional.empty();
+        }
         return requestBodyParameterType;
     }
 }

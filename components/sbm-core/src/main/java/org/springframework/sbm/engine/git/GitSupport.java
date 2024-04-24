@@ -95,7 +95,7 @@ public class GitSupport {
         Path repoDir = git.getRepository().getDirectory().toPath().getParent();
         Path pathFromGit = repoDir.relativize(dirUnderGit.toPath());
         for (String filePattern : filePatterns) {
-            if (filePattern.equals(".")) {
+            if (".".equals(filePattern)) {
                 add.accept(".");
             } else {
                 filePattern = pathFromGit.resolve(filePattern).toString();
@@ -114,7 +114,7 @@ public class GitSupport {
         try {
             Git git = getGit(dirUnderGit);
             RmCommand rm = git.rm();
-            processFilePatterns(dirUnderGit, git, s -> rm.addFilepattern(s), filePatterns);
+            processFilePatterns(dirUnderGit, git, rm::addFilepattern, filePatterns);
             rm.call();
         } catch (GitAPIException e) {
             throw new RuntimeException(e);
@@ -240,7 +240,9 @@ public class GitSupport {
     }
 
     public boolean repoExists(File repoDir) {
-        if (repoDir == null) return false;
+        if (repoDir == null) {
+            return false;
+        }
         Optional<Repository> repository = findRepository(repoDir);
         return repository.isPresent();
     }
@@ -298,8 +300,7 @@ public class GitSupport {
             Git git = getGit(repo);
             Status status = null;
             status = git.status().call();
-            GitStatus gitStatus = new GitStatus(status);
-            return gitStatus;
+            return new GitStatus(status);
         } catch (GitAPIException e) {
             throw new RuntimeException("Could not get git status.", e);
         }

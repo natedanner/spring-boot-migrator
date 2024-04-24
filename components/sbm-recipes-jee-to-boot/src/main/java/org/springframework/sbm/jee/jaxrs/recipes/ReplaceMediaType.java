@@ -108,7 +108,7 @@ public class ReplaceMediaType extends Recipe {
 
         // #withCharset(String)
         doNext(new RewriteMethodInvocation(RewriteMethodInvocation.methodInvocationMatcher("javax.ws.rs.core.MediaType withCharset(java.lang.String)"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "new MediaType(#{any(org.springframework.http.MediaType)}, Charset.forName(#{any(java.lang.String)}))")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "new MediaType(#{any(org.springframework.http.MediaType)}, Charset.forName(#{any(java.lang.String)}))")
                     .imports("org.springframework.http.MediaType", "java.nio.charset.Charset")
                     .build();
             addImport.accept("java.nio.charset.Charset");
@@ -131,7 +131,7 @@ public class ReplaceMediaType extends Recipe {
 
         // MediaType() -> new MediaType(MimeType.WILDCARD_TYPE, MimeType.WILDCARD_TYPE)
         doNext(new RewriteConstructorInvocation(constructorMatcher("javax.ws.rs.core.MediaType"), (v, m, addImport) -> {
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "new MediaType(MimeType.WILDCARD_TYPE, MimeType.WILDCARD_TYPE)")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "new MediaType(MimeType.WILDCARD_TYPE, MimeType.WILDCARD_TYPE)")
                     .imports("org.springframework.http.MediaType", "org.springframework.util.MimeType")
                     .build();
             addImport.accept("org.springframework.util.MimeType");
@@ -149,7 +149,7 @@ public class ReplaceMediaType extends Recipe {
         // MediaType(String, String, String) -> MediaType(String, String, Charset)
         doNext(new RewriteConstructorInvocation(constructorMatcher("javax.ws.rs.core.MediaType", "java.lang.String", "java.lang.String", "java.lang.String"), (v, m, addImport) -> {
             List<Expression> arguments = m.getArguments();
-            JavaTemplate template = JavaTemplate.builder(() -> v.getCursor(), "new MediaType(#{any(java.lang.String)}, #{any(java.lang.String)}, Charset.forName(#{any(java.lang.String)}))")
+            JavaTemplate template = JavaTemplate.builder(v::getCursor, "new MediaType(#{any(java.lang.String)}, #{any(java.lang.String)}, Charset.forName(#{any(java.lang.String)}))")
                     .imports("org.springframework.http.MediaType", "java.nio.charset.Charset")
                     .build();
             addImport.accept("java.nio.charset.Charset");

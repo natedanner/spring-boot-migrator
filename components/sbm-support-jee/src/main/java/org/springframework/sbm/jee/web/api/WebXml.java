@@ -187,16 +187,17 @@ public class WebXml extends RewriteSourceFileHolder<Xml.Document> {
         private boolean addNamespace;
 
         //State variable
-        private boolean addedNamespace = false;
+        private boolean addedNamespace;
 
         public NamespaceFilter(String namespaceUri,
                                boolean addNamespace) {
             super();
 
-            if (addNamespace)
+            if (addNamespace) {
                 this.usedNamespaceUri = namespaceUri;
-            else
+            } else {
                 this.usedNamespaceUri = "";
+            }
             this.addNamespace = addNamespace;
         }
 
@@ -295,8 +296,7 @@ public class WebXml extends RewriteSourceFileHolder<Xml.Document> {
                 WebXml.WebXmlUnmarshaller.XMLReaderWithoutNamespace xr = new WebXml.WebXmlUnmarshaller.XMLReaderWithoutNamespace(xsr);
                 JAXBContext jaxbContext = JAXBContext.newInstance(WebAppType.class);
                 Unmarshaller jc = jaxbContext.createUnmarshaller();
-                WebAppType value = jc.unmarshal(xr, WebAppType.class).getValue();
-                return value;
+                return jc.unmarshal(xr, WebAppType.class).getValue();
             } catch (JAXBException e) {
                 throw new RuntimeException(e);
             }  catch (XMLStreamException e) {

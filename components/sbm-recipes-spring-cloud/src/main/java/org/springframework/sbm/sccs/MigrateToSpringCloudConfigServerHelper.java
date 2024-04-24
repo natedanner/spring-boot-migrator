@@ -19,6 +19,7 @@ import org.springframework.sbm.boot.properties.api.SpringBootApplicationProperti
 import org.springframework.sbm.boot.properties.api.SpringProfile;
 import org.springframework.sbm.boot.properties.search.SpringBootApplicationPropertiesResourceListFilter;
 import org.springframework.sbm.engine.git.GitSupport;
+import org.springframework.sbm.java.api.Expression;
 import org.springframework.sbm.engine.context.ProjectContext;
 import org.springframework.stereotype.Component;
 
@@ -47,9 +48,8 @@ public class MigrateToSpringCloudConfigServerHelper {
     List<SpringProfile> findAllSpringProfiles(ProjectContext projectContext) {
         List<SpringBootApplicationProperties> applicationProperties = projectContext.search(new SpringBootApplicationPropertiesResourceListFilter());
         List<SpringProfile> profilesFound = new ArrayList<>();
-        applicationProperties.forEach(ap -> {
-            profilesFound.add(ap.getSpringProfile());
-        });
+        applicationProperties.forEach(ap ->
+            profilesFound.add(ap.getSpringProfile()));
 
         projectContext.getProjectJavaSources().list().stream()
                 .map(js -> js.getTypes())
@@ -57,9 +57,11 @@ public class MigrateToSpringCloudConfigServerHelper {
                 .filter(t -> t.hasAnnotation("org.springframework.context.annotation.Profile"))
                 .map(t -> t.getAnnotation("org.springframework.context.annotation.Profile"))
                 .map(a -> a.getAttribute("value"))
-                .map(a -> a.printAssignmentValue())
+                .map(Expression::printAssignmentValue)
                 .forEach(a -> {
-                    if (!profilesFound.contains(a)) profilesFound.add(new SpringProfile(a));
+            if (!profilesFound.contains(a)) {
+                profilesFound.add(new SpringProfile(a));
+            }
                 });
 
         return profilesFound;
@@ -72,7 +74,7 @@ public class MigrateToSpringCloudConfigServerHelper {
     Path initializeSccsProjectDir(Path projectRootDirectory) {
         Path parent = projectRootDirectory.getParent();
         if (parent == null) {
-            throw new RuntimeException(String.format("Cold not get parent dir of project root '' as base path to create directory.", projectRootDirectory));
+            throw new RuntimeException(String.format("Cold not get parent dir of project root '' as base path to create directory."));
         }
         String projectName = projectRootDirectory.toFile().getName();
         Path sccsBaseDir = parent.resolve(projectName + "-config");
@@ -113,7 +115,7 @@ public class MigrateToSpringCloudConfigServerHelper {
 
     void configureSccsConnection(List<SpringBootApplicationProperties> bootApplicationProperties) {
         Optional<SpringBootApplicationProperties> optDefaultProperties = bootApplicationProperties.stream()
-                .filter(p -> p.getSpringProfile().getProfileName().equals("default"))
+                .filter(p -> "default".equals(p.getSpringProfile().getProfileName()))
                 .findFirst();
 
         if (optDefaultProperties.isEmpty()) {

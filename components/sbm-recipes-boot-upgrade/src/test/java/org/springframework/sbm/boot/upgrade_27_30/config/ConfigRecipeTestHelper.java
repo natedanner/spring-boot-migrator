@@ -70,7 +70,9 @@ public class ConfigRecipeTestHelper {
     public static Stream<Arguments> provideFiles(String folder, String fileType) throws URISyntaxException {
 
         URL url = ConfigRecipeTestHelper.class.getResource(folder);
-        if(url == null) throw new IllegalArgumentException("Resource folder " + folder + "  not found");
+        if (url == null) {
+            throw new IllegalArgumentException("Resource folder " + folder + "  not found");
+        }
 
         File f = new File(url.getFile());
 

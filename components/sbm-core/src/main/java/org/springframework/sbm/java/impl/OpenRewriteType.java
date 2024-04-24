@@ -206,13 +206,11 @@ public class OpenRewriteType implements Type {
             throw new RuntimeException("Could not resolve type for classDeclaration '" + classDeclaration.getName() + "'");
         }
 
-        List<? extends Type> types = classDeclaration.getType().getInterfaces().stream()
+        return classDeclaration.getType().getInterfaces().stream()
                 .filter(jt -> JavaType.FullyQualified.class.isAssignableFrom(jt.getClass()))
                 .map(JavaType.FullyQualified.class::cast)
                 .map(this::extracted)
                 .collect(Collectors.toList());
-
-        return types;
     }
 
     private Type extracted(JavaType.FullyQualified javaType) {
@@ -253,8 +251,9 @@ public class OpenRewriteType implements Type {
         RewriteSourceFileHolder<J.CompilationUnit> modifiableCompilationUnit = compilationUnits.get(0);
         J.ClassDeclaration classDeclaration = modifiableCompilationUnit.getSourceFile().getClasses().stream()
                 .peek(c -> {
-                    if (c.getType() == null)
+                    if (c.getType() == null) {
                         log.warn("Could not resolve type for class declaration '" + c.getName() + "'.");
+                    }
                 })
                 .filter(c -> c.getType() != null)
                 .filter(c -> c.getType().getFullyQualifiedName().equals(jt.getFullyQualifiedName().trim()))

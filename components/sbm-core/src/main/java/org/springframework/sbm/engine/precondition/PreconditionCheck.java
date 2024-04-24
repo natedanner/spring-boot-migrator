@@ -27,7 +27,7 @@ public abstract class PreconditionCheck {
 	public abstract PreconditionCheckResult verify(Path projectRoot, List<Resource> projectResources);
 
 	public enum ResultState {
-		WARN, FAILED, PASSED;
+		WARN, FAILED, PASSED
 	}
 
 

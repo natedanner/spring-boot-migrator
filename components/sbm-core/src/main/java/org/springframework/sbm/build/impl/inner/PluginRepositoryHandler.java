@@ -40,10 +40,10 @@ public class PluginRepositoryHandler {
             getRepositoryAttribute(t, "url", builder::url, true);
             getRepositoryAttribute(t, "id", builder::id, true);
             getRepositoryAttribute(t, "layout", builder::layout, false);
-            getRepositoryAttribute(t, "snapshots.enabled", (k) -> builder.snapshotsEnabled(Boolean.valueOf(k)), false);
+            getRepositoryAttribute(t, "snapshots.enabled", k -> builder.snapshotsEnabled(Boolean.valueOf(k)), false);
             getRepositoryAttribute(t, "snapshots.checksumPolicy", builder::snapshotsChecksumPolicy, false);
             getRepositoryAttribute(t, "snapshots.updatePolicy", builder::snapShotsUpdatePolicy, false);
-            getRepositoryAttribute(t, "releases.enabled", (k) -> builder.releasesEnabled(Boolean.valueOf(k)), false);
+            getRepositoryAttribute(t, "releases.enabled", k -> builder.releasesEnabled(Boolean.valueOf(k)), false);
             getRepositoryAttribute(t, "releases.checksumPolicy", builder::releasesChecksumPolicy, false);
             getRepositoryAttribute(t, "releases.updatePolicy",  builder::releasesUpdatePolicy, false);
             result.add(builder.build());

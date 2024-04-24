@@ -216,7 +216,7 @@ public class UpgradeDependencyVersionTest {
         UpgradeDependencyVersion sut = new UpgradeDependencyVersion(groupId, artifactId, version, null, false, List.of());
 
         AtomicBoolean exceptionThrown = new AtomicBoolean(false);
-        RecipeRun results = sut.run(mavens, new InMemoryExecutionContext((e) -> {
+        RecipeRun results = sut.run(mavens, new InMemoryExecutionContext(e -> {
             e.printStackTrace();
             exceptionThrown.set(true);
         }));

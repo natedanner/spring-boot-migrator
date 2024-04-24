@@ -33,8 +33,8 @@ import java.util.function.Predicate;
 @RequiredArgsConstructor
 public class RewriteMethodInvocation extends Recipe {
 	
-	final private Predicate<MethodInvocation> checkMethodInvocation;
-	final private Transformer transformer;
+	private final Predicate<MethodInvocation> checkMethodInvocation;
+	private final Transformer transformer;
 
 	@Override
 	public String getDisplayName() {
@@ -76,11 +76,9 @@ public class RewriteMethodInvocation extends Recipe {
 	
 	public static RewriteMethodInvocation renameMethodInvocation(Predicate<MethodInvocation> matcher, String newName, String newType) {
 		JavaType type = JavaType.buildType(newType);
-		return new RewriteMethodInvocation(matcher, (v, m, a) -> {
-			return m.withName(m.getName().withSimpleName(newName))
+		return new RewriteMethodInvocation(matcher, (v, m, a) -> m.withName(m.getName().withSimpleName(newName))
 					.withMethodType(m.getMethodType().withReturnType(type))
-					.withDeclaringType(TypeUtils.asFullyQualified(type));
-		});
+					.withDeclaringType(TypeUtils.asFullyQualified(type)));
 	}
 
 }

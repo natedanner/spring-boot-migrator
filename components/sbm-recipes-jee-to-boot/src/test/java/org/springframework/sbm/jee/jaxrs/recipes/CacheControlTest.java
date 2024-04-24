@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CacheControlTest {
 
-    final private AbstractAction action =
+    private final AbstractAction action =
             new AbstractAction() {
                 @Override
                 public void apply(ProjectContext context) {

@@ -55,11 +55,10 @@ public class DependenciesChangedEventHandler {
 
             List<J.CompilationUnit> parsedCompilationUnits = javaParser.parseInputs(compilationUnits, null, executionContext);
             // ((J.VariableDeclarations)parsedCompilationUnits.get(0).getClasses().get(0).getBody().getStatements().get(0)).getLeadingAnnotations().get(0).getType()
-            parsedCompilationUnits.forEach(cu -> {
+            parsedCompilationUnits.forEach(cu ->
                 projectContextHolder.getProjectContext().getProjectJavaSources().stream()
                         .filter(js -> js.getResource().getAbsolutePath().equals(projectRootDirectory.resolve(cu.getSourcePath()).normalize()))
-                        .forEach(js -> js.getResource().replaceWith(cu));
-            });
+                        .forEach(js -> js.getResource().replaceWith(cu)));
         }
     }
 }

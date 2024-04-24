@@ -21,6 +21,7 @@ import org.openrewrite.Tree;
 import org.openrewrite.TreeVisitor;
 import org.openrewrite.java.JavaIsoVisitor;
 import org.openrewrite.java.tree.J;
+import org.openrewrite.java.tree.JavaType;
 import org.openrewrite.java.tree.JavaType.FullyQualified;
 import org.openrewrite.marker.SearchResult;
 
@@ -56,7 +57,7 @@ public class FindTypesImplementing extends Recipe {
             return false;
         }
 
-        List<String> fqns = interfaces.stream().map(fqn -> fqn.getFullyQualifiedName()).collect(Collectors.toList());
+        List<String> fqns = interfaces.stream().map(JavaType.FullyQualified::getFullyQualifiedName).collect(Collectors.toList());
 
         return classDecl.getType().getInterfaces().stream()
                 .filter(fqn -> !fqns.contains(fqn.getFullyQualifiedName()))

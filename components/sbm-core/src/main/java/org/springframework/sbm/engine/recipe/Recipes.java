@@ -28,7 +28,7 @@ public class Recipes {
 
     public Recipes(List<Recipe> recipesList) {
         if (recipesList != null) {
-            recipesList.sort((o1, o2) -> Integer.valueOf(o2.getOrder() == null ? 0 : o2.getOrder()).compareTo(o1.getOrder() == null ? 0 : o1.getOrder()));
+            recipesList.sort((o1, o2) -> Integer.compare(o2.getOrder() == null ? 0 : o2.getOrder(), o1.getOrder() == null ? 0 : o1.getOrder()));
             this.recipesList = Collections.unmodifiableList(recipesList);
         } else {
             this.recipesList = Collections.emptyList();
@@ -46,10 +46,9 @@ public class Recipes {
     }
 
     public List<Recipe> getApplicable(ProjectContext context) {
-        List<Recipe> applicableRecipes = recipesList.stream()
+        return recipesList.stream()
                 .filter(r -> r.isApplicable(context))
                 .collect(Collectors.toList());
-        return applicableRecipes;
     }
 
     public Optional<Recipe> getRecipeByName(String recipeName) {

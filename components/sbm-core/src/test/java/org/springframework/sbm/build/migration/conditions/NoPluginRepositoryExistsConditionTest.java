@@ -81,9 +81,9 @@ class NoPluginRepositoryExistsConditionTest {
                 .withMavenRootBuildFileSource(pomXml)
                 .build();
 
-        NoPluginRepositoryExistsCondition NoPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
-        NoPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/milestone");
-        boolean noRepositoryExists = NoPluginRepositoryExistsCondition.evaluate(context);
+        NoPluginRepositoryExistsCondition noPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
+        noPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/milestone");
+        boolean noRepositoryExists = noPluginRepositoryExistsCondition.evaluate(context);
 
         assertThat(noRepositoryExists).isFalse();
     }
@@ -115,9 +115,9 @@ class NoPluginRepositoryExistsConditionTest {
                 .withMavenRootBuildFileSource(pomXml)
                 .build();
 
-        NoPluginRepositoryExistsCondition NoPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
-        NoPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/milestone");
-        boolean noRepositoryExists = NoPluginRepositoryExistsCondition.evaluate(context);
+        NoPluginRepositoryExistsCondition noPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
+        noPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/milestone");
+        boolean noRepositoryExists = noPluginRepositoryExistsCondition.evaluate(context);
 
         assertThat(noRepositoryExists).isFalse();
     }
@@ -149,9 +149,9 @@ class NoPluginRepositoryExistsConditionTest {
                 .withMavenRootBuildFileSource(pomXml)
                 .build();
 
-        NoPluginRepositoryExistsCondition NoPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
-        NoPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/milestone");
-        boolean noRepositoryExists = NoPluginRepositoryExistsCondition.evaluate(context);
+        NoPluginRepositoryExistsCondition noPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
+        noPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/milestone");
+        boolean noRepositoryExists = noPluginRepositoryExistsCondition.evaluate(context);
 
         assertThat(noRepositoryExists).isFalse();
     }
@@ -183,9 +183,9 @@ class NoPluginRepositoryExistsConditionTest {
                 .withMavenRootBuildFileSource(pomXml)
                 .build();
 
-        NoPluginRepositoryExistsCondition NoPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
-        NoPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/milestone");
-        boolean noRepositoryExists = NoPluginRepositoryExistsCondition.evaluate(context);
+        NoPluginRepositoryExistsCondition noPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
+        noPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/milestone");
+        boolean noRepositoryExists = noPluginRepositoryExistsCondition.evaluate(context);
 
         assertThat(noRepositoryExists).isFalse();
     }
@@ -214,9 +214,9 @@ class NoPluginRepositoryExistsConditionTest {
                 .withMavenRootBuildFileSource(pomXml)
                 .build();
 
-        NoPluginRepositoryExistsCondition NoPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
-        NoPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/different");
-        boolean noRepositoryExists = NoPluginRepositoryExistsCondition.evaluate(context);
+        NoPluginRepositoryExistsCondition noPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
+        noPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/different");
+        boolean noRepositoryExists = noPluginRepositoryExistsCondition.evaluate(context);
 
         assertThat(noRepositoryExists).isTrue();
     }
@@ -246,9 +246,9 @@ class NoPluginRepositoryExistsConditionTest {
                 .withMavenRootBuildFileSource(pomXml)
                 .build();
 
-        NoPluginRepositoryExistsCondition NoPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
-        NoPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/different");
-        boolean noRepositoryExists = NoPluginRepositoryExistsCondition.evaluate(context);
+        NoPluginRepositoryExistsCondition noPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
+        noPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/different");
+        boolean noRepositoryExists = noPluginRepositoryExistsCondition.evaluate(context);
 
         assertThat(noRepositoryExists).isTrue();
     }
@@ -278,9 +278,9 @@ class NoPluginRepositoryExistsConditionTest {
                 .withMavenRootBuildFileSource(pomXml)
                 .build();
 
-        NoPluginRepositoryExistsCondition NoPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
-        NoPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/different");
-        boolean noRepositoryExists = NoPluginRepositoryExistsCondition.evaluate(context);
+        NoPluginRepositoryExistsCondition noPluginRepositoryExistsCondition = new NoPluginRepositoryExistsCondition();
+        noPluginRepositoryExistsCondition.setUrl("https://repo.spring.io/different");
+        boolean noRepositoryExists = noPluginRepositoryExistsCondition.evaluate(context);
 
         assertThat(noRepositoryExists).isTrue();
     }

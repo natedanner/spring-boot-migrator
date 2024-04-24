@@ -134,7 +134,7 @@ public class RecipeIntegrationTestSupport {
             List<Path> result;
             try (Stream<Path> walk = Files.walk(expectedProject)) {
                 result = walk.filter(Files::isRegularFile)
-                        .map(f -> expectedProject.relativize(f))
+                        .map(expectedProject::relativize)
                         .collect(Collectors.toList());
             }
 

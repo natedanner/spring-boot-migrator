@@ -45,13 +45,13 @@ public class ImplementTypedInterface<P> extends JavaIsoVisitor<P> {
     @NotNull
     public J.ClassDeclaration visitClassDeclaration(@NotNull J.ClassDeclaration classDecl, @NotNull P p) {
         J.ClassDeclaration c = super.visitClassDeclaration(classDecl, p);
-        if (c.isScope(this.scope) && (c.getImplements() == null || c.getImplements().stream().noneMatch((f) -> TypeUtils.isAssignableTo(f.getType(), this.interfaceType)))) {
+        if (c.isScope(this.scope) && (c.getImplements() == null || c.getImplements().stream().noneMatch(f -> TypeUtils.isAssignableTo(f.getType(), this.interfaceType)))) {
             if (!classDecl.getSimpleName().equals(this.interfaceType.getClassName())) {
                 this.maybeAddImport(this.interfaceType);
             }
 
             TypeTree type = TypeTree.build(classDecl.getSimpleName().equals(this.interfaceType.getClassName()) ? this.interfaceType.getFullyQualifiedName() : this.interfaceType.getClassName()).withType(this.interfaceType).withPrefix(Space.format(" "));
-            if (typeParameters != null && !typeParameters.isEmpty() && typeParameters.stream().noneMatch(tp -> tp instanceof JavaType.GenericTypeVariable)) {
+            if (typeParameters != null && !typeParameters.isEmpty() && typeParameters.stream().noneMatch(JavaType.GenericTypeVariable.class::isInstance)) {
                 type = new J.ParameterizedType(UUID.randomUUID(), Space.EMPTY, Markers.EMPTY, type, buildTypeParameters(typeParameters));
             }
             c = c.withImplements(ListUtils.concat(c.getImplements(), type));
@@ -73,7 +73,7 @@ public class ImplementTypedInterface<P> extends JavaIsoVisitor<P> {
 
         int index = 0;
         for (JavaType type : typeParameters) {
-            Expression typeParameterExpression = (Expression) buildTypeTree(type, (index++ == 0) ? Space.EMPTY : Space.format(" "));
+            Expression typeParameterExpression = (Expression) buildTypeTree(type, index++ == 0 ? Space.EMPTY : Space.format(" "));
             if (typeParameterExpression == null) {
                 return null;
             }
@@ -119,7 +119,7 @@ public class ImplementTypedInterface<P> extends JavaIsoVisitor<P> {
                 return identifier;
             }
         } else if (type instanceof JavaType.GenericTypeVariable genericType) {
-            if (!genericType.getName().equals("?")) {
+            if (!"?".equals(genericType.getName())) {
                 return new J.Identifier(Tree.randomId(),
                         space,
                         Markers.EMPTY,

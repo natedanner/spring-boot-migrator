@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MuleToJavaDSLHttpTest extends JavaDSLActionBaseTest {
-    private final static String muleXmlHttp =
+    private static final String muleXmlHttp =
             """
             <?xml version="1.0" encoding="UTF-8"?>
                         

@@ -58,7 +58,7 @@ public class MigrationContext {
 
     public Class<?> getPropertyType(String beanClassName, String property) {
         try {
-            String methodName = new StringBuilder("set").append(Helper.uppercaseFirstChar(property)).toString();
+            String methodName = "set" + Helper.uppercaseFirstChar(property);
             Class<?> aClass = getClassLoader().loadClass(beanClassName);
             List<Method> set = Arrays.stream(aClass.getMethods())
                     .filter(m -> methodName.equals(m.getName()))

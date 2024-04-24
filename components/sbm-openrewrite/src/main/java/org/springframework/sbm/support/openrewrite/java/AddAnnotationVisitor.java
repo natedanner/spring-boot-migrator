@@ -91,7 +91,7 @@ public class AddAnnotationVisitor extends JavaIsoVisitor<ExecutionContext> {
     @NotNull
     private JavaTemplate getJavaTemplate(ExecutionContext p, String snippet, String... imports) {
         // FIXME: #7 javaParser must be recreated to update typesInUse in SourceSet
-        return JavaTemplate.builder(() -> getCursor(), snippet)
+        return JavaTemplate.builder(this::getCursor, snippet)
                 .imports(imports)
                 .javaParser(javaParserSupplier)
                 .build();

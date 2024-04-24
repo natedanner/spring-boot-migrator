@@ -92,14 +92,14 @@ class WebServiceDescriptor {
 
     private String computeNsUri() {
         if (wsdl != null) {
-            return wsdl.getRoot().getAttributes().stream().filter(a -> "targetNamespace".equals(a.getKeyAsString())).map(a -> a.getValueAsString()).findFirst().orElse(null);
+            return wsdl.getRoot().getAttributes().stream().filter(a -> "targetNamespace".equals(a.getKeyAsString())).map(Xml.Attribute::getValueAsString).findFirst().orElse(null);
         } else {
             return Stream.concat(endpointInterface == null ? Stream.empty() : endpointInterface.getAnnotations().stream(), typeAnnotatedAsWebService.getAnnotations().stream())
                     .filter(a -> WEB_SERVICE_ANNOTATION.equals(a.getFullyQualifiedName()))
                     .map(a -> a.getAttribute("targetNamespace"))
                     .filter(Objects::nonNull)
-                    .map(e -> e.getAssignmentRightSide())
-                    .map(e -> e.print())
+                    .map(Expression::getAssignmentRightSide)
+                    .map(Expression::print)
                     .map(s -> s.replace("\"", ""))
                     .findFirst()
                     .orElse(null);
@@ -144,8 +144,8 @@ class WebServiceDescriptor {
         String name = m.getAnnotation(WEB_METHOD_ANNOTATION)
                 .map(a -> a.getAttribute("operationName"))
                 .filter(Objects::nonNull)
-                .map(e -> e.getAssignmentRightSide())
-                .map(e -> e.print())
+                .map(Expression::getAssignmentRightSide)
+                .map(Expression::print)
                 .map(s -> s.replace("\"", ""))
                 .orElse(m.getName());
         op.setName(name);
@@ -161,8 +161,8 @@ class WebServiceDescriptor {
                     m.getAnnotation(WEB_RESULT_ANNOTATION)
                             .map(a -> a.getAttribute("name"))
                             .filter(Objects::nonNull)
-                            .map(e -> e.getAssignmentRightSide())
-                            .map(e -> e.print())
+                            .map(Expression::getAssignmentRightSide)
+                            .map(Expression::print)
                             .map(s -> s.replace("\"", ""))
                             .orElse("return")
             });
@@ -179,8 +179,8 @@ class WebServiceDescriptor {
                     .filter(a -> WEB_PARAM_ANNOTATION.equals(a.getFullyQualifiedName()))
                     .map(a -> a.getAttribute("name"))
                     .filter(Objects::nonNull)
-                    .map(e -> e.getAssignmentRightSide())
-                    .map(e -> e.print())
+                    .map(Expression::getAssignmentRightSide)
+                    .map(Expression::print)
                     .map(s -> s.replace("\"", ""))
                     .findFirst()
                     .orElse("arg" + i);

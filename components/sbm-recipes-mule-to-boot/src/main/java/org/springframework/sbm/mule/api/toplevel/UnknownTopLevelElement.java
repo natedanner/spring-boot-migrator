@@ -75,7 +75,7 @@ public class UnknownTopLevelElement implements TopLevelElement {
         String namespace = elementInfo.getNamespace();
         String tagName = elementInfo.getTagName();
 
-        if (namespace.equals("")) {
+        if ("".equals(namespace)) {
 
             return tagName;
         } else {

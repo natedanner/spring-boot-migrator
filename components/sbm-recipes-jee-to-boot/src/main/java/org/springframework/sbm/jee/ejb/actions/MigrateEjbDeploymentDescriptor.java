@@ -103,8 +103,9 @@ public class MigrateEjbDeploymentDescriptor extends AbstractAction {
                                     .orElse("")
                             ).append(")");
 
-            if(statelessSnippet.length() == "@Statlesss()".length())
+            if (statelessSnippet.length() == "@Statlesss()".length()) {
                 statelessSnippet.deleteCharAt("@Statlesss".length() - 1);
+            }
 
             type.addAnnotation(statelessSnippet.toString(), "javax.ejb.Stateless");
 

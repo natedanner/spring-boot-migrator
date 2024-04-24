@@ -18,6 +18,7 @@ package org.springframework.sbm.boot.upgrade_24_25.report;
 import org.springframework.sbm.boot.UpgradeSectionBuilder;
 import org.springframework.sbm.boot.asciidoctor.Section;
 import org.springframework.sbm.boot.asciidoctor.IntroductionSection;
+import org.springframework.sbm.build.api.Dependency;
 import org.springframework.sbm.engine.context.ProjectContext;
 import org.springframework.sbm.build.api.BuildFile;
 
@@ -40,13 +41,13 @@ public class Boot_24_25_Introduction implements UpgradeSectionBuilder {
         String groupId = buildFile.getGroupId();
         String artifactId = buildFile.getArtifactId();
         String version = buildFile.getVersion();
-        Optional<String> foundSpringVersion = buildFile.getRequestedDependencies().stream().filter(d -> d.getGroupId().equals("org.springframework.boot")).map(d -> d.getVersion()).findFirst();
+        Optional<String> foundSpringVersion = buildFile.getRequestedDependencies().stream().filter(d -> "org.springframework.boot".equals(d.getGroupId())).map(Dependency::getVersion).findFirst();
         if(foundSpringVersion.isEmpty()) {
             throw new RuntimeException(String.format("Could not retrieve Spring version from declared dependencies in %s", buildFile.getAbsolutePath()));
         }
         String bootVersion = foundSpringVersion.get();
 
-        IntroductionSection introductionSection = IntroductionSection.builder()
+        return IntroductionSection.builder()
                 .projectName(applicationName)
                 .revision(gitRevision)
                 .projectRoot(projectRoot)
@@ -56,7 +57,5 @@ public class Boot_24_25_Introduction implements UpgradeSectionBuilder {
                 .bootVersion(bootVersion)
                 .datetime(new Date())
                 .build();
-
-        return introductionSection;
     }
 }

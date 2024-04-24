@@ -46,7 +46,7 @@ public class MuleConfigurationsExtractor {
                 .filter(MuleConfigurationsExtractor::isConfigType)
                 .map(e -> configurationTypeAdapterFactory.createAdapter(e.getValue()))
                 .filter(Objects::nonNull)
-                .collect(Collectors.toMap(a -> a.getName(), a -> a));
+                .collect(Collectors.toMap(ConfigurationTypeAdapter::getName, a -> a));
     }
 
 

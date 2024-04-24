@@ -36,12 +36,12 @@ public class ChoiceTranslator implements MuleComponentToSpringIntegrationDslTran
         return SelectiveOutboundRouterType.class;
     }
 
-    private final static String subflowTemplate =
+    private static final String subflowTemplate =
             "                                .subFlowMapping(\"dataValue\" /*TODO: Translate dataValue to $TRANSLATE_EXPRESSION*/,\n" +
                     "                                       $SUBFLOW_CONTENT\n" +
                     "                                )\n";
 
-    private final static String defaultSubflowMapping =
+    private static final String defaultSubflowMapping =
             "                                .defaultSubFlowMapping($OTHERWISE_STATEMENTS)\n";
 
     @Override

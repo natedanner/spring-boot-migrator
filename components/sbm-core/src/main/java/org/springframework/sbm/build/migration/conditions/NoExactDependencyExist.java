@@ -31,12 +31,11 @@ public class NoExactDependencyExist implements Condition {
 
     @Override
     public String getDescription() {
-        String description = String.format("Buildfile does not contain exact dependency matching '%s'", dependency);
-        return description;
+        return String.format("Buildfile does not contain exact dependency matching '%s'", dependency);
     }
 
     @Override
     public boolean evaluate(ProjectContext context) {
-        return false == context.getBuildFile().hasExactDeclaredDependency(dependency);
+        return !context.getBuildFile().hasExactDeclaredDependency(dependency);
     }
 }

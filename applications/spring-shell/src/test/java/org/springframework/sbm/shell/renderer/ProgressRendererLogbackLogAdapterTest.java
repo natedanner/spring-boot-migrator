@@ -67,15 +67,15 @@ public class ProgressRendererLogbackLogAdapterTest {
         List<String> capturedMessges = new ArrayList<>();
         ProgressRendererLogbackLogAdapter sut = new ProgressRendererLogbackLogAdapter(
                 Map.of(
-                        Level.ERROR, (errorMessage) -> {
+                        Level.ERROR, errorMessage -> {
                             capturedMessges.add(errorMessage);
                             countDownLatch.countDown();
                         },
-                        Level.WARN, (warnMessage) -> {
+                        Level.WARN, warnMessage -> {
                             capturedMessges.add(warnMessage);
                             countDownLatch.countDown();
                         },
-                        Level.INFO, (infoMessage) -> {
+                        Level.INFO, infoMessage -> {
                             capturedMessges.add(infoMessage);
                             countDownLatch.countDown();
                         }

@@ -40,7 +40,7 @@ public class RewriteExecutionContextErrorHandler implements Consumer<Throwable> 
         } else if(t instanceof MavenDownloadingException) {
             log.warn(t.getMessage());
         } else if(t instanceof JavaParsingException) {
-            if(t.getMessage().equals("Failed symbol entering or attribution")) {
+            if("Failed symbol entering or attribution".equals(t.getMessage())) {
                 throw new RuntimeException("This could be a broken jar. Activate logging on WARN level for 'org.openrewrite' might reveal more information.", t);
             }
         } else {

@@ -19,6 +19,8 @@ import java.nio.file.Path;
 
 public class Verify {
     public static void absolutePath(Path resourcePath) {
-        if(!resourcePath.isAbsolute()) throw new IllegalArgumentException("Given path must be absolute, but was " + resourcePath + "'.");
+        if (!resourcePath.isAbsolute()) {
+            throw new IllegalArgumentException("Given path must be absolute, but was " + resourcePath + "'.");
+        }
     }
 }

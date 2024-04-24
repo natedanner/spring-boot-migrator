@@ -295,8 +295,10 @@ public class TestProjectContext {
          * @param content    of the resource
          */
         public Builder withProjectResource(Path sourcePath, String content) {
-            if (sourcePath.isAbsolute()) throw new IllegalArgumentException(
-                    "Invalid sourcePath given, sourcePath must be given relative from project root.");
+            if (sourcePath.isAbsolute()) {
+                throw new IllegalArgumentException(
+                        "Invalid sourcePath given, sourcePath must be given relative from project root.");
+            }
             this.resourcesWithRelativePaths.put(sourcePath.normalize(), content);
             return this;
         }
@@ -402,8 +404,9 @@ public class TestProjectContext {
          * @param dependencyCoordinate as Maven coordinate, e.g. "groupId:artifactId:version"
          */
         public Builder withBuildFileHavingDependencies(String... dependencyCoordinate) {
-            if (containsAnyPomXml() || mockedBuildFile != null)
+            if (containsAnyPomXml() || mockedBuildFile != null) {
                 throw new IllegalArgumentException("ProjectContext already contains pom.xml files.");
+            }
             this.dependencies.addAll(Arrays.asList(dependencyCoordinate));
             return this;
         }
@@ -429,8 +432,9 @@ public class TestProjectContext {
         }
 
         public Builder withMockedBuildFile(OpenRewriteMavenBuildFile mockedBuildFile) {
-            if (containsAnyPomXml() || !dependencies.isEmpty())
+            if (containsAnyPomXml() || !dependencies.isEmpty()) {
                 throw new IllegalArgumentException("ProjectContext already contains pom.xml files.");
+            }
             this.mockedBuildFile = mockedBuildFile;
             return this;
         }

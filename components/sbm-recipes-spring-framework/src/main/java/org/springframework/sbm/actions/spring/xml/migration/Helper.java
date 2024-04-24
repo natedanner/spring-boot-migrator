@@ -39,7 +39,9 @@ class Helper {
     }
 
     static String uppercaseFirstChar(String name) {
-        if(name.isEmpty()) return name;
+        if (name.isEmpty()) {
+            return name;
+        }
         return Character.toUpperCase(name.charAt(0)) + name.substring(1);
     }
 
@@ -84,19 +86,17 @@ class Helper {
 
     static TypeSpec.Builder createConfigurationClassFromFilename(String filename) {
         String className = calculateClassname(filename);
-        TypeSpec.Builder typeSpec = TypeSpec.classBuilder(className)
+        return TypeSpec.classBuilder(className)
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(Configuration.class);
-        return typeSpec;
     }
 
     static List<XmlBeanDef> getBeanDefinitions(SimpleBeanDefinitionRegistry beanDefinitionRegistry) {
         String[] beanDefinitionNames = beanDefinitionRegistry.getBeanDefinitionNames();
-        List<XmlBeanDef> xmlBeanDefinitions = stream(beanDefinitionNames)
+        return stream(beanDefinitionNames)
                 .map(name -> createBeanDefinition(beanDefinitionRegistry, name))
-                .filter(bd -> isGenericBeanDefinition(bd))
+                .filter(Helper::isGenericBeanDefinition)
                 .collect(Collectors.toList());
-        return xmlBeanDefinitions;
     }
 
     private static XmlBeanDef createBeanDefinition(SimpleBeanDefinitionRegistry beanDefinitionRegistry, String name) {
@@ -124,9 +124,8 @@ class Helper {
     }
 
     private static String splitAndConcat(String name, String splitBy) {
-        String methodNameUppercaseFirst = stream(name.split(splitBy))
-                .map(token -> Helper.uppercaseFirstChar(token))
+        return stream(name.split(splitBy))
+                .map(Helper::uppercaseFirstChar)
                 .collect(Collectors.joining());
-        return methodNameUppercaseFirst;
     }
 }

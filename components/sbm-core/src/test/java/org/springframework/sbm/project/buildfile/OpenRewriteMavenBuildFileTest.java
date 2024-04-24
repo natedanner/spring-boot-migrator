@@ -26,6 +26,7 @@ import org.springframework.sbm.GitHubIssue;
 import org.springframework.sbm.build.api.BuildFile;
 import org.springframework.sbm.build.api.DependenciesChangedEvent;
 import org.springframework.sbm.build.api.Dependency;
+import org.springframework.sbm.build.api.Module;
 import org.springframework.sbm.build.api.Plugin;
 import org.springframework.sbm.build.util.PomBuilder;
 import org.springframework.sbm.build.impl.OpenRewriteMavenPlugin;
@@ -699,7 +700,7 @@ public class OpenRewriteMavenBuildFileTest {
         List<?> allEvents = argumentCaptor.getAllValues();
         long timesDependenciesChangedEventPublished = allEvents
                 .stream()
-                .filter(e -> eventClass.isInstance(e))
+                .filter(eventClass::isInstance)
                 .count();
         assertThat(timesDependenciesChangedEventPublished).isEqualTo(times);
     }
@@ -905,9 +906,7 @@ public class OpenRewriteMavenBuildFileTest {
 
         @NotNull
         private BuildFile getBuildFileByPackagingType(ProjectContext context, String ear1) {
-            return context.getApplicationModules().stream().map(m -> m.getBuildFile()).filter(b -> {
-                return b.getPackaging().equals(ear1);
-            }).findFirst().get();
+            return context.getApplicationModules().stream().map(Module::getBuildFile).filter(b -> b.getPackaging().equals(ear1)).findFirst().get();
         }
     }
 
@@ -1142,26 +1141,26 @@ public class OpenRewriteMavenBuildFileTest {
         assertThat(dependencies).hasSize(4);
 
         assertThat(dependencies)
-                .anyMatch(d -> d.getGroupId().equals("org.junit.jupiter") &&
-                        d.getArtifactId().equals("junit-jupiter") &&
-                        d.getVersion().equals("5.7.1") &&
-                        d.getScope().equals("test"))
-                .anyMatch(d -> d.getGroupId().equals("org.junit.jupiter") &&
-                        d.getArtifactId().equals("junit-jupiter-api") &&
-                        d.getVersion().equals("5.6.3") &&
-                        d.getScope().equals("test"))
-                .anyMatch(d -> d.getGroupId().equals("org.mockito") &&
-                        d.getArtifactId().equals("mockito-core") &&
-                        d.getVersion().equals("3.7.7") &&
-                        d.getScope().equals("test"))
-                .anyMatch(d -> d.getGroupId().equals("org.mockito") &&
-                        d.getArtifactId().equals("mockito-core") &&
-                        d.getVersion().equals("3.7.7") &&
-                        d.getScope().equals("test"))
-                .anyMatch(d -> d.getGroupId().equals("org.apache.tomee") &&
-                        d.getArtifactId().equals("openejb-core-hibernate") &&
-                        d.getVersion().equals("8.0.5") &&
-                        d.getType().equals("pom"));
+                .anyMatch(d -> "org.junit.jupiter".equals(d.getGroupId()) &&
+                        "junit-jupiter".equals(d.getArtifactId()) &&
+                        "5.7.1".equals(d.getVersion()) &&
+                        "test".equals(d.getScope()))
+                .anyMatch(d -> "org.junit.jupiter".equals(d.getGroupId()) &&
+                        "junit-jupiter-api".equals(d.getArtifactId()) &&
+                        "5.6.3".equals(d.getVersion()) &&
+                        "test".equals(d.getScope()))
+                .anyMatch(d -> "org.mockito".equals(d.getGroupId()) &&
+                        "mockito-core".equals(d.getArtifactId()) &&
+                        "3.7.7".equals(d.getVersion()) &&
+                        "test".equals(d.getScope()))
+                .anyMatch(d -> "org.mockito".equals(d.getGroupId()) &&
+                        "mockito-core".equals(d.getArtifactId()) &&
+                        "3.7.7".equals(d.getVersion()) &&
+                        "test".equals(d.getScope()))
+                .anyMatch(d -> "org.apache.tomee".equals(d.getGroupId()) &&
+                        "openejb-core-hibernate".equals(d.getArtifactId()) &&
+                        "8.0.5".equals(d.getVersion()) &&
+                        "pom".equals(d.getType()));
     }
 
     @Test
@@ -1222,26 +1221,26 @@ public class OpenRewriteMavenBuildFileTest {
         assertThat(dependencies).hasSize(4);
 
         assertThat(dependencies)
-                .anyMatch(d -> d.getGroupId().equals("org.junit.jupiter") &&
-                        d.getArtifactId().equals("junit-jupiter") &&
+                .anyMatch(d -> "org.junit.jupiter".equals(d.getGroupId()) &&
+                        "junit-jupiter".equals(d.getArtifactId()) &&
                         d.getVersion() == null &&
                         d.getScope() == null)
-                .anyMatch(d -> d.getGroupId().equals("org.junit.jupiter") &&
-                        d.getArtifactId().equals("junit-jupiter-api") &&
-                        d.getVersion().equals("5.6.3") &&
-                        d.getScope().equals("test"))
-                .anyMatch(d -> d.getGroupId().equals("org.mockito") &&
-                        d.getArtifactId().equals("mockito-core") &&
-                        d.getVersion().equals("3.7.7") &&
-                        d.getScope().equals("test"))
-                .anyMatch(d -> d.getGroupId().equals("org.mockito") &&
-                        d.getArtifactId().equals("mockito-core") &&
-                        d.getVersion().equals("3.7.7") &&
-                        d.getScope().equals("test"))
-                .anyMatch(d -> d.getGroupId().equals("org.apache.tomee") &&
-                        d.getArtifactId().equals("openejb-core-hibernate") &&
-                        d.getVersion().equals("8.0.5") &&
-                        d.getType().equals("pom"));
+                .anyMatch(d -> "org.junit.jupiter".equals(d.getGroupId()) &&
+                        "junit-jupiter-api".equals(d.getArtifactId()) &&
+                        "5.6.3".equals(d.getVersion()) &&
+                        "test".equals(d.getScope()))
+                .anyMatch(d -> "org.mockito".equals(d.getGroupId()) &&
+                        "mockito-core".equals(d.getArtifactId()) &&
+                        "3.7.7".equals(d.getVersion()) &&
+                        "test".equals(d.getScope()))
+                .anyMatch(d -> "org.mockito".equals(d.getGroupId()) &&
+                        "mockito-core".equals(d.getArtifactId()) &&
+                        "3.7.7".equals(d.getVersion()) &&
+                        "test".equals(d.getScope()))
+                .anyMatch(d -> "org.apache.tomee".equals(d.getGroupId()) &&
+                        "openejb-core-hibernate".equals(d.getArtifactId()) &&
+                        "8.0.5".equals(d.getVersion()) &&
+                        "pom".equals(d.getType()));
     }
 
     @Test
@@ -2130,8 +2129,8 @@ public class OpenRewriteMavenBuildFileTest {
 
 		Plugin compilerPlugin = openRewriteMavenBuildFile.getPlugins()
 				.stream()
-				.filter(plugin -> plugin.getGroupId().equals("org.apache.maven.plugins") &&
-						plugin.getArtifactId().equals("maven-compiler-plugin"))
+				.filter(plugin -> "org.apache.maven.plugins".equals(plugin.getGroupId()) &&
+						"maven-compiler-plugin".equals(plugin.getArtifactId()))
 				.findAny().orElseThrow();
 
 		assertThat(compilerPlugin.getConfiguration().getDeclaredStringValue("source").get()).isEqualTo("${source}");
@@ -2190,8 +2189,8 @@ public class OpenRewriteMavenBuildFileTest {
 
 		Plugin compilerPlugin = openRewriteMavenBuildFile.getPlugins()
 				.stream()
-				.filter(plugin -> plugin.getGroupId().equals("org.apache.maven.plugins") &&
-						plugin.getArtifactId().equals("maven-compiler-plugin"))
+				.filter(plugin -> "org.apache.maven.plugins".equals(plugin.getGroupId()) &&
+						"maven-compiler-plugin".equals(plugin.getArtifactId()))
 				.findAny().orElseThrow();
 
 		compilerPlugin.getConfiguration().setDeclaredStringValue("source", "17");

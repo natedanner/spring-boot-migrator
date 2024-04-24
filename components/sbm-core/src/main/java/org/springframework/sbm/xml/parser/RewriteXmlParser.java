@@ -76,8 +76,7 @@ public class RewriteXmlParser extends XmlParser {
 
     // FIXME: duplicated in ProjectParserHelper
     private RewriteSourceFileHolder<Xml.Document> wrapRewriteSourceFile(Path absoluteProjectDir, Xml.Document sourceFile) {
-        RewriteSourceFileHolder<Xml.Document> rewriteSourceFileHolder = new RewriteSourceFileHolder<Xml.Document>(absoluteProjectDir, sourceFile);
-        return rewriteSourceFileHolder;
+        return new RewriteSourceFileHolder<>(absoluteProjectDir, sourceFile);
     }
 
     // TODO: duplicate, move to helper

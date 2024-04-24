@@ -177,7 +177,7 @@ public class UpgradeUnmanagedSpringProjectTest {
     void shouldUpdateDependencyVersionTo30() {
         Recipe recipe = new UpgradeUnmanagedSpringProject("3.0.0", "2\\.7\\..*");
 
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             throw new RuntimeException("Error due UpgradeUnmanagedSpringProject recipe: " + ex.getMessage(), ex);
         });
 
@@ -303,7 +303,7 @@ public class UpgradeUnmanagedSpringProjectTest {
     @Test
     void shouldNotUpdateSinceTheProjectIsNotSpring() {
         Recipe recipe = new UpgradeUnmanagedSpringProject("3.0.0", "2\\.7\\..*");
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             throw new RuntimeException("Error due UpgradeUnmanagedSpringProject recipe: " + ex.getMessage(), ex);
         });
         MavenParser parser = MavenParser.builder().build();
@@ -351,7 +351,7 @@ public class UpgradeUnmanagedSpringProjectTest {
     void shouldNotUpdateBomForOldVersion() {
         Recipe recipe = new UpgradeUnmanagedSpringProject("3.0.0", "2\\.7\\..*");
 
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             throw new RuntimeException("Error due UpgradeUnmanagedSpringProject recipe: " + ex.getMessage(), ex);
         });
 
@@ -415,7 +415,7 @@ public class UpgradeUnmanagedSpringProjectTest {
     void shouldNotUpdateIfSpringParent() {
         Recipe recipe = new UpgradeUnmanagedSpringProject("3.0.0", "2\\.7\\..*");
 
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             throw new RuntimeException("Error due UpgradeUnmanagedSpringProject recipe: " + ex.getMessage(), ex);
         });
 
@@ -484,7 +484,7 @@ public class UpgradeUnmanagedSpringProjectTest {
     void shouldUpdateIfSpringParentAndExplicitDependency() {
         Recipe recipe = new UpgradeUnmanagedSpringProject("3.0.0", "2\\.7\\..*");
 
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             throw new RuntimeException("Error due UpgradeUnmanagedSpringProject recipe: " + ex.getMessage(), ex);
         });
 
@@ -614,7 +614,7 @@ public class UpgradeUnmanagedSpringProjectTest {
     public void shouldNotUpdateIfSpringDependencyManagement() {
         Recipe recipe = new UpgradeUnmanagedSpringProject("3.0.0", "2\\.7\\..*");
 
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             throw new RuntimeException("Error due UpgradeUnmanagedSpringProject recipe: " + ex.getMessage(), ex);
         });
 
@@ -687,7 +687,7 @@ public class UpgradeUnmanagedSpringProjectTest {
     public void shouldUpdateIfSpringDependencyManagementAndExplicitVersion() {
         Recipe recipe = new UpgradeUnmanagedSpringProject("3.0.0", "2\\.7\\..*");
 
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             throw new RuntimeException("Error due UpgradeUnmanagedSpringProject recipe: " + ex.getMessage(), ex);
         });
 
@@ -802,7 +802,7 @@ public class UpgradeUnmanagedSpringProjectTest {
     void shouldUpdateBomVersionTo30ForDependencyManaged() {
         Recipe recipe = new UpgradeUnmanagedSpringProject("3.0.0", "2\\.7\\..*");
 
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             throw new RuntimeException("Error due UpgradeUnmanagedSpringProject recipe: " + ex.getMessage(), ex);
         });
 
@@ -911,7 +911,7 @@ public class UpgradeUnmanagedSpringProjectTest {
     void shouldUpdateVersionsWithPropertyVariable() {
         Recipe recipe = new UpgradeUnmanagedSpringProject("3.0.0", "2\\.7\\..*");
 
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             throw new RuntimeException("Error due UpgradeUnmanagedSpringProject recipe: " + ex.getMessage(), ex);
         });
 
@@ -1020,7 +1020,7 @@ public class UpgradeUnmanagedSpringProjectTest {
     void shouldNotTouchNewerVersions() {
         Recipe recipe = new UpgradeUnmanagedSpringProject("3.0.0", "2\\.7\\..*|3\\.0\\..*");
 
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             throw new RuntimeException("Error due UpgradeUnmanagedSpringProject recipe: " + ex.getMessage(), ex);
         });
 
@@ -1154,7 +1154,7 @@ public class UpgradeUnmanagedSpringProjectTest {
                 "2\\.7\\..*");
 
         List<Throwable> errors = new ArrayList<>();
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             throw new RuntimeException("Error due UpgradeUnmanagedSpringProject recipe: " + ex.getMessage(), ex);
         });
 
@@ -1219,17 +1219,17 @@ public class UpgradeUnmanagedSpringProjectTest {
         assertThat(resolvedDependencies).isNotEmpty();
 
         Condition<ResolvedDependency> cSpringStarterWeb = new Condition<>(
-                rd -> rd.getArtifactId().equals("spring-boot-starter-web") && rd.getVersion().equals("3.0.0"),
+                rd -> "spring-boot-starter-web".equals(rd.getArtifactId()) && "3.0.0".equals(rd.getVersion()),
                 "spring-boot-starter-web in version 3.0.0");
         assertThat(resolvedDependencies).haveExactly(1, cSpringStarterWeb);
 
         Condition<ResolvedDependency> cMetrics = new Condition<>(
-                rd -> rd.getArtifactId().equals("metrics-annotation") && rd.getVersion().equals("4.2.13"),
+                rd -> "metrics-annotation".equals(rd.getArtifactId()) && "4.2.13".equals(rd.getVersion()),
                 "metrics-annotation in version 4.2.13");
         assertThat(resolvedDependencies).haveExactly(1, cMetrics);
 
         Condition<ResolvedDependency> cSpringStarterTest = new Condition<>(
-                rd -> rd.getArtifactId().equals("spring-boot-starter-test") && rd.getVersion().equals("3.0.0"),
+                rd -> "spring-boot-starter-test".equals(rd.getArtifactId()) && "3.0.0".equals(rd.getVersion()),
                 "spring-boot-starter-test in version 3.0.0");
         assertThat(resolvedTestDependencies).haveExactly(1, cSpringStarterTest);
     }

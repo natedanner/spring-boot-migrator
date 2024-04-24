@@ -58,7 +58,7 @@ public class DatabaseDriverGaeFinder implements Sbm30_Finder<Set<Module>> {
                     .getClasspath()
                     .stream()
                     .map(JavaType.FullyQualified::getFullyQualifiedName)
-                    .anyMatch(fq -> s.equals(fq));
+                    .anyMatch(s::equals);
         }
         return false;
     }

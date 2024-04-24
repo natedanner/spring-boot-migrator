@@ -47,7 +47,7 @@ public class MuleToJavaDSLDBConfigTest extends JavaDSLActionBaseTest {
     @Test
     public void fillApplicationPropertiesForDBConnection() {
         addXMLFileToResource(xml);
-        runAction(projectContext -> {
+        runAction(projectContext ->
             assertThat(getApplicationPropertyContent()).isEqualTo("""
                                                                   server.port=8080
                                                                   spring.datasource.url=--INSERT--DB-URL-HERE-Example:jdbc:oracle:thin:@localhost:1521:XE
@@ -55,8 +55,7 @@ public class MuleToJavaDSLDBConfigTest extends JavaDSLActionBaseTest {
                                                                   spring.datasource.password=--INSERT-PASSWORD--
                                                                   spring.datasource.driverClassName=oracle.jdbc.OracleDriver
                                                                   spring.jpa.show-sql=true"""
-            );
-        });
+            ));
     }
 
 

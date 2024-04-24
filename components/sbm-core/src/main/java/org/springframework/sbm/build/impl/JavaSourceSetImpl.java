@@ -45,7 +45,7 @@ public class JavaSourceSetImpl implements JavaSourceSet {
     private final JavaRefactoringFactory javaRefactoringFactory;
     private final BasePackageCalculator basePackageCalculator;
     private final JavaParser javaParser;
-    private ExecutionContext executionContext;
+    private final ExecutionContext executionContext;
 
     public JavaSourceSetImpl(ProjectResourceSet projectResourceSet, Path projectRootDir, Path modulePath, Path mainJavaPath, JavaRefactoringFactory javaRefactoringFactory, BasePackageCalculator basePackageCalculator, JavaParser javaParser, ExecutionContext executionContext) {
         this.projectResourceSet = projectResourceSet;
@@ -53,9 +53,7 @@ public class JavaSourceSetImpl implements JavaSourceSet {
         this.javaParser = javaParser;
         this.executionContext = executionContext;
         this.sourceSetRoot = projectRootDir.resolve(modulePath).resolve(mainJavaPath);
-        this.filter = (r) -> {
-            return r.getAbsolutePath().getParent().normalize().toString().startsWith(sourceSetRoot.toString());
-        };
+        this.filter = r -> r.getAbsolutePath().getParent().normalize().toString().startsWith(sourceSetRoot.toString());
         this.javaRefactoringFactory = javaRefactoringFactory;
     }
 

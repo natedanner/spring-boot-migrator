@@ -52,9 +52,9 @@ public class DependencyChangeResolver {
     @NonNull
     private BuildFile buildFile;
     private @NonNull Dependency proposedChangeSpec;
-    private List<Dependency> potentialMatches;
+    private final List<Dependency> potentialMatches;
 
-    private static Map<Scope, List<Scope>> UPGRADE_GRAPH = new HashMap<>();
+    private static final Map<Scope, List<Scope>> UPGRADE_GRAPH = new HashMap<>();
 
     static {
         // For a given scope (key), SBM will upgrade ( upsert) if any of the listed scope
@@ -79,8 +79,9 @@ public class DependencyChangeResolver {
      * @return
      */
     public Pair<List<Dependency>, Optional<Dependency>> apply() {
-        if (potentialMatches.isEmpty())
+        if (potentialMatches.isEmpty()) {
             return Pair.of(Collections.emptyList(), Optional.of(proposedChangeSpec));
+        }
 
         Scope proposedDependencyScope = Scope.fromName(proposedChangeSpec.getScope());
         List<Scope> supersededScopes = UPGRADE_GRAPH.get(proposedDependencyScope);

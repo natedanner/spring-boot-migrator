@@ -43,7 +43,7 @@ public class MavenDependencyDownloadTest {
             fixedIn = "7.35.0"
     )
     void downloadDependencies(@TempDir Path tempDir) throws MavenDownloadingException {
-        InMemoryExecutionContext executionContext = new InMemoryExecutionContext((t) -> System.out.println(t.getMessage()));
+        InMemoryExecutionContext executionContext = new InMemoryExecutionContext(t -> System.out.println(t.getMessage()));
         MavenExecutionContextView ctx = MavenExecutionContextView.view(executionContext);
         ctx.setPomCache(new InMemoryMavenPomCache());
 

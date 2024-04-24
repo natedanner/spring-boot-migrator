@@ -33,21 +33,21 @@ import java.util.stream.Stream;
  * Currently, the classpath contains all dependencies in all scopes and for all modules
  */
 @Slf4j
-public class ClasspathRegistry {
+public final class ClasspathRegistry {
 
 	private static final DependencyHelper dependencyHelper = new DependencyHelper();
 
 	/**
 	 * Dependencies found during scan. These dependencies are immutable.
 	 */
-	private final ConcurrentSkipListMap<ResolvedDependency, Path> initialDependencies = new ConcurrentSkipListMap<ResolvedDependency, Path>(
+	private final ConcurrentSkipListMap<ResolvedDependency, Path> initialDependencies = new ConcurrentSkipListMap<>(
 			Comparator.comparing(r -> r.getGav().toString()));
 
 	/**
 	 * Dependencies at the current state of migration. These dependencies can change over
 	 * time when dependencies were added or removed by {@code Action}s.
 	 */
-	private final ConcurrentSkipListMap<ResolvedDependency, Path> currentDependencies = new ConcurrentSkipListMap<ResolvedDependency, Path>(
+	private final ConcurrentSkipListMap<ResolvedDependency, Path> currentDependencies = new ConcurrentSkipListMap<>(
 			Comparator.comparing(r -> r.getGav().toString()));
 
 	private ClasspathRegistry() {
@@ -106,9 +106,8 @@ public class ClasspathRegistry {
 	}
 
 	public void addDependency(ResolvedDependency... deps) {
-		Arrays.asList(deps).forEach(dep -> {
-			initDependency(dep, currentDependencies);
-		});
+		Arrays.asList(deps).forEach(dep ->
+			initDependency(dep, currentDependencies));
 	}
 
 	public void removeDependency(ResolvedDependency... deps) {
@@ -138,9 +137,8 @@ public class ClasspathRegistry {
 	}
 
 	private void initializeDepeendencies(Set<ResolvedDependency> deps) {
-		deps.forEach(dep -> {
-			initDependency(dep, initialDependencies, currentDependencies);
-		});
+		deps.forEach(dep ->
+			initDependency(dep, initialDependencies, currentDependencies));
 	}
 
 	private void initDependency(ResolvedDependency d, Map<ResolvedDependency, Path>... maps) {

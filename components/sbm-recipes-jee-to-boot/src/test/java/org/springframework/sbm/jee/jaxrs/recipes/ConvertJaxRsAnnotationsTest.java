@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class ConvertJaxRsAnnotationsTest {
 
-    private final static String SPRING_VERSION = "5.3.13";
+    private static final String SPRING_VERSION = "5.3.13";
 
     @Test
     void noPathOnMethodLevel() {

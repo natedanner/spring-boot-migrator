@@ -73,7 +73,9 @@ public class SelectorParser {
 
     // TODO: provide in common util class
     String uppercaseFirstChar(String name) {
-        if (name.isEmpty()) return name;
+        if (name.isEmpty()) {
+            return name;
+        }
         return Character.toUpperCase(name.charAt(0)) + name.substring(1);
     }
 }

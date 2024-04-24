@@ -53,11 +53,11 @@ import static org.mockito.Mockito.verify;
 class ResourceParserTest {
 
     private ResourceParser sut;
-    private ApplicationEventPublisher eventPublisher = mock(ApplicationEventPublisher.class);
-    private Path baseDir = Path.of("some-base-dir").toAbsolutePath();
-    private Path resourceDirPath = Path.of("src/main/resources");
-    private Set<Path> resourcePaths = Set.of(resourceDirPath);
-    private ExecutionContext executionContext = new RewriteExecutionContext();
+    private final ApplicationEventPublisher eventPublisher = mock(ApplicationEventPublisher.class);
+    private final Path baseDir = Path.of("some-base-dir").toAbsolutePath();
+    private final Path resourceDirPath = Path.of("src/main/resources");
+    private final Set<Path> resourcePaths = Set.of(resourceDirPath);
+    private final ExecutionContext executionContext = new RewriteExecutionContext();
 
     @BeforeEach
     void beforeEach() {
@@ -119,8 +119,7 @@ class ResourceParserTest {
     private List<Resource> getResourceAsList(String filename, String jsonContent) {
         Path sourcePath = resourceDirPath.resolve(filename);
         Path absolutePath = baseDir.resolve(sourcePath);
-        List<Resource> resources = List.of(new TestDummyResource(absolutePath, jsonContent));
-        return resources;
+        return List.of(new TestDummyResource(absolutePath, jsonContent));
     }
 
     private void assertCorrectParsing(String filename, String content, Class<?> expectedType, List<SourceFile> parsedResources) {

@@ -135,7 +135,7 @@ public class ConvertJaxRsAnnotations extends AbstractAction {
                     sb.append(", ");
                 }
                 if (methods.size() == 1) {
-                    sb.append("method = RequestMethod." + methods.iterator().next());
+                    sb.append("method = RequestMethod.").append(methods.iterator().next());
                 } else {
                     sb.append("method = {");
                     sb.append(methods.stream().map(m -> "RequestMethod." + m).collect(Collectors.joining(", ")));

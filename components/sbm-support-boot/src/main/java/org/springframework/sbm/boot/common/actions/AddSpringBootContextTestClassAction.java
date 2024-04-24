@@ -48,9 +48,7 @@ public class AddSpringBootContextTestClassAction extends AbstractAction {
     public void apply(ProjectContext context) {
         List<Module> modules = context.getApplicationModules().getTopmostApplicationModules();
 
-        modules.forEach(module -> {
-            handleModule(module);
-        });
+        modules.forEach(this::handleModule);
     }
 
     private void handleModule(Module module) {

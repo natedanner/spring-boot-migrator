@@ -65,10 +65,9 @@ public class JeeWebXmlProjectResourceRegistrar implements ProjectResourceWrapper
 
     @Override
     public boolean shouldHandle(RewriteSourceFileHolder<? extends SourceFile> rewriteSourceFileHolder) {
-        return (
-                Xml.Document.class.isAssignableFrom(rewriteSourceFileHolder.getSourceFile().getClass()) &&
+        return Xml.Document.class.isAssignableFrom(rewriteSourceFileHolder.getSourceFile().getClass()) &&
                 rewriteSourceFileHolder.getAbsolutePath().getFileName().endsWith("web.xml") &&
-                ! new FindTags("/web-app").run(List.of(rewriteSourceFileHolder.getSourceFile())).getResults().isEmpty());
+                ! new FindTags("/web-app").run(List.of(rewriteSourceFileHolder.getSourceFile())).getResults().isEmpty();
     }
 
     @Override

@@ -202,8 +202,6 @@ class RestControllerBeanTest {
         JavaSource js = context.getProjectJavaSources().list().get(0);
         Type type = js.getTypes().get(0);
         RestControllerBean restControllerBean = new RestControllerBean(js, type);
-        RestMethod restMethod = restControllerBean.getRestMethods().get(0);
-
-        return restMethod;
+        return restControllerBean.getRestMethods().get(0);
     }
 }

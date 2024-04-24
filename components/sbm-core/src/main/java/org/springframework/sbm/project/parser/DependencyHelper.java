@@ -56,14 +56,13 @@ public class DependencyHelper {
     }
 
     private static Consumer<Throwable> createErrorHandler() {
-        Consumer<Throwable> errorConsumer = (t) -> {
+        return t -> {
             if (t instanceof MavenParsingException) {
                 log.error(t.getMessage());
             } else {
                 t.printStackTrace();
             }
         };
-        return errorConsumer;
     }
 
     public Set<Dependency> mapCoordinatesToDependencies(List<String> coordinates) {
@@ -72,7 +71,9 @@ public class DependencyHelper {
 
             String[] parts = c.split(":");
 
-            if (parts.length < 2) throw new IllegalArgumentException("Given coordinate is invalid '" + c + "'");
+            if (parts.length < 2) {
+                throw new IllegalArgumentException("Given coordinate is invalid '" + c + "'");
+            }
 
             String groupId = parts[0];
             String artifactId = parts[1];

@@ -23,7 +23,7 @@ import org.openrewrite.properties.PropertiesVisitor;
 import org.openrewrite.properties.tree.Properties;
 
 public class CassandraApplicationPropertiesMove extends Recipe {
-    private final static String REGEX_PATTERN = "(spring)(\\.data)(\\.cassandra\\..*)";
+    private static final String REGEX_PATTERN = "(spring)(\\.data)(\\.cassandra\\..*)";
 
     @Override
     public String getDisplayName() {

@@ -24,7 +24,7 @@ public class SectionBuilder {
     private String sectionTitle;
     private RelevanceSection relevanceSection;
     private TodoSection todoSection;
-    private List<String> paragraphs = new ArrayList<>();
+    private final List<String> paragraphs = new ArrayList<>();
 
     public static SectionBuilder buildSection(String sectionTitle) {
         SectionBuilder sectionBuilder = new SectionBuilder();

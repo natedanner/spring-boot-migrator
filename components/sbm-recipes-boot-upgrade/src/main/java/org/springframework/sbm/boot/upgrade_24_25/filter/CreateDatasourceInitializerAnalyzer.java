@@ -26,8 +26,7 @@ import java.util.stream.Collectors;
 
 public class CreateDatasourceInitializerAnalyzer {
     public List<SpringBootApplicationProperties> findPropertyFilesContainingDataProperty(Module module, List<SpringBootApplicationProperties> applicationProperties) {
-        List<SpringBootApplicationProperties> sqlDataFileProperty = findPropertyFilesContainingProperty(applicationProperties, "spring.datasource.data");
-        return sqlDataFileProperty;
+        return findPropertyFilesContainingProperty(applicationProperties, "spring.datasource.data");
     }
 
     private List<SpringBootApplicationProperties> findPropertyFilesContainingProperty(List<SpringBootApplicationProperties> applicationProperties, String propertyName) {

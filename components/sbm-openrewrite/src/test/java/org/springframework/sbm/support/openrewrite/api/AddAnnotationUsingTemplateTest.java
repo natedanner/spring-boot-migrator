@@ -54,7 +54,7 @@ public class AddAnnotationUsingTemplateTest {
             }
         };
 
-        @Nullable J classDeclaration = javaIsoVisitor.visit(compilationUnit.get(0), new InMemoryExecutionContext((t) -> t.printStackTrace()));
+        @Nullable J classDeclaration = javaIsoVisitor.visit(compilationUnit.get(0), new InMemoryExecutionContext(t -> t.printStackTrace()));
 
         assertThat(classDeclaration.print()).isEqualTo(
                 "@Disabled\n" +
@@ -93,7 +93,7 @@ public class AddAnnotationUsingTemplateTest {
             }
         };
 
-        J.CompilationUnit c = (J.CompilationUnit) javaIsoVisitor.visit(compilationUnits.get(0), new InMemoryExecutionContext((t) -> new RuntimeException(t)));
+        J.CompilationUnit c = (J.CompilationUnit) javaIsoVisitor.visit(compilationUnits.get(0), new InMemoryExecutionContext(RuntimeException::new));
 
         System.out.println(c.printAll());
     }

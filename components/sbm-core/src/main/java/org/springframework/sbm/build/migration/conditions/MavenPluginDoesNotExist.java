@@ -34,6 +34,6 @@ public class MavenPluginDoesNotExist implements Condition {
 
     @Override
     public boolean evaluate(ProjectContext context) {
-        return false == context.getBuildFile().hasPlugin(plugin);
+        return !context.getBuildFile().hasPlugin(plugin);
     }
 }

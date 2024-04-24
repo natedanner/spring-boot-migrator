@@ -35,7 +35,7 @@ public class MuleToJavaDSLTranslatorTest {
     private static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     private final MuleToJavaDSLTranslator muleToJavaDSLTranslator = new MuleToJavaDSLTranslator();
 
-    private String muleXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+    private final String muleXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "\n" +
             "<mule xmlns:amqp=\"http://www.mulesoft.org/schema/mule/amqp\" xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
             "xmlns:doc=\"http://www.mulesoft.org/schema/mule/documentation\"\n" +
@@ -62,7 +62,7 @@ public class MuleToJavaDSLTranslatorTest {
             "</flow>\n" +
             "</mule>";
 
-    private String muleXmlWithUnknownStatement = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+    private final String muleXmlWithUnknownStatement = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "\n" +
             "<mule xmlns:amqp=\"http://www.mulesoft.org/schema/mule/amqp\" xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
             "xmlns:doc=\"http://www.mulesoft.org/schema/mule/documentation\"\n" +
@@ -77,7 +77,7 @@ public class MuleToJavaDSLTranslatorTest {
             "</flow>\n" +
             "</mule>";
 
-    private String muleXmlWithHttpListener = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+    private final String muleXmlWithHttpListener = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "\n" +
             "<mule xmlns:http=\"http://www.mulesoft.org/schema/mule/http\" xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
             "\txmlns:doc=\"http://www.mulesoft.org/schema/mule/documentation\"\n" +
@@ -92,11 +92,11 @@ public class MuleToJavaDSLTranslatorTest {
             "\t</flow>\n" +
             "</mule>";
 
-    private String expectedAmqpJavaDSL = "IntegrationFlows.from(Amqp.inboundAdapter(connectionFactory, \"FirstQueue\"))\n" +
+    private final String expectedAmqpJavaDSL = "IntegrationFlows.from(Amqp.inboundAdapter(connectionFactory, \"FirstQueue\"))\n" +
             ".log()\n" +
             ".handle(Amqp.outboundAdapter(rabbitTemplate).routingKey(\"si.out.queue\"))";
 
-    private String expectedHttpJavaDSL = "IntegrationFlows.from(Http.inboundChannelAdapter(\"/test\"))\n" +
+    private final String expectedHttpJavaDSL = "IntegrationFlows.from(Http.inboundChannelAdapter(\"/test\"))\n" +
             ".log()";
 
     @Test
@@ -119,7 +119,6 @@ public class MuleToJavaDSLTranslatorTest {
 
     private Document getMuleDocument(String xmlContent) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
         DocumentBuilder db = dbf.newDocumentBuilder();
-        Document xmlDocument = db.parse(new ByteArrayInputStream(xmlContent.getBytes(StandardCharsets.UTF_8)));
-        return xmlDocument;
+        return db.parse(new ByteArrayInputStream(xmlContent.getBytes(StandardCharsets.UTF_8)));
     }
 }

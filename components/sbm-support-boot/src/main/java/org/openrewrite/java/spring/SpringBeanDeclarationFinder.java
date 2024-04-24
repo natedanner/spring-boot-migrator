@@ -57,10 +57,10 @@ public class SpringBeanDeclarationFinder extends Recipe {
                         .getLeadingAnnotations()
                         .stream()
                         .anyMatch(a -> JavaType.FullyQualified.class.isAssignableFrom(
-                                a.getType().getClass()) && JavaType.FullyQualified.class
+                                a.getType().getClass()) && "org.springframework.context.annotation.Bean"
+                                .equals(JavaType.FullyQualified.class
                                 .cast(a.getType().getClass())
-                                .getFullyQualifiedName()
-                                .equals("org.springframework.context.annotation.Bean"));
+                                .getFullyQualifiedName()));
             }
         };
     }

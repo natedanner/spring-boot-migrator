@@ -37,7 +37,7 @@ public class HasSpringBootParentOfVersion implements Condition {
     @Override
     public boolean evaluate(ProjectContext context) {
         return context.getBuildFile().hasParent() &&
-                context.getBuildFile().getParentPomDeclaration().get().getArtifactId().equals("spring-boot-starter-parent") &&
+                "spring-boot-starter-parent".equals(context.getBuildFile().getParentPomDeclaration().get().getArtifactId()) &&
                 context.getBuildFile().getParentPomDeclaration().get().getVersion().startsWith(versionStartingWith);
     }
 }

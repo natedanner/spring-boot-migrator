@@ -109,7 +109,7 @@ public class Recipe {
     public String getDetails() {
         // FIXME: prints all actions, even so they were not applicable because the condition was false
         String conditionDescriptions = actions.stream()
-                .map(a -> a.getCondition())
+                .map(Action::getCondition)
                 .map(c -> "\t* " + c.getDescription() + "\n")
                 .collect(Collectors.joining());
 
@@ -129,23 +129,17 @@ public class Recipe {
     }
 
     public String toString(String prefix) {
-        return new StringBuilder()
-                .append(prefix == null ? "" : prefix)
-                .append(name)
-                .append(" - ")
-                .append(null == description ? "<no description>" : description)
-                .toString();
+        return prefix == null ? "" : prefix + name + " - " + (null == description ? "<no description>" : description);
     }
 
     public RecipeAutomation getAutomationInfo() {
         long numAutomated = getActions().stream()
-                .filter(a -> true == a.isAutomated())
+                .filter(a -> a.isAutomated())
                 .count();
 
-        RecipeAutomation automationInfo = numAutomated ==
+        return numAutomated ==
                 getActions().size() ? RecipeAutomation.AUTOMATED :
                 numAutomated == 0 ? RecipeAutomation.MANUAL : RecipeAutomation.PARTIALLY_AUTOMATED;
-        return automationInfo;
     }
 
 

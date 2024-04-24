@@ -28,9 +28,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ResponseStatusTest {
 
-    private final static String SPRING_VERSION = "5.3.5";
+    private static final String SPRING_VERSION = "5.3.5";
 
-    final private AbstractAction action =
+    private final AbstractAction action =
             new AbstractAction() {
                 @Override
                 public void apply(ProjectContext context) {

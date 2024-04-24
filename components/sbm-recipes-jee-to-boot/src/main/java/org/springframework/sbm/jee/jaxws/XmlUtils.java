@@ -46,7 +46,7 @@ public class XmlUtils {
 
     public static Optional<String> getFirstTagAttribute(Xml.Document doc, XPathMatcher matcher, String attr) {
         List<Xml.Tag> tags = findTags(doc, matcher);
-        return tags.isEmpty() ? Optional.empty() : tags.get(0).getAttributes().stream().filter(a -> attr.equals(a.getKeyAsString())).map(a -> a.getValueAsString()).findFirst();
+        return tags.isEmpty() ? Optional.empty() : tags.get(0).getAttributes().stream().filter(a -> attr.equals(a.getKeyAsString())).map(Xml.Attribute::getValueAsString).findFirst();
     }
 
     public static String findNsPrefix(Xml.Tag tag, String nsUri) {

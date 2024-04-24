@@ -54,13 +54,12 @@ public class ApacheSolrRepositorySectionBuilder implements Sbu30_UpgradeSectionB
 
     private TodoList buildTodoList(List<JavaSourceAndType> solrRepositories) {
         TodoList.TodoListBuilder todoListBuilder = TodoList.builder();
-        solrRepositories.forEach(m -> {
+        solrRepositories.forEach(m ->
             todoListBuilder.todo(
                     TodoList.Todo.builder()
                             .text(String.format("Remove from class `%s`", m.getType().getFullyQualifiedName()))
                             .build()
-            );
-        });
+            ));
         return todoListBuilder.build();
     }
 }

@@ -91,10 +91,8 @@ public class ProjectJavaSourcesImpl implements ProjectJavaSources {
     @Override
     public Optional<? extends JavaSource> findJavaSourceDeclaringType(String fqName) {
         return list().stream()
-                .filter(js -> {
-                    return js.getTypes().stream()
-                            .anyMatch(t -> fqName.equals(t.getFullyQualifiedName()));
-                })
+                .filter(js -> js.getTypes().stream()
+                            .anyMatch(t -> fqName.equals(t.getFullyQualifiedName())))
                 .findFirst();
     }
 
@@ -118,15 +116,14 @@ public class ProjectJavaSourcesImpl implements ProjectJavaSources {
     @Override
     public List<JavaSourceAndType> findTypesImplementing(String type) {
         List<JavaSourceAndType> matches = new ArrayList<>();
-        this.list().forEach(js -> {
+        this.list().forEach(js ->
             js.getResource().getSourceFile().getClasses().stream()
                     .filter(c -> hasTypeImplementing(c, type))
                     .map(c -> {
                         Type matchingType = getTypeForClassDecl(c);
                         return new JavaSourceAndType(js, matchingType);
                     })
-                    .forEach(matches::add);
-        });
+                    .forEach(matches::add));
         return matches;
     }
 
@@ -138,7 +135,7 @@ public class ProjectJavaSourcesImpl implements ProjectJavaSources {
                 .filter(RewriteSourceFileHolder.class::isInstance)
                 .map(RewriteSourceFileHolder.class::cast)
                 .filter(r -> r.getType().isAssignableFrom(J.CompilationUnit.class))
-                .map(r -> (OpenRewriteJavaSource)r)
+                .map(OpenRewriteJavaSource.class::cast)
                 .collect(Collectors.toList());
     }
 

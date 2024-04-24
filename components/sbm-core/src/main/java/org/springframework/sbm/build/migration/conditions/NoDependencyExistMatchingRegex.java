@@ -34,8 +34,7 @@ public class NoDependencyExistMatchingRegex implements Condition {
 
     @Override
     public String getDescription() {
-        String description = String.format("Buildfile does not contain dependencies matching '%s'", String.join("', '", dependencies));
-        return description;
+        return String.format("Buildfile does not contain dependencies matching '%s'", String.join("', '", dependencies));
     }
 
     @Override

@@ -48,7 +48,7 @@ public class MuleToJavaDSLMysqlDBConfigTest extends JavaDSLActionBaseTest {
     @Test
     public void fillApplicationPropertiesForDBConnection() {
         addXMLFileToResource(xml);
-        runAction(projectContext -> {
+        runAction(projectContext ->
             assertThat(getApplicationPropertyContent()).isEqualTo(
                     """
                     server.port=8080
@@ -57,8 +57,7 @@ public class MuleToJavaDSLMysqlDBConfigTest extends JavaDSLActionBaseTest {
                     spring.datasource.password=--INSERT-PASSWORD--
                     spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
                     spring.jpa.show-sql=true"""
-            );
-        });
+            ));
     }
 
 

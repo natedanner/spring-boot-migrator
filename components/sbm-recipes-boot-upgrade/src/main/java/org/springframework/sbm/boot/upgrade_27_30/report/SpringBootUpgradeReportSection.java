@@ -160,7 +160,7 @@ public class SpringBootUpgradeReportSection {
     }
 
     private void renderRemediationTitle(StringBuilder sb) {
-        sb.append("==== " + REMEDIATION).append(LS);
+        sb.append("==== ").append(REMEDIATION).append(LS);
     }
 
     private void renderAffectedSubSection(StringBuilder sb) {
@@ -178,7 +178,7 @@ public class SpringBootUpgradeReportSection {
     }
 
     private void renderAffectedTitle(StringBuilder sb) {
-        sb.append("==== " + AFFECTED).append(LS);
+        sb.append("==== ").append(AFFECTED).append(LS);
     }
 
     private void renderChangeDecription(StringBuilder sb) {
@@ -186,7 +186,7 @@ public class SpringBootUpgradeReportSection {
     }
 
     private void renderChangeHeader(StringBuilder sb) {
-        sb.append("==== " + CHANGE_HEADER);
+        sb.append("==== ").append(CHANGE_HEADER);
         renderLineBreak(sb);
     }
 

@@ -49,7 +49,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Helper class for testing <code>Recipe</code> definitions in yaml files.
  */
-public class RecipeTestSupport {
+public final class RecipeTestSupport {
 
     private RecipeTestSupport() {
     }
@@ -176,8 +176,7 @@ public class RecipeTestSupport {
     static class ValidatorConfiguration {
         @Bean
         Validator validator() {
-            LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
-            return localValidatorFactoryBean;
+            return new LocalValidatorFactoryBean();
         }
     }
 

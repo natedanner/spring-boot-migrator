@@ -63,8 +63,7 @@ public class ActionDeserializationDispatcher extends StdDeserializer<Action> {
         }
 
         ActionDeserializer actionDeserializer = actionDeserializers.get(actionClass);
-        Action action = actionDeserializer.deserialize(tolerantObjectMapper, actionClass, node, beanFactory);
-        return action;
+        return actionDeserializer.deserialize(tolerantObjectMapper, actionClass, node, beanFactory);
     }
 
 }

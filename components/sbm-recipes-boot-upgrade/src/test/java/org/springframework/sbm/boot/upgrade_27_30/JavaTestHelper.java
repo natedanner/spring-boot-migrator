@@ -45,7 +45,7 @@ public class JavaTestHelper {
     public List<Result> runRecipe(Recipe recipe, List<String> dependsOn, @Language("java") String... before) {
 
         List<Throwable> errors = new ArrayList<>();
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             ex.printStackTrace();
             errors.add(ex);
         });

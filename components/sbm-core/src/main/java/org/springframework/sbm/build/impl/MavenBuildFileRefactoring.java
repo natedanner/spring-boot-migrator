@@ -110,9 +110,8 @@ public class MavenBuildFileRefactoring<T extends SourceFile> {
 
         // replace new model in build files
         newMavenFiles.stream()
-                .forEach(mf -> {
-                    replaceModelInBuildFile(projectResources, buildFilesWithIndex, newMavenFiles, mf);
-                });
+                .forEach(mf ->
+                    replaceModelInBuildFile(projectResources, buildFilesWithIndex, newMavenFiles, mf));
     }
 
     private void replaceModelInBuildFile(
@@ -151,19 +150,17 @@ public class MavenBuildFileRefactoring<T extends SourceFile> {
     }
 
     private List<Result> executeRecipe(Recipe recipe) {
-        List<Result> results = recipe.run(getDocumentsWrappedInOpenRewriteMavenBuildFile(), executionContext).getResults();
-        return results;
+        return recipe.run(getDocumentsWrappedInOpenRewriteMavenBuildFile(), executionContext).getResults();
     }
 
     private List<Result> executeRecipe(Recipe recipe, RewriteSourceFileHolder<Xml.Document> resource) {
-        List<Result> results = recipe.run(List.of(resource.getSourceFile()), executionContext).getResults();
-        return results;
+        return recipe.run(List.of(resource.getSourceFile()), executionContext).getResults();
     }
 
     private List<Xml.Document> getDocumentsWrappedInOpenRewriteMavenBuildFile() {
         return getOpenRewriteMavenBuildFiles()
                 .stream()
-                .map(bf -> bf.getSourceFile())
+                .map(RewriteSourceFileHolder::getSourceFile)
                 .collect(Collectors.toList());
     }
 
@@ -171,7 +168,7 @@ public class MavenBuildFileRefactoring<T extends SourceFile> {
     private List<OpenRewriteMavenBuildFile> getOpenRewriteMavenBuildFiles() {
         return this.projectResourceSet
                 .stream()
-                .filter(r -> OpenRewriteMavenBuildFile.class.isInstance(r))
+                .filter(OpenRewriteMavenBuildFile.class::isInstance)
                 .map(OpenRewriteMavenBuildFile.class::cast)
                 .collect(Collectors.toList());
     }

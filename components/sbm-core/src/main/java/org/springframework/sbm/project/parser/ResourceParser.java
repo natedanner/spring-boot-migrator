@@ -62,17 +62,13 @@ public class ResourceParser {
 
     List<Resource> filter(Path projectDirectory, Set<Path> resourcePaths, List<Resource> resources, Path relativeModuleDir) {
         Path comparingPath = relativeModuleDir != null ? projectDirectory.resolve(relativeModuleDir) : projectDirectory;
-        List<Resource> relevantResources = resourceFilter.filter(resources, comparingPath, resourcePaths);
-        return relevantResources;
+        return resourceFilter.filter(resources, comparingPath, resourcePaths);
     }
 
     private List<Parser.Input> createParserInputs(List<Resource> relevantResources) {
         return relevantResources.stream().map(js -> {
             Path jsPath = getPath(js);
-            return new Parser.Input(jsPath, () -> {
-                InputStream content = getInputStream(js);
-                return content;
-            });
+            return new Parser.Input(jsPath, () -> getInputStream(js));
         }).collect(Collectors.toList());
     }
 
@@ -142,7 +138,7 @@ public class ResourceParser {
                 .getValue()
                 .stream()
                 .map(resource -> (List<SourceFile>) parseSingleResource(baseDir, ctx, e, resource))
-                .flatMap(elem -> Stream.ofNullable(elem))
+                .flatMap(Stream::ofNullable)
                 .flatMap(List::stream);
     }
 

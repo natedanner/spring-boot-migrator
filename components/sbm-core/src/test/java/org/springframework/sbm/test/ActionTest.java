@@ -41,13 +41,12 @@ import java.util.function.Consumer;
  *
  * @author Fabian Krüger
  */
-public class ActionTest {
-    private TestProjectContext.Builder projectContextBuilder;
+public final class ActionTest {
+    private final TestProjectContext.Builder projectContextBuilder;
     private Action actionUnderTest;
 
     public static ActionTest withProjectContext(TestProjectContext.Builder projectContextBuilder) {
-        ActionTest actionTest = new ActionTest(projectContextBuilder);
-        return actionTest;
+        return new ActionTest(projectContextBuilder);
     }
 
     /**

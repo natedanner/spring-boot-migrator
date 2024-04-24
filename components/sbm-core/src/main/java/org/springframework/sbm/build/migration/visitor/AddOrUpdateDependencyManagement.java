@@ -119,11 +119,11 @@ public class AddOrUpdateDependencyManagement extends MavenVisitor<ExecutionConte
     }
 
     private boolean hasTag(Tag parent, Predicate<Tag> predicate) {
-        List<? extends Content> _content = parent.getContent();
-        if (_content == null || _content.isEmpty()) {
+        List<? extends Content> content = parent.getContent();
+        if (content == null || content.isEmpty()) {
             return false;
         }
-        for (Content piece : _content) {
+        for (Content piece : content) {
             if (piece instanceof Tag) {
                 Tag child = (Tag) piece;
                 if (predicate.test(child)) {

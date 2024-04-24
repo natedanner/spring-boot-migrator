@@ -216,9 +216,7 @@ public class BeanPropertySetterStatementFactory {
         // get type of field
         final String setter = "set" + fieldName;
         Optional<Method> optionalMethod = stream(aClass.getMethods())
-                .filter(m -> {
-                    return m.getName().equals(setter);
-                })
+                .filter(m -> m.getName().equals(setter))
                 .findFirst();
 
         if(!optionalMethod.isPresent()) {

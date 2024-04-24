@@ -29,7 +29,7 @@ import java.util.Optional;
 public abstract class ReplaceStaticFieldAccessAction extends AbstractAction {
 	
 	@Override
-	final public void apply(ProjectContext context) {
+	public final void apply(ProjectContext context) {
 		for (JavaSource js : context.getProjectJavaSources().list()) {
 			if (js.hasImportStartingWith("javax.ws.rs.core.MediaType")) {
 				js.replaceConstant(this::replace);

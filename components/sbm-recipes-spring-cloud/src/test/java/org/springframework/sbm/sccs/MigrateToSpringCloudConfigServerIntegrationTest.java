@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MigrateToSpringCloudConfigServerIntegrationTest {
 
     String applicationDir = "sccs-client";
-    private String applicationConfigDir = "sccs-client-config";
+    private final String applicationConfigDir = "sccs-client-config";
 
     @BeforeEach
     void beforeEach() throws IOException {

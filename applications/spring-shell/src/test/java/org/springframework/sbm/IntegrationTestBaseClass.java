@@ -31,6 +31,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.sbm.engine.commands.ApplicableRecipeListCommand;
 import org.springframework.sbm.engine.context.ProjectContextHolder;
+import org.springframework.sbm.engine.recipe.Recipe;
 import org.springframework.sbm.project.resource.SbmApplicationProperties;
 import org.springframework.sbm.project.resource.ResourceHelper;
 import org.springframework.sbm.shell.ApplyShellCommand;
@@ -184,7 +185,7 @@ public abstract class IntegrationTestBaseClass {
     @NotNull
     protected List<String> getApplicableRecipeNames() {
         return applicableRecipeListCommand.execute(projectContextHolder.getProjectContext()).stream()
-                .map(r -> r.getName()).collect(Collectors.toList());
+                .map(Recipe::getName).collect(Collectors.toList());
     }
 
     protected void assertRecipeApplicable(String recipeName) {
@@ -279,12 +280,14 @@ public abstract class IntegrationTestBaseClass {
             Matcher packageMatcher = packagePattern.matcher(code);
             Matcher classMatcher = classPattern.matcher(code);
 
-            if (!packageMatcher.find())
+            if (!packageMatcher.find()) {
                 throw new RuntimeException("Could not extract package from code.");
+            }
             String packageName = packageMatcher.group(1);
 
-            if (!classMatcher.find())
+            if (!classMatcher.find()) {
                 throw new RuntimeException("Could not extract classname from code.");
+            }
             String className = classMatcher.group(2);
             Path classPath = testDir.resolve("src/main/java").resolve(packageName.replace(".", "/"));
 

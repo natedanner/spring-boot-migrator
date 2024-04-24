@@ -30,14 +30,14 @@ import java.util.stream.Stream;
 /**
  * This class holds all the dependencies included in a spring artifact
  */
-public class SpringManagedDependencies {
+public final class SpringManagedDependencies {
 
-    private static List<MavenRepository> SPRING_REPOSITORIES = List.of(
-        new MavenRepository("spring-release", "https://repo.spring.io/release", "true", "false", true, null, null, null)
+    private static final List<MavenRepository> SPRING_REPOSITORIES = List.of(
+            new MavenRepository("spring-release", "https://repo.spring.io/release", "true", "false", true, null, null, null)
     );
 
     private List<org.openrewrite.maven.tree.Dependency> dependencies;
-    private static Map<GroupArtifactVersion, SpringManagedDependencies> INSTANCES = new HashMap<>();
+    private static final Map<GroupArtifactVersion, SpringManagedDependencies> INSTANCES = new HashMap<>();
 
     public static SpringManagedDependencies by(String groupId, String artifact, String version, ExecutionContext executionContext){
         final GroupArtifactVersion groupArtifactVersion =

@@ -63,7 +63,7 @@ public class OpenRewriteJavaSearchAction extends FrameworkSupportAction {
     @Override
     public String getDetailedDescription() {
         final String conditionDescription =
-                (getCondition().getDescription().isBlank())
+                getCondition().getDescription().isBlank()
                         ? ""
                         : getCondition().getDescription() + " then\n\t  ";
         return conditionDescription + getDescription();

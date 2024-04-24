@@ -50,8 +50,7 @@ public class ProjectContextFactory {
         applyProjectResourceWrappers(projectResourceSet);
         List<BuildFile> buildFiles = new BuildFileProjectResourceFilter().apply(projectResourceSet);
         ClasspathRegistry.initializeFromBuildFiles(buildFiles);
-        ProjectContext projectContext = new ProjectContext(javaRefactoringFactory, projectDir, projectResourceSet, basePackageCalculator, javaParser, executionContext, resultMerger);
-        return projectContext;
+        return new ProjectContext(javaRefactoringFactory, projectDir, projectResourceSet, basePackageCalculator, javaParser, executionContext, resultMerger);
     }
 
     private void applyProjectResourceWrappers(ProjectResourceSet projectResourceSet) {

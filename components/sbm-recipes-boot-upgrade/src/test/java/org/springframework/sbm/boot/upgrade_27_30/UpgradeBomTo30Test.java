@@ -41,7 +41,7 @@ public class UpgradeBomTo30Test {
         );
 
         List<Throwable> errors = new ArrayList<>();
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             ex.printStackTrace();
             errors.add(ex);
         });
@@ -160,7 +160,7 @@ public class UpgradeBomTo30Test {
         );
 
         List<Throwable> errors = new ArrayList<>();
-        InMemoryExecutionContext ctx = new InMemoryExecutionContext((ex) -> {
+        InMemoryExecutionContext ctx = new InMemoryExecutionContext(ex -> {
             ex.printStackTrace();
             errors.add(ex);
         });

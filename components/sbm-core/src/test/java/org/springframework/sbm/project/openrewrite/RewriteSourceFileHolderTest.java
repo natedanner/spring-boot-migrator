@@ -30,11 +30,11 @@ class RewriteSourceFileHolderTest {
     public static final Path PROJECT_DIR = TestProjectContext.getDefaultProjectRoot();
     public static final String SOURCE_CODE = "package com.foo.bar; class Foo{}";
 
-    private ProjectContext projectContext = TestProjectContext.buildProjectContext()
+    private final ProjectContext projectContext = TestProjectContext.buildProjectContext()
             .withJavaSource("src/main/java", SOURCE_CODE)
             .build();
 
-    private RewriteSourceFileHolder<J.CompilationUnit> sut = projectContext
+    private final RewriteSourceFileHolder<J.CompilationUnit> sut = projectContext
             .getProjectJavaSources()
             .list()
             .get(0)

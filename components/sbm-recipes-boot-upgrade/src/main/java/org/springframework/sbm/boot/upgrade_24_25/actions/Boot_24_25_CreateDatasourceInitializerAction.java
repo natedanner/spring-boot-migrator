@@ -74,10 +74,9 @@ public class Boot_24_25_CreateDatasourceInitializerAction extends AbstractAction
                 addProperty(applicationProperties, propertyName, propertyValue);
             }
         } else {
-            sqlDataFileProperty.forEach(p -> {
+            sqlDataFileProperty.forEach(p ->
                 // rename spring.datasource.data to spring.sql.init.data-locations
-                renameProperty(p, "spring.datasource.data", "spring.sql.init.data-locations");
-            });
+                renameProperty(p, "spring.datasource.data", "spring.sql.init.data-locations"));
         }
 
         if( ! propertyFilesContainingDataUsername.isEmpty()) {

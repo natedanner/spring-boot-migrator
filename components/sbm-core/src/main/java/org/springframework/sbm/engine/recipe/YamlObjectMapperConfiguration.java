@@ -31,8 +31,7 @@ public class YamlObjectMapperConfiguration {
 
     @Bean
     YAMLMapper yamlObjectMapper() {
-        YAMLMapper yamlMapper = new YAMLMapper();
-        return yamlMapper;
+        return new YAMLMapper();
     }
 
     @Bean

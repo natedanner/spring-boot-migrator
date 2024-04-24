@@ -28,8 +28,7 @@ public class Boot_24_25_SqlScriptDataSourceInitializationAction extends Abstract
     public void apply(ProjectContext context) {
         List<SpringBootApplicationProperties> springBootApplicationProperties = context.search(new SpringBootApplicationPropertiesResourceListFilter());
         List<SqlScriptDataSourceInitializationPropertiesAnalyzer.DeperecatedPropertyMatch> properties = new SqlScriptDataSourceInitializationPropertiesAnalyzer().findDeprecatedProperties(springBootApplicationProperties);
-        properties.forEach(deprecatedPropertyMatch -> {
-            deprecatedPropertyMatch.getSpringBootApplicationProperties().renameProperty(deprecatedPropertyMatch.getDeprecatedPropery(), deprecatedPropertyMatch.getNewProperty());
-        });
+        properties.forEach(deprecatedPropertyMatch ->
+            deprecatedPropertyMatch.getSpringBootApplicationProperties().renameProperty(deprecatedPropertyMatch.getDeprecatedPropery(), deprecatedPropertyMatch.getNewProperty()));
     }
 }

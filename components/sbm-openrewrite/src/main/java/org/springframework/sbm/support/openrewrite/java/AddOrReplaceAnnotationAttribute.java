@@ -60,7 +60,7 @@ public class AddOrReplaceAnnotationAttribute extends JavaIsoVisitor<ExecutionCon
 
         String templateString = renderTemplateString(annotation);
 
-        SourceTemplate<J, JavaCoordinates> template = JavaTemplate.builder(() -> getCursor(), templateString).javaParser(javaParserSupplier).build();
+        SourceTemplate<J, JavaCoordinates> template = JavaTemplate.builder(this::getCursor, templateString).javaParser(javaParserSupplier).build();
         return annotation.withTemplate(template, annotation.getCoordinates().replace());
     }
 

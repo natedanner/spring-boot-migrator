@@ -33,7 +33,7 @@ import java.nio.charset.StandardCharsets;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MuleToJavaDSLStatementTranslatorTest {
-    private static DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    private static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
     private final String muleXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "\n" +

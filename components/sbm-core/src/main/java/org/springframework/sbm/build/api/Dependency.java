@@ -83,7 +83,7 @@ public class Dependency {
         } else {
             StringBuilder b = new StringBuilder("   <exclusions>\n");
             for (Dependency e : exclusions) {
-                b.append("      " + e + "\n");
+                b.append("      ").append(e).append("\n");
             }
             b.append("   </exclusions>\n");
             return b.toString();

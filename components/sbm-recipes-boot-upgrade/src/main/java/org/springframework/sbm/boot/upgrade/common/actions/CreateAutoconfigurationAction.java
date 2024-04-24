@@ -121,7 +121,7 @@ public class CreateAutoconfigurationAction extends AbstractAction {
                         SPRING_FACTORIES_PATH
                 ));
 
-        if (search.size() > 0) {
+        if (!search.isEmpty()) {
             String oldConfigFile = search.get(0).print();
             Properties prop = new Properties();
 

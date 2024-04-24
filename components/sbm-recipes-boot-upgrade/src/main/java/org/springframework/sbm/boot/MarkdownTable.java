@@ -42,8 +42,7 @@ public class MarkdownTable {
         }
 
         public RowDefinition withRows() {
-            RowDefinition rowDefinition = new RowDefinition();
-            return rowDefinition;
+            return new RowDefinition();
         }
     }
 
@@ -62,9 +61,8 @@ public class MarkdownTable {
 
         public RowDefinition row(String... colText) {
             RowDefinition rowDefinition = new RowDefinition();
-            Arrays.asList(colText).forEach(col -> {
-                rowDefinition.colTexts.add(new Column(col));
-            });
+            Arrays.asList(colText).forEach(col ->
+                rowDefinition.colTexts.add(new Column(col)));
 
             tableDefinition.rowDefinitions.add(rowDefinition);
             return rowDefinition;
@@ -76,16 +74,14 @@ public class MarkdownTable {
             // start table
             stringBuilder.append("|===").append("\n");
             // render header row
-            tableDefinition.columnDefinition.columns.forEach(columnHeader -> {
-                stringBuilder.append("| ").append(columnHeader.text);
-            });
+            tableDefinition.columnDefinition.columns.forEach(columnHeader ->
+                stringBuilder.append("| ").append(columnHeader.text));
             stringBuilder.append("\n\n");
             // render table formatting row
             // render table rows
             tableDefinition.rowDefinitions.stream().forEach(rowDef -> {
-                rowDef.colTexts.forEach(col -> {
-                    stringBuilder.append(" |").append(col.text);
-                });
+                rowDef.colTexts.forEach(col ->
+                    stringBuilder.append(" |").append(col.text));
                 stringBuilder.append("\n");
             });
             // end table

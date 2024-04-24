@@ -42,8 +42,7 @@ public class SectionRendererTestUtil {
             try {
                 Template template = configuration.getTemplate("section.ftl");
                 template.process(params, writer);
-                String output = writer.toString();
-                return output;
+                return writer.toString();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

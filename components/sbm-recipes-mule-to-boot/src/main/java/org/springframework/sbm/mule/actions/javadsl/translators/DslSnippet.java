@@ -73,9 +73,8 @@ public class DslSnippet {
                     beans.addAll(dslSnippet.getBeans());
                     requiredImports.addAll(dslSnippet.getRequiredImports());
                     dependencies.addAll(dslSnippet.getRequiredDependencies());
-                    if (dslSnippet.getExternalClassContent() != null
-                            && !dslSnippet.getExternalClassContent().isBlank()) {
-                    }
+            dslSnippet.getExternalClassContent();
+            dslSnippet.getExternalClassContent().isBlank();
                 });
 
         Optional<String> optionalExternalClassContent = topLevelElement

@@ -32,7 +32,7 @@ public class WmqFactory {
     private final JmsFactoryFactory ff;
 
     public WmqFactory() throws JMSException {
-        this.ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);;
+        this.ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
     }
 
     ConnectionFactory createFactory(int port) throws JMSException {

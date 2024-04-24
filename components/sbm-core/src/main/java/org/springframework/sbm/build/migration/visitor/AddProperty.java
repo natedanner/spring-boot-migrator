@@ -130,7 +130,7 @@ public final class AddProperty extends Recipe {
 
     private class AddPropertyVisitor extends MavenVisitor {
 
-        private boolean done = false;
+        private boolean done;
 
         public Xml visitTag(Xml.Tag tag, ExecutionContext ctx) {
             if (isPropertyTag()) {

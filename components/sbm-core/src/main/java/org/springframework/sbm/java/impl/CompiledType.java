@@ -26,7 +26,7 @@ import java.util.Set;
 
 // TODO: fix this class!
 public class CompiledType implements Type {
-    private JavaType.Class type;
+    private final JavaType.Class type;
 
     public CompiledType(JavaType.Class type) {
         this.type = type;

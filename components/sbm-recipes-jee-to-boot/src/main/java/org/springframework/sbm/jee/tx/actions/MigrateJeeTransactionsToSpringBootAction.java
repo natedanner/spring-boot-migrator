@@ -57,16 +57,14 @@ public class MigrateJeeTransactionsToSpringBootAction extends AbstractAction {
                 .map(JavaSource.class::cast)
                 .flatMap(js -> js.getTypes().stream())
                 .flatMap(t -> t.getMethods().stream())
-                .forEach(m -> this.transformMethodAnnotations(m));
+                .forEach(this::transformMethodAnnotations);
     }
 
     private void replaceAnnotationsOnTypeLevel(List<RewriteSourceFileHolder<J.CompilationUnit>> relevantSources) {
         relevantSources.stream()
                 .map(JavaSource.class::cast)
                 .flatMap(js -> js.getTypes().stream())
-                .forEach(t -> {
-                    transformTypeAnnotations(t);
-                });
+                .forEach(this::transformTypeAnnotations);
     }
 
     private void transformTypeAnnotations(Type type) {
@@ -92,16 +90,14 @@ public class MigrateJeeTransactionsToSpringBootAction extends AbstractAction {
     void transformMethodAnnotations(Method method) {
         List<Annotation> annotations = method.getAnnotations();
         for (Annotation annotation : annotations) {
-            switch (annotation.getFullyQualifiedName()) {
-                case "javax.ejb.TransactionAttribute":
-                    String assignment = annotation.getAttribute("value").printAssignment();
-                    String newAssignment = mapAssignment(assignment);
-                    method.removeAnnotation(annotation);
-                    method.addAnnotation("@Transactional(propagation = Propagation." + newAssignment + ")",
-                            "org.springframework.transaction.annotation.Transactional",
-                            "org.springframework.transaction.annotation.Propagation");
-                    break;
-                default:
+            if ("javax.ejb.TransactionAttribute".equals(annotation.getFullyQualifiedName())) {
+                String assignment = annotation.getAttribute("value").printAssignment();
+                String newAssignment = mapAssignment(assignment);
+                method.removeAnnotation(annotation);
+                method.addAnnotation("@Transactional(propagation = Propagation." + newAssignment + ")",
+                        "org.springframework.transaction.annotation.Transactional",
+                        "org.springframework.transaction.annotation.Propagation");
+            } else {
             }
         }
     }

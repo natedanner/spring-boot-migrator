@@ -40,7 +40,7 @@ public class OpenRewriteJavaSource extends RewriteSourceFileHolder<J.Compilation
 
     private final JavaRefactoring refactoring;
     private final JavaParser javaParser;
-    private ExecutionContext executionContext;
+    private final ExecutionContext executionContext;
 
     public OpenRewriteJavaSource(Path absoluteProjectPath, J.CompilationUnit compilationUnit, JavaRefactoring refactoring, JavaParser javaParser, ExecutionContext executionContext) {
         super(absoluteProjectPath, compilationUnit);
@@ -77,7 +77,7 @@ public class OpenRewriteJavaSource extends RewriteSourceFileHolder<J.Compilation
     public List<String> getReferencedTypes() {
         Set<JavaType.FullyQualified> fullyQualifiedNames = FindReferencedTypes.find(getCompilationUnit());
         return fullyQualifiedNames.stream()
-                .map(jt -> jt.getFullyQualifiedName())
+                .map(JavaType.FullyQualified::getFullyQualifiedName)
                 .collect(Collectors.toList());
     }
 
@@ -99,7 +99,7 @@ public class OpenRewriteJavaSource extends RewriteSourceFileHolder<J.Compilation
     public boolean hasImportStartingWith(String... impoort) {
         return getImports().stream()
                 .anyMatch(i -> Arrays.stream(impoort)
-                        .anyMatch(pattern -> i.matches(pattern))
+                        .anyMatch(i::matches)
                 );
     }
 
@@ -199,7 +199,7 @@ public class OpenRewriteJavaSource extends RewriteSourceFileHolder<J.Compilation
             public <M extends Marker> M visitMarker(Marker marker, PrintOutputCapture<ExecutionContext> p) {
                 if (marker instanceof CommentJavaSearchResult) {
                     CommentJavaSearchResult javaSearchResult = CommentJavaSearchResult.class.cast(marker);
-                    p.out.append("/* " + javaSearchResult.getComment() + " */ ");
+                    p.out.append("/* ").append(javaSearchResult.getComment()).append(" */ ");
                 }
                 return (M) marker;
             }

@@ -29,18 +29,18 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Boot_27_30_JmxEndpointExposureActionTest {
-    private final String DUMMY_PROPERTY_FILE = "foo=bar\n" +
+    private final String dummyPropertyFile = "foo=bar\n" +
             "defaultBasePackage=org.springframework.sbm";
 
     @Test
     public void givenAProjectWithoutJmxEndpointExposureOverride_andSpringBootProperties_applyAction_expectPropertyAdded() {
         ProjectContext projectContext = TestProjectContext.buildProjectContext()
                 .addRegistrar(new SpringBootApplicationPropertiesRegistrar(new SpringApplicationPropertiesPathMatcher(), new RewriteExecutionContext()))
-                .withProjectResource("src/main/resources/application.properties", DUMMY_PROPERTY_FILE)
+                .withProjectResource("src/main/resources/application.properties", dummyPropertyFile)
                 .build();
 
-        Boot_27_30_JmxEndpointExposureAction boot_27_30_jmxEndpointExposureAction = new Boot_27_30_JmxEndpointExposureAction();
-        boot_27_30_jmxEndpointExposureAction.apply(projectContext);
+        Boot_27_30_JmxEndpointExposureAction boot2730JmxEndpointExposureAction = new Boot_27_30_JmxEndpointExposureAction();
+        boot2730JmxEndpointExposureAction.apply(projectContext);
 
         List<SpringBootApplicationProperties> bootApplicationProperties = new SpringBootApplicationPropertiesResourceListFilter().apply(projectContext.getProjectResources());
         assertThat(bootApplicationProperties.size()).isEqualTo(1);

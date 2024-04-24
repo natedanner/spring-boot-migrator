@@ -41,7 +41,6 @@ public class ExpressionLanguageTranslator {
             replacement = "\\${" + replacement + "}";
             matcher.appendReplacement(springEl, replacement);
         }
-        String s = matcher.appendTail(springEl).toString();
-        return s;
+        return matcher.appendTail(springEl).toString();
     }
 }

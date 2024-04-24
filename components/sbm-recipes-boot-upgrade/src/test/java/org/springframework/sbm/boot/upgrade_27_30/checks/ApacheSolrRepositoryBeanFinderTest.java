@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ApacheSolrRepositoryBeanFinderTest {
 
     @Language("java")
-    private static String SOLR_REPO =
+    private static String solrRepo =
             """
             package foo.bar;
             import org.springframework.data.solr.repository.SolrCrudRepository;
@@ -38,7 +38,7 @@ public class ApacheSolrRepositoryBeanFinderTest {
             """;
 
     @Language("java")
-    private static String NO_SOLR_REPO =
+    private static String noSolrRepo =
             """
             package foo.bar;
             public class ProductRepository {}
@@ -47,7 +47,7 @@ public class ApacheSolrRepositoryBeanFinderTest {
     @Test
     public void givenModuleWithSolrRepository_find_expectNonEmptyList(){
         ProjectContext projectContext = TestProjectContext.buildProjectContext()
-                                                            .withJavaSources(SOLR_REPO)
+                                                            .withJavaSources(solrRepo)
                                                             .withBuildFileHavingDependencies("org.springframework.data:spring-data-solr:4.3.15")
                                                             .build();
 
@@ -61,7 +61,7 @@ public class ApacheSolrRepositoryBeanFinderTest {
     @Test
     public void givenModuleWithoutSolrRepository_find_expectNonEmptyList(){
         ProjectContext projectContext = TestProjectContext.buildProjectContext()
-                                                            .withJavaSources(NO_SOLR_REPO)
+                                                            .withJavaSources(noSolrRepo)
                                                             .withBuildFileHavingDependencies("org.springframework.data:spring-data-solr:4.3.15")
                                                             .build();
 

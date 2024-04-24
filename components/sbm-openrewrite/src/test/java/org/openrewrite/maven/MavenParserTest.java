@@ -272,7 +272,7 @@ public class MavenParserTest {
                                      .getBytes(StandardCharsets.UTF_8)),
                              !Files.exists(Path.of("moduleA/pom.xml"))
                 );
-        List<Xml.Document> newMavenFiles = mavenParser.parseInputs(List.of(parserInput), null, new InMemoryExecutionContext((t) -> t.printStackTrace()));
+        List<Xml.Document> newMavenFiles = mavenParser.parseInputs(List.of(parserInput), null, new InMemoryExecutionContext(t -> t.printStackTrace()));
 //        System.out.println(newMavenFiles.get(0).printAll());
     }
 
@@ -339,7 +339,7 @@ public class MavenParserTest {
     @Test
     void parsePomFromTextWithoutMarkers() {
         Xml.Document sut = MavenParser.builder().build().parse(
-                new InMemoryExecutionContext((e) -> e.printStackTrace()),
+                new InMemoryExecutionContext(e -> e.printStackTrace()),
                   """
                   <?xml version="1.0" encoding="UTF-8"?>
                   <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -412,7 +412,7 @@ public class MavenParserTest {
         Xml.Document document = MavenParser.builder().build().parse(pomXml).get(0);
         MavenResolutionResult r = document.getMarkers().findFirst(MavenResolutionResult.class).get();
 
-        InMemoryExecutionContext executionContext = new InMemoryExecutionContext((t) -> System.out.println(t.getMessage()));
+        InMemoryExecutionContext executionContext = new InMemoryExecutionContext(t -> System.out.println(t.getMessage()));
         MavenExecutionContextView ctx = MavenExecutionContextView.view(executionContext);
         ctx.setPomCache(new InMemoryMavenPomCache());
         List<ResolvedDependency> resolvedDependencies = r.getDependencies().get(Scope.Provided);

@@ -98,7 +98,7 @@ public class DependencyVersionHelper {
 
         JSONArray docs = (JSONArray) responseSection.get(DOCS_JSON_KEY);
 
-        if (docs.size() == 0) {
+        if (docs.isEmpty()) {
             return Optional.empty();
         }
 

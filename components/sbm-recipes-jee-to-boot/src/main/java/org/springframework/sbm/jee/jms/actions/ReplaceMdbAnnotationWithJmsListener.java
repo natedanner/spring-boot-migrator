@@ -37,7 +37,7 @@ public class ReplaceMdbAnnotationWithJmsListener extends AbstractAction {
                     transform(js, t);
                 }
             }
-            js.replaceLiteral(String.class, (old) -> {
+            js.replaceLiteral(String.class, old -> {
                 if (old instanceof String) {
                     return old.replace("java:app/jms/", "");
                 }

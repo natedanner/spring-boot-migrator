@@ -114,7 +114,7 @@ class RestMethodMapper {
     private void mapMethodAttribute(Annotation annotation, RestMethod.RestMethodBuilder builder) {
         if(annotation.hasAttribute("method")) {
             List<String> methods = handleExpression(annotation.getAttribute("method"));
-            builder.method(methods.stream().map(m -> RequestMethod.valueOf(m)).collect(Collectors.toList()));
+            builder.method(methods.stream().map(RequestMethod::valueOf).collect(Collectors.toList()));
         }
         findAndMapMethodAttribute(annotation, builder, GET_MAPPING.getFullyQualifiedName(), RequestMethod.GET);
         findAndMapMethodAttribute(annotation, builder, POST_MAPPING.getFullyQualifiedName(), RequestMethod.POST);
@@ -137,14 +137,13 @@ class RestMethodMapper {
     @NotNull
     private List<String> handleArray(org.openrewrite.java.tree.Expression expression) {
         J.NewArray array = J.NewArray.class.cast(expression);
-        List<String> elements = array
+        return array
                 .getInitializer()
                 .stream()
                 .map(e -> this.handleExpression(e))
                 .filter(not(List::isEmpty))
                 .map(s -> s.get(0))
                 .collect(Collectors.toList());
-        return elements;
     }
 
     private List<String> handleExpression(Expression value) {

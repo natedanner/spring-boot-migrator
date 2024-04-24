@@ -30,9 +30,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class SpringBootApplicationPropertiesRegistrarTest {
 
-    private Path projectRoot = Path.of("./testdir").toAbsolutePath().normalize();
-    private String content = "foo=bar\na=b";
-    private SpringBootApplicationPropertiesRegistrar sut = new SpringBootApplicationPropertiesRegistrar(new SpringApplicationPropertiesPathMatcher(), new RewriteExecutionContext());
+    private final Path projectRoot = Path.of("./testdir").toAbsolutePath().normalize();
+    private final String content = "foo=bar\na=b";
+    private final SpringBootApplicationPropertiesRegistrar sut = new SpringBootApplicationPropertiesRegistrar(new SpringApplicationPropertiesPathMatcher(), new RewriteExecutionContext());
 
     @Test
     void shouldHandleReturnsTrueForDefault() {
@@ -66,8 +66,7 @@ class SpringBootApplicationPropertiesRegistrarTest {
     }
 
     private RewriteSourceFileHolder<Properties.File> getFileRewriteSourceFileHolder(String resourcePath) {
-        RewriteSourceFileHolder<Properties.File> properties = new RewritePropertiesParser().parse(projectRoot, Path.of(resourcePath), content);
-        return properties;
+        return new RewritePropertiesParser().parse(projectRoot, Path.of(resourcePath), content);
     }
 
 }

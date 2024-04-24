@@ -46,13 +46,12 @@ public class MigrateLocalStatelessSessionBeansHelper {
     private List<TypeAndSourceFile> getTypeAndSourceFiles(ProjectJavaSources javaSourceSet, String annotation) {
         List<TypeAndSourceFile> typeAndSourceFiles = new ArrayList<>();
         javaSourceSet.list().stream()
-                .forEach(js -> {
+                .forEach(js ->
                     js.getTypes().stream()
                             .filter(t -> {
                                 return t.hasAnnotation(annotation);
                             })
-                            .forEach(t -> typeAndSourceFiles.add(new TypeAndSourceFile(js, t)));
-                });
+                            .forEach(t -> typeAndSourceFiles.add(new TypeAndSourceFile(js, t))));
         return typeAndSourceFiles;
     }
 
@@ -106,7 +105,7 @@ public class MigrateLocalStatelessSessionBeansHelper {
                 this.annotatedTypes.add(currentNode.getNode());
             }
             if (!currentNode.getSuperTypes().isEmpty()) {
-                currentNode.getSuperTypes().forEach(sthn -> traverseHierarchyUpAndSearchForAnnotation(sthn));
+                currentNode.getSuperTypes().forEach(this::traverseHierarchyUpAndSearchForAnnotation);
             }
         }
 

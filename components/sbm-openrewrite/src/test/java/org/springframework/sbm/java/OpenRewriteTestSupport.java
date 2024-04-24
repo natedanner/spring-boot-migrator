@@ -206,8 +206,9 @@ public class OpenRewriteTestSupport {
 
         List<J.CompilationUnit> compilationUnits = javaParser
                 .parse(given);
-        if (compilationUnits.size() > 1)
+        if (compilationUnits.size() > 1) {
             throw new RuntimeException("More than one compilation was found in given String");
+        }
         return compilationUnits.get(0);
     }
 
@@ -234,7 +235,9 @@ public class OpenRewriteTestSupport {
      * @param classpath in 'groupId:artifactId:version' format
      */
     public static List<Path> getClasspathFiles(String... classpath) {
-        if (classpath.length == 0) return List.of();
+        if (classpath.length == 0) {
+            return List.of();
+        }
         File[] as = Maven.resolver().resolve(classpath).withTransitivity().as(File.class);
         return Arrays.stream(as)
                 .map(File::toPath)

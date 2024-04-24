@@ -76,8 +76,8 @@ public class OpenRewriteRecipeJavaSearch {
     private List<J.CompilationUnit> getCompilationUnits(List<? extends JavaSource> allCompilationUnits) {
         return allCompilationUnits.stream()
                 .filter(cls -> cls.getClass().isAssignableFrom(OpenRewriteJavaSource.class))
-                .map(cls -> (OpenRewriteJavaSource) cls)
-                .map(jcu -> jcu.getCompilationUnit())
+                .map(OpenRewriteJavaSource.class::cast)
+                .map(OpenRewriteJavaSource::getCompilationUnit)
                 .collect(Collectors.toList());
     }
 }

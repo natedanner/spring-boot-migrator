@@ -33,11 +33,11 @@ public abstract class ConfigurationTypeAdapter<T> {
         return muleConfiguration;
     }
 
-    abstract public String getName();
+    public abstract String getName();
 
-    abstract public Class getMuleConfigurationType();
+    public abstract Class getMuleConfigurationType();
 
-    abstract public List<SimpleEntry<String, String>> configProperties();
+    public abstract List<SimpleEntry<String, String>> configProperties();
 
     public List<Dependency> getDependencies() {
         return new ArrayList<>();

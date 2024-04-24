@@ -32,22 +32,19 @@ public class JavaRefactoringFactoryImpl implements JavaRefactoringFactory {
     @Override
     @Deprecated
     public JavaRefactoring createRefactoring(J.CompilationUnit compilationUnit) {
-        JavaRefactoringImpl refactoring = new JavaRefactoringImpl(projectResourceSetHolder.getProjectResourceSet(), compilationUnit,
+        return new JavaRefactoringImpl(projectResourceSetHolder.getProjectResourceSet(), compilationUnit,
                                                                   executionContext);
-        return refactoring;
     }
 
     @Override
     public JavaGlobalRefactoring createRefactoring() {
-        JavaGlobalRefactoring refactoring = new JavaGlobalRefactoringImpl(projectResourceSetHolder.getProjectResourceSet(),
+        return new JavaGlobalRefactoringImpl(projectResourceSetHolder.getProjectResourceSet(),
                                                                           executionContext);
-        return refactoring;
     }
 
     @Override
     public JavaRefactoring createRefactoring(RewriteSourceFileHolder<J.CompilationUnit> rewriteSourceFileHolder) {
-        JavaRefactoringImpl refactoring = new JavaRefactoringImpl(projectResourceSetHolder.getProjectResourceSet(), rewriteSourceFileHolder,
+        return new JavaRefactoringImpl(projectResourceSetHolder.getProjectResourceSet(), rewriteSourceFileHolder,
                                                                   executionContext);
-        return refactoring;
     }
 }

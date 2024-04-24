@@ -34,7 +34,7 @@ public class Sbu30_PreconditionChecks extends AbstractAction {
     @Override
     public void apply(ProjectContext context) {
         List<Sbu30_PreconditionCheckResult> results = checks.stream()
-                .map(sbu30_preconditionCheck -> sbu30_preconditionCheck.run(context))
+                .map(sbu30PreconditionCheck -> sbu30PreconditionCheck.run(context))
                 .collect(Collectors.toList());
 
         results.forEach(this::render);

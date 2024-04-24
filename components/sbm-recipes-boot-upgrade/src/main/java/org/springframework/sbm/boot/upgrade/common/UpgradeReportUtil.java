@@ -57,13 +57,12 @@ public class UpgradeReportUtil {
     public static String renderHtml(String markdown, String backend) {
         Asciidoctor asciidoctor = Asciidoctor.Factory.create();
 
-        String html = asciidoctor.convert(markdown,
+        return asciidoctor.convert(markdown,
                                           Options.builder()
                                                   .toFile(true)
                                                   .backend(backend)
                                                   .headerFooter(true)
                                                   .safe(SafeMode.UNSAFE)
                                                   .build());
-        return html;
     }
 }

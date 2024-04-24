@@ -33,8 +33,8 @@ class CreateAutoconfigurationActionTest {
     private ProjectContext context;
     private CreateAutoconfigurationAction action;
 
-    private final static String NEW_AUTO_CONFIG_FILE = "/**/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports";
-    private final static String EXISTING_SPRING_FACTORIES_FILE = "/**/src/main/resources/META-INF/spring.factories";
+    private static final String NEW_AUTO_CONFIG_FILE = "/**/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports";
+    private static final String EXISTING_SPRING_FACTORIES_FILE = "/**/src/main/resources/META-INF/spring.factories";
 
     @BeforeEach
     public void setup() {

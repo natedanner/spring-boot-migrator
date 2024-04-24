@@ -69,8 +69,9 @@ public class OpenRewriteMember implements Member {
 
     @Override
     public Annotation getAnnotation(String annotation) {
-        if (annotation == null || annotation.isBlank())
+        if (annotation == null || annotation.isBlank()) {
             throw new IllegalArgumentException("Given annotation was empty.");
+        }
         return getVariableDeclarations().getLeadingAnnotations()
                 .stream()
                 .filter(a -> {

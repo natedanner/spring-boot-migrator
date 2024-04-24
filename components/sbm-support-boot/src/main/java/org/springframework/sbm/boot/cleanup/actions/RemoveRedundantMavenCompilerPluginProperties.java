@@ -69,7 +69,7 @@ public class RemoveRedundantMavenCompilerPluginProperties extends AbstractAction
 
 			String sourcePropertyValue = buildFile.getProperty(MAVEN_COMPILER_SOURCE_PROPERTY);
 			String targetPropertyValue = buildFile.getProperty(MAVEN_COMPILER_TARGET_PROPERTY);
-			log.debug("BuildFile: '%s'\n%s".formatted(buildFile.getSourcePath().toString(), buildFile.print()));
+			log.debug("BuildFile: '%s'%n%s".formatted(buildFile.getSourcePath().toString(), buildFile.print()));
 			log.debug("%s: %s  %s: %s".formatted(MAVEN_COMPILER_SOURCE_PROPERTY, sourcePropertyValue, MAVEN_COMPILER_TARGET_PROPERTY, targetPropertyValue));
 			if (sourcePropertyValue != null && sourcePropertyValue.equals(targetPropertyValue)){
 				buildFile.setProperty(JAVA_VERSION_PROPERTY, sourcePropertyValue);

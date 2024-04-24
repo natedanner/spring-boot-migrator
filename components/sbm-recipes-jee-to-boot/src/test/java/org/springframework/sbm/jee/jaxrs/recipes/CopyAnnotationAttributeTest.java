@@ -23,7 +23,7 @@ import org.springframework.sbm.project.resource.TestProjectContext;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CopyAnnotationAttributeTest {
-    private final static String SPRING_VERSION = "5.3.13";
+    private static final String SPRING_VERSION = "5.3.13";
 
     @Test
     void givenBothAnnotationsArePresent_thenTheAttributeIsCopied() {

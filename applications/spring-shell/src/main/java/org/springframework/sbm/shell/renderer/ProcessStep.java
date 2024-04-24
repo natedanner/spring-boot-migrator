@@ -82,10 +82,12 @@ public class ProcessStep implements ProgressStep {
 
     private static class Loader {
         private static final int LENGTH = 4;
-        private int cnt = 0;
+        private int cnt;
         private String renderLoader() {
             cnt++;
-            if (cnt > LENGTH) cnt = 0;
+            if (cnt > LENGTH) {
+                cnt = 0;
+            }
             return ".".repeat(cnt) + " ".repeat(LENGTH - cnt);
         }
     }

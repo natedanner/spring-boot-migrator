@@ -38,7 +38,7 @@ import java.util.List;
 
 public class EjbJarXml extends RewriteSourceFileHolder<Xml.Document> {
 
-    private EjbJarType wrapped;
+    private final EjbJarType wrapped;
 
     public EjbJarXml(Path projectPath, Xml.Document xml) {
         super(projectPath, xml);

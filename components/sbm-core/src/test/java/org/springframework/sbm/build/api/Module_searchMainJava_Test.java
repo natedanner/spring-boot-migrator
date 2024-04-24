@@ -66,9 +66,8 @@ public class Module_searchMainJava_Test {
             ProjectContext context = builder.build();
 
             AtomicBoolean wasCalled = new AtomicBoolean(false);
-            verifySearchMain(context, projectResourceSet -> {
-                assertThat(projectResourceSet.list()).isEmpty();
-            }, "");
+            verifySearchMain(context, projectResourceSet ->
+                assertThat(projectResourceSet.list()).isEmpty(), "");
         }
 
         @Test
@@ -192,7 +191,7 @@ public class Module_searchMainJava_Test {
         @DisplayName("with no classes provides empty ProjectResourceSet to search method")
         void withNoClasses_providesEmptyProjectResources() {
             ProjectContext context = builder.build();
-            verifySearchMain(context, (projectResourceSet) -> assertThat(projectResourceSet.list()).isEmpty(),
+            verifySearchMain(context, projectResourceSet -> assertThat(projectResourceSet.list()).isEmpty(),
                              "application");
         }
 
@@ -204,7 +203,7 @@ public class Module_searchMainJava_Test {
                     .withJavaSource("component/src/main/java", "public class SomeClass{}")
                     .build();
 
-            verifySearchMain(context, (projectResourceSet) -> assertThat(projectResourceSet.list()).isEmpty(),
+            verifySearchMain(context, projectResourceSet -> assertThat(projectResourceSet.list()).isEmpty(),
                              "application");
         }
 
@@ -218,7 +217,7 @@ public class Module_searchMainJava_Test {
                     .build();
 
             verifySearchMain(context,
-                             (projectResourceSet) -> {
+                             projectResourceSet -> {
                                 assertThat(projectResourceSet.list()).hasSize(1);
                                 assertThat(projectResourceSet.list().get(0).getSourcePathString()).isEqualTo("application/src/main/java/SomeClass.java");
                                 assertThat(projectResourceSet.list().get(0).print()).isEqualTo("public class SomeClass{}");

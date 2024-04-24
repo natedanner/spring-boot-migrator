@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OverviewSectionBuilder {
-    private OverviewSection overviewSection;
+    private final OverviewSection overviewSection;
 
     public OverviewSectionBuilder(String title) {
         overviewSection = new OverviewSection();

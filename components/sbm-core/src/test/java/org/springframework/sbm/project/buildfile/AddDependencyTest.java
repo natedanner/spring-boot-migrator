@@ -135,21 +135,19 @@ public class AddDependencyTest {
 
     @NotNull
     private Optional<String> findInTypeCache(HashMap<Object, JavaType> typeCache1, String emailFqName) {
-        Optional<String> s = typeCache1
+        return typeCache1
                 .values()
                 .stream()
                 .filter(JavaType.Class.class::isInstance)
                 .map(JavaType.Class.class::cast)
-                .map(jt -> jt.getFullyQualifiedName())
+                .map(JavaType.Class::getFullyQualifiedName)
                 .filter(emailFqName::equals)
                 .findAny();
-        return s;
     }
 
     @Nullable
     private HashMap<Object, JavaType> retrieveTypeCache(JavaParser javaParser) {
-        HashMap<Object, JavaType> typeCache1 = (HashMap) ReflectionTestUtils.getField(ReflectionTestUtils.getField(ReflectionTestUtils.getField(
+        return (HashMap) ReflectionTestUtils.getField(ReflectionTestUtils.getField(ReflectionTestUtils.getField(
                 javaParser, "delegate"), "typeCache"), "typeCache");
-        return typeCache1;
     }
 }

@@ -26,7 +26,7 @@ public class RewriteSourceFileHolder<T extends SourceFile> extends BaseProjectRe
 
     private T sourceFile;
     @Getter
-    final private Path absoluteProjectDir;
+    private final Path absoluteProjectDir;
 
     /**
      * @param absoluteProjectDir the absolute path to project root

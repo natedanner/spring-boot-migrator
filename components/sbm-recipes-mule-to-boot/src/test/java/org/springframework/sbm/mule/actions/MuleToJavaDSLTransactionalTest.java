@@ -48,7 +48,7 @@ public class MuleToJavaDSLTransactionalTest extends JavaDSLActionBaseTest {
                 """;
 
         addXMLFileToResource(xml);
-        runAction(projectContext -> {
+        runAction(projectContext ->
             assertThat(getGeneratedJavaFile()).isEqualTo(
                     """
                     package com.example.javadsl;
@@ -78,8 +78,7 @@ public class MuleToJavaDSLTransactionalTest extends JavaDSLActionBaseTest {
                                     .aggregate()
                                     .log(LoggingHandler.Level.INFO, "Done with for looping");
                         }
-                    }""");
-        });
+                    }"""));
     }
 
     @Test

@@ -24,10 +24,12 @@ import java.util.Optional;
 
 public class JavaUtil {
 
-    public final static String DEFAULT_PACKAGE = "com.boot.migrator";
+    public static final String DEFAULT_PACKAGE = "com.boot.migrator";
 
     public static JavaSource calculateBasePackage(List<JavaSource> javaSources) {
-       if(javaSources.isEmpty()) throw new IllegalArgumentException("Provided list of java sources was empty.");
+        if (javaSources.isEmpty()) {
+            throw new IllegalArgumentException("Provided list of java sources was empty.");
+        }
 
         List<JavaSource> sortableJavaSources = new ArrayList<>();
         sortableJavaSources.addAll(javaSources);

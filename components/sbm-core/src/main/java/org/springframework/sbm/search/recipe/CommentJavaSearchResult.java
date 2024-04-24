@@ -24,7 +24,7 @@ import java.util.UUID;
 
 public class CommentJavaSearchResult implements Marker {
 
-    private SearchResult searchResult;
+    private final SearchResult searchResult;
     private UUID id;
 
     public CommentJavaSearchResult(UUID id, @Nullable String description) {

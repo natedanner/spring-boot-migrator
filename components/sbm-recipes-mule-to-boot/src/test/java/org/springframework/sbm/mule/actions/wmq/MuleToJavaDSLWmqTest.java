@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Disabled("FIXME: https://github.com/spring-projects-experimental/spring-boot-migrator/issues/195")
 public class MuleToJavaDSLWmqTest extends JavaDSLActionBaseTest {
-    private final static String muleXml = """
+    private static final String muleXml = """
             <mule xmlns:wmq="http://www.mulesoft.org/schema/mule/ee/wmq" xmlns:amqp="http://www.mulesoft.org/schema/mule/amqp" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
             xmlns:spring="http://www.springframework.org/schema/beans"\s
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

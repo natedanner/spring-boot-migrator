@@ -35,8 +35,8 @@ public class RemoveRedundantMavenCompilerPlugin extends AbstractAction {
 					Set<String> configuration = plugin.getConfiguration().getPropertyKeys();
 
 
-					long otherConfiguration = configuration.stream().filter(config -> !config.equals("source"))
-							.filter(config -> !config.equals("target")).count();
+					long otherConfiguration = configuration.stream().filter(config -> !"source".equals(config))
+							.filter(config -> !"target".equals(config)).count();
 					if (otherConfiguration == 0) {
 						buildFile.removePlugins(GROUP_ID + ":" + ARTIFACT_ID);
 					}

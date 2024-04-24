@@ -29,7 +29,9 @@ public class JavaSourceUtil {
 
         String packageName = retrievePackageName(code);
 
-        if (!classMatcher.find()) throw new RuntimeException("Could not extract classname from code '" + code + "'.");
+        if (!classMatcher.find()) {
+            throw new RuntimeException("Could not extract classname from code '" + code + "'.");
+        }
         String className = classMatcher.group(2);
         if (packageName.isEmpty()) {
             return className + ".java";

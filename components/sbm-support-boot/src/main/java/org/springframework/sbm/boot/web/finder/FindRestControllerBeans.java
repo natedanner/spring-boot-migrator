@@ -33,13 +33,11 @@ public class FindRestControllerBeans implements ProjectResourceFinder<List<RestC
     @Override
     public List<RestControllerBean> apply(ProjectResourceSet projectResourceSet) {
         return new JavaSourceListFilter().apply(projectResourceSet).stream()
-                .flatMap(js -> {
-                    return js
+                .flatMap(js -> js
                             .getTypes()
                             .stream()
                             .filter(t -> t.hasAnnotation(REST_CONTROLLER_ANNOTATION))
-                            .map(t -> new RestControllerBean(js, t));
-                })
+                            .map(t -> new RestControllerBean(js, t)))
                 .collect(Collectors.toList());
     }
 }

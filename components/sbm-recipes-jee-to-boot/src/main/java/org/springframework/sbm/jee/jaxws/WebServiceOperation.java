@@ -56,13 +56,13 @@ public class WebServiceOperation {
         String serviceCall = serviceFieldName + "." + serviceMethodName + "(" + params + ")";
         if (output == null) {
             sb.append("public void " + name + "(@RequestPayload " + input.getSimpleName() + " request) {\n");
-            sb.append("\t" + serviceCall + ";\n");
+            sb.append("\t").append(serviceCall).append(";\n");
             sb.append("}\n");
         } else {
             sb.append("@ResponsePayload\n");
             sb.append("public " + output.simpleName + " " + name + "(@RequestPayload " + input.getSimpleName() + " request) {\n");
             sb.append("\t" + output.simpleName + " response = new " + output.getSimpleName() + "();\n");
-            sb.append("\tresponse.set" + StringUtils.capitalize(output.fields[0]) + "(" + serviceCall + ");\n");
+            sb.append("\tresponse.set").append(StringUtils.capitalize(output.fields[0])).append("(").append(serviceCall).append(");\n");
             sb.append("\treturn response;\n");
             sb.append("}\n");
         }

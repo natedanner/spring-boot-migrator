@@ -30,7 +30,7 @@ class AddMavenDependencyManagementActionTest {
     @Test
     void shouldAddToRootPomInMultiModuleProject() {
         @Language("xml")
-        final String PARENT_POM = """
+        final String parentPom = """
                 <?xml version="1.0" encoding="UTF-8"?>
                 <project xmlns="http://maven.apache.org/POM/4.0.0"
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -51,7 +51,7 @@ class AddMavenDependencyManagementActionTest {
                 </project>
                 """;
         @Language("xml")
-        final String APPLICATION_POM = """
+        final String applicationPom = """
                 <?xml version="1.0" encoding="UTF-8"?>
                 <project xmlns="http://maven.apache.org/POM/4.0.0"
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -78,7 +78,7 @@ class AddMavenDependencyManagementActionTest {
                 </project>
                 """;
         @Language("xml")
-        final String COMPONENT_POM = """
+        final String componentPom = """
                 <?xml version="1.0" encoding="UTF-8"?>
                 <project xmlns="http://maven.apache.org/POM/4.0.0"
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -100,9 +100,9 @@ class AddMavenDependencyManagementActionTest {
 
         ProjectContext context = TestProjectContext
                 .buildProjectContext()
-                .withMavenRootBuildFileSource(PARENT_POM)
-                .withMavenBuildFileSource("module1/pom.xml", APPLICATION_POM)
-                .withMavenBuildFileSource("module2/pom.xml", COMPONENT_POM)
+                .withMavenRootBuildFileSource(parentPom)
+                .withMavenBuildFileSource("module1/pom.xml", applicationPom)
+                .withMavenBuildFileSource("module2/pom.xml", componentPom)
                 .build();
 
         AddMavenDependencyManagementAction sut = new AddMavenDependencyManagementAction();
@@ -146,8 +146,8 @@ class AddMavenDependencyManagementActionTest {
                 </project>
                 """;
         assertThat(context.getApplicationModules().getRootModule().getBuildFile().print()).isEqualToIgnoringNewLines(expectedParentPom);
-        assertThat(context.getApplicationModules().findModule("org.example:module1:1.0-SNAPSHOT").get().getBuildFile().print()).isEqualToIgnoringNewLines(APPLICATION_POM);
-        assertThat(context.getApplicationModules().findModule("org.example:module2:1.0-SNAPSHOT").get().getBuildFile().print()).isEqualToIgnoringNewLines(COMPONENT_POM);
+        assertThat(context.getApplicationModules().findModule("org.example:module1:1.0-SNAPSHOT").get().getBuildFile().print()).isEqualToIgnoringNewLines(applicationPom);
+        assertThat(context.getApplicationModules().findModule("org.example:module2:1.0-SNAPSHOT").get().getBuildFile().print()).isEqualToIgnoringNewLines(componentPom);
     }
 
 

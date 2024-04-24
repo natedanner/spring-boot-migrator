@@ -37,8 +37,7 @@ public class AnyEffectiveDependencyExistMatchingRegex implements Condition {
 
     @Override
     public String getDescription() {
-        String description = String.format("Buildfile contains any dependency matching '%s'", String.join("', '", dependencies));
-        return description;
+        return String.format("Buildfile contains any dependency matching '%s'", String.join("', '", dependencies));
     }
 
     @Override

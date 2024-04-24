@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MarkdownRenderer {
-    private List<SectionBuilder.Section> sections = new ArrayList<>();
+    private final List<SectionBuilder.Section> sections = new ArrayList<>();
     private OverviewSectionBuilder.OverviewSection overviewSection;
 
     public void addSection(SectionBuilder.Section section) {
@@ -29,9 +29,8 @@ public class MarkdownRenderer {
     public String render() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(overviewSection.render());
-        sections.forEach(s -> {
-            stringBuilder.append(renderSection(s));
-        });
+        sections.forEach(s ->
+            stringBuilder.append(renderSection(s)));
         return stringBuilder.toString();
     }
 
@@ -48,18 +47,16 @@ public class MarkdownRenderer {
     private String renderTodoSection(SectionBuilder.TodoSection todoSection) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("=== ").append("Todo").append("\n\n");
-        todoSection.getTodos().forEach(todo -> {
-            stringBuilder.append("- [ ] ").append(todo).append("\n");
-        });
+        todoSection.getTodos().forEach(todo ->
+            stringBuilder.append("- [ ] ").append(todo).append("\n"));
         return stringBuilder.toString();
     }
 
     private String renderRelevanceSection(SectionBuilder.RelevanceSection relevanceSection) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("=== ").append("Relevance").append("\n\n");
-        relevanceSection.getParagraphs().forEach(p -> {
-            stringBuilder.append(p).append("\n");
-        });
+        relevanceSection.getParagraphs().forEach(p ->
+            stringBuilder.append(p).append("\n"));
         stringBuilder.append("\n");
         return stringBuilder.toString();
     }

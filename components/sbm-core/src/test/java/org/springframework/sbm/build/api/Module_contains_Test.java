@@ -139,9 +139,8 @@ class Module_contains_Test {
     void shouldThrowIllegalArgumentExceptionForRelativePath() {
         ProjectContext context = TestProjectContext.buildProjectContext().build();
         Path relativePath = Path.of(".");
-        assertThatIllegalArgumentException().isThrownBy(() -> {
-            context.getApplicationModules().getModule("root").contains(relativePath);
-        });
+        assertThatIllegalArgumentException().isThrownBy(() ->
+            context.getApplicationModules().getModule("root").contains(relativePath));
     }
 
 }

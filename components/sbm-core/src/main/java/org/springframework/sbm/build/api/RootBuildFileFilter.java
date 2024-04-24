@@ -24,7 +24,7 @@ public class RootBuildFileFilter implements ProjectResourceFinder<BuildFile> {
         return projectResourceSet.stream()
                 .filter(pr -> BuildFile.class.isAssignableFrom(pr.getClass()))
                 .map(BuildFile.class::cast)
-                .filter(bf -> bf.isRootBuildFile())
+                .filter(BuildFile::isRootBuildFile)
                 .findFirst()
                 .orElseThrow(() -> new RootBuildFileNotFoundException("Could not find BuildFile for root module."));
     }

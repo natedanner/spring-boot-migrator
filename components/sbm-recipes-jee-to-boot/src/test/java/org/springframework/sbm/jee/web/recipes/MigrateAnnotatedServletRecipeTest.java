@@ -48,8 +48,8 @@ public class MigrateAnnotatedServletRecipeTest {
             AddDependencies addDeps = getAction(recipe, AddDependencies.class);
             assertThat(addDeps.getDependencies())
                     .allMatch(d ->
-                            d.getGroupId().equals("org.springframework.boot") &&
-                                    d.getArtifactId().equals("spring-boot-starter-web")
+                            "org.springframework.boot".equals(d.getGroupId()) &&
+                                    "spring-boot-starter-web".equals(d.getArtifactId())
                     );
 
             AddTypeAnnotationToTypeAnnotatedWith addTypeAnnotationToTypeAnnotatedWith = getAction(recipe, AddTypeAnnotationToTypeAnnotatedWith.class);

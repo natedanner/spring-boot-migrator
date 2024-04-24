@@ -39,9 +39,8 @@ public class TypeHierarchyNode {
                 .filter(t -> isSubTypeOf(t, node))
                 .collect(Collectors.toList());
 
-        childNodes.forEach(cn -> {
-            this.children.add(new TypeHierarchyNode(cn, node, javaSourceSet));
-        });
+        childNodes.forEach(cn ->
+            this.children.add(new TypeHierarchyNode(cn, node, javaSourceSet)));
     }
 
     public String getFullyQualifiedName() {

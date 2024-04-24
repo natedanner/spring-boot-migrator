@@ -140,9 +140,8 @@ public class BeanMethodFactory {
 
     private void processPropertyLocations(MigrationContext migrationContext, String[] locations) {
         Arrays.stream(locations)
-                .forEach(location -> {
-                    processPropertyLocation(migrationContext, location);
-                });
+                .forEach(location ->
+                    processPropertyLocation(migrationContext, location));
     }
 
     private void processPropertyLocation(MigrationContext migrationContext, String location) {

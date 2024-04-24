@@ -236,7 +236,7 @@ public class GenerateWebServices extends AbstractAction {
         if (endPointInterfaceExpression != null) {
             String endpointInterfaceFqName = endPointInterfaceExpression.getAssignmentRightSide().print().replace("\"", "");
             return new SuperTypeHierarchy(type).getRoot().getSuperTypes().stream()
-                    .map(shn -> shn.getNode())
+                    .map(SuperTypeHierarchyNode::getNode)
                     .filter(t -> t.getKind() == KindOfType.INTERFACE)
                     .filter(t -> endpointInterfaceFqName.equals(t.getFullyQualifiedName()))
                     .findFirst()

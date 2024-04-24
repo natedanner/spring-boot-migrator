@@ -183,27 +183,23 @@ class Boot_24_25_SqlScriptDataSourceInitializationActionTest {
         String applicationPropertiesPath = "src/main/resources/application.properties";
         String applicationPropertiesPathTest = "src/main/resources/application-test.properties";
 
-        ProjectContext projectContext = TestProjectContext.buildProjectContext()
+        return TestProjectContext.buildProjectContext()
                 .withProjectRoot(rootDirectory)
                 .withProjectResource(applicationPropertiesPath, applicationPropertiesLines1)
                 .withProjectResource(applicationPropertiesPathTest, applicationPropertiesLines2)
                 .addRegistrar(new SpringBootApplicationPropertiesRegistrar(new SpringApplicationPropertiesPathMatcher(), new RewriteExecutionContext()))
                 .build();
-
-        return projectContext;
     }
 
     private ProjectContext getProjectContextSinglePropertiesFile(String applicationPropertiesLines) {
         Path rootDirectory = Path.of("./dummy");
         String applicationPropertiesPath = "src/main/resources/application.properties";
 
-        ProjectContext projectContext = TestProjectContext.buildProjectContext()
+        return TestProjectContext.buildProjectContext()
                 .withProjectRoot(rootDirectory)
                 .withProjectResource(applicationPropertiesPath, applicationPropertiesLines)
                 .addRegistrar(new SpringBootApplicationPropertiesRegistrar(new SpringApplicationPropertiesPathMatcher(), new RewriteExecutionContext()))
                 .build();
-
-        return projectContext;
     }
 
     private ProjectContext getProjectContextTwoPropertiesFile(String applicationPropertiesLines) {
@@ -211,14 +207,12 @@ class Boot_24_25_SqlScriptDataSourceInitializationActionTest {
         String applicationPropertiesPath = "src/main/resources/application.properties";
         String applicationPropertiesPathTest = "src/main/resources/application-test.properties";
 
-        ProjectContext projectContext = TestProjectContext.buildProjectContext()
+        return TestProjectContext.buildProjectContext()
                 .withProjectRoot(rootDirectory)
                 .withProjectResource(applicationPropertiesPath, applicationPropertiesLines)
                 .withProjectResource(applicationPropertiesPathTest, applicationPropertiesLines)
                 .addRegistrar(new SpringBootApplicationPropertiesRegistrar(new SpringApplicationPropertiesPathMatcher(), new RewriteExecutionContext()))
                 .build();
-
-        return projectContext;
     }
 
 }

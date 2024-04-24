@@ -149,9 +149,9 @@ public class DependencyChangeResolverTest {
                 new DependencyChangeResolver(buildFile, proposedDependency).apply();
 
         assertThat(!pair.getLeft().isEmpty());
-        assertThat(pair.getLeft().get(0).getScope().equals("test"));
+        assertThat("test".equals(pair.getLeft().get(0).getScope()));
         assertThat(pair.getRight().isPresent());
-        assertThat(pair.getRight().get().getScope().equals("compile"));
+        assertThat("compile".equals(pair.getRight().get().getScope()));
     }
 
 }
